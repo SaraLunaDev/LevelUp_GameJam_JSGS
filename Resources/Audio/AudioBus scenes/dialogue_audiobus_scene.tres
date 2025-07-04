@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioBusSceneData" load_steps=2 format=3 uid="uid://cudg14fmpclbj"]
+
+[ext_resource type="Script" uid="uid://ddo0c3261xgsc" path="res://Resources/AudioBus scenes/audiobus_scene_data.gd" id="1_8ljvy"]
+
+[resource]
+script = ExtResource("1_8ljvy")
+bus_volumes = Dictionary[Variant, float]({
+4: -3.0,
+5: 0.0,
+6: -40.0,
+7: -6.0
+})
+music_low_pass = true
+low_pass_freq = 2000.0
+metadata/_custom_type_script = "uid://ddo0c3261xgsc"
