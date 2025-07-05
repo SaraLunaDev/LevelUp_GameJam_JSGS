@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxq1rpar87bgq"]
+
+[ext_resource type="PackedScene" uid="uid://dxlf5g3j3iju8" path="res://Models/mesa_billar.tscn" id="1_5oubr"]
+[ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="3_yucep"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_727gd"]
+size = Vector3(3.262, 0.199, 5.804)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5oubr"]
+size = Vector3(0.328094, 0.207794, 5.7937)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yucep"]
+size = Vector3(0.292236, 0.597351, 3.24878)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oubr"]
+albedo_color = Color(0.0338533, 0.0338533, 0.0338533, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5oubr"]
+size = Vector2(128, 128)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_727gd"]
+albedo_color = Color(0.169245, 0.169245, 0.169245, 1)
+
+[node name="PruebaRebotes" type="Node3D"]
+
+[node name="BodyBillar" type="StaticBody3D" parent="." groups=["billar"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2571, 0)
+
+[node name="CsBillar_Suelo" type="CollisionShape3D" parent="BodyBillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000427246, 0.443688, -0.00180054)
+shape = SubResource("BoxShape3D_727gd")
+
+[node name="CsBillar_Banda" type="CollisionShape3D" parent="BodyBillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47313, 0.642854, 0.00695801)
+shape = SubResource("BoxShape3D_5oubr")
+
+[node name="CsBillar_Banda2" type="CollisionShape3D" parent="BodyBillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47289, 0.642854, 0.00695801)
+shape = SubResource("BoxShape3D_5oubr")
+
+[node name="CsBillar_Banda3" type="CollisionShape3D" parent="BodyBillar"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00345373, 0.441529, -2.75629)
+shape = SubResource("BoxShape3D_yucep")
+
+[node name="CsBillar_Banda4" type="CollisionShape3D" parent="BodyBillar"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00345373, 0.441529, 2.75722)
+shape = SubResource("BoxShape3D_yucep")
+
+[node name="MesaBillar" parent="BodyBillar" instance=ExtResource("1_5oubr")]
+surface_material_override/0 = SubResource("StandardMaterial3D_5oubr")
+
+[node name="Bar" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_5oubr")
+surface_material_override/0 = SubResource("StandardMaterial3D_727gd")
+
+[node name="Palo" parent="." node_paths=PackedStringArray("bola_blanca_spawn") instance=ExtResource("3_yucep")]
+transform = Transform3D(0.890443, -0.455094, -1.98928e-08, 1.71359e-15, -4.37114e-08, 1, -0.455094, -0.890443, -3.89225e-08, 0, 1.83062, -0.594298)
+bola_blanca_spawn = NodePath("../SpawnBlanca")
+cooldown_bola_blanca = null
+rotacion_palo = Vector3(0, 90, -80)
+cooldown_palo = null
+lerp_palo = null
+distancia_entre_bolas = null
+"tamaño_bolas_trayectoria" = null
+velocidad_lanzamiento = null
+tiempo_retorno_palo = null
+
+[node name="SpawnBlanca" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89324, -1.77159)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -4.9738e-14, 8.74228e-08, 4.8304e-08, 0.833491, 0.552534, -7.28661e-08, 0.552534, -0.833491, 0, 3.99094, -4.5609)
+fov = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.4031, 0)
+shadow_enabled = true

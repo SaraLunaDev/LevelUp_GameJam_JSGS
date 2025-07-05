@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0fvy3llnel1v"]
+
+[ext_resource type="PackedScene" uid="uid://tqx7vnvutsmw" path="res://Models/bola.tscn" id="1_j6mmm"]
+[ext_resource type="Script" uid="uid://i4daboik1xrd" path="res://Scripts/Bola Blanca/bola_blanca.gd" id="1_oowhv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
+friction = 0.01
+bounce = 0.98
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oowhv"]
+radius = 0.093
+
+[node name="BolaBlanca" type="RigidBody3D" groups=["bola_blanca"]]
+mass = 0.17
+physics_material_override = SubResource("PhysicsMaterial_oowhv")
+linear_damp_mode = 1
+linear_damp = 0.5
+angular_damp_mode = 1
+angular_damp = 0.5
+script = ExtResource("1_oowhv")
+
+[node name="BolaBlanca" parent="." instance=ExtResource("1_j6mmm")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_oowhv")
+debug_color = Color(0, 0.6, 0.701961, 1)

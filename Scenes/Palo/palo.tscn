@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwddxr1l3v0a1"]
+
+[ext_resource type="Script" uid="uid://d0qe0ahl5sdim" path="res://Scripts/Palo/palo.gd" id="1_5bnsl"]
+[ext_resource type="PackedScene" uid="uid://b0fvy3llnel1v" path="res://Scenes/BolaBlanca/bola_blanca.tscn" id="2_v5gji"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4wfgq"]
+top_radius = 0.05
+bottom_radius = 0.025
+height = 3.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wfgq"]
+albedo_color = Color(0.465021, 0.305048, 0.211887, 1)
+
+[node name="Palo" type="Node3D" node_paths=PackedStringArray("punta_en_bola_blanca", "punta_palo") groups=["palo"]]
+script = ExtResource("1_5bnsl")
+bola_blanca = ExtResource("2_v5gji")
+punta_en_bola_blanca = NodePath("PosicionBola")
+punta_palo = NodePath("Punta")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_4wfgq")
+surface_material_override/0 = SubResource("StandardMaterial3D_4wfgq")
+
+[node name="Punta" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.74937, 0)
+
+[node name="PosicionBola" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.00005, 0)
