@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgbiw0djcvy0q"
+uid="uid://c2npbx850omef"
 path.s3tc="res://.godot/imported/billarScene_poolStickUVs.png-2d9b1349494d29e53d1fa4c54d37ab5d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "632730ca3a2caa8de95f0d03dc27f495"
 }
 
 [deps]

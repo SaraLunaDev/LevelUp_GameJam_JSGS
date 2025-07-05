@@ -21,13 +21,13 @@ extends Node3D
 @export var distancia_entre_bolas: float = 0.2
 @export var tamaño_bolas_trayectoria: float = 0.05
 @export var color_bolas: Color = Color.WHITE
-@export var transparencia_bolas: float = .02
+@export var transparencia_bolas: float = .5
 @export var numero_rebotes: int = 1
 
 @export_group("Lanzamiento")
 @export var velocidad_lanzamiento: float = 2
 @export var tiempo_retorno_palo = 0.1
-@export var potencia_maxima: float = 3.0
+@export var potencia_maxima: float = 2.5
 
 # Internas
 var bola_blanca_instance: RigidBody3D
