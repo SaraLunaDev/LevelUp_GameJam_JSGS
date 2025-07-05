@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=9 format=3 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="PackedScene" uid="uid://dxlf5g3j3iju8" path="res://Models/mesa_billar.tscn" id="1_5oubr"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="3_yucep"]
@@ -11,6 +11,9 @@ size = Vector3(0.328094, 0.207794, 5.7937)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yucep"]
 size = Vector3(0.292236, 0.597351, 3.24878)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oubr"]
+albedo_color = Color(0.0338533, 0.0338533, 0.0338533, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5oubr"]
 size = Vector2(128, 128)
@@ -44,6 +47,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0034
 shape = SubResource("BoxShape3D_yucep")
 
 [node name="MesaBillar" parent="BodyBillar" instance=ExtResource("1_5oubr")]
+surface_material_override/0 = SubResource("StandardMaterial3D_5oubr")
 
 [node name="Bar" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_5oubr")

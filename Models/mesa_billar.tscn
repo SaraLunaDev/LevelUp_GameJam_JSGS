@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://dxlf5g3j3iju8"]
+[gd_scene load_steps=4 format=4 uid="uid://dxlf5g3j3iju8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwqva"]
 
@@ -34,9 +34,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4axwl")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rotjg"]
-albedo_color = Color(0.0646965, 0.0646965, 0.0646965, 1)
-
 [node name="Cube_001" type="MeshInstance3D"]
 mesh = SubResource("ArrayMesh_bj4hd")
-surface_material_override/0 = SubResource("StandardMaterial3D_rotjg")
+skeleton = NodePath("")
