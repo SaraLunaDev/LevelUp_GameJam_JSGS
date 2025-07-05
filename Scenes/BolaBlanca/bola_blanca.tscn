@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://i4daboik1xrd" path="res://Scripts/Bola Blanca/bola_blanca.gd" id="1_oowhv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
-friction = 0.05
-bounce = 0.9
+friction = 0.01
+bounce = 0.98
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oowhv"]
-radius = 0.0925798
+radius = 0.093
 
 [node name="BolaBlanca" type="RigidBody3D" groups=["bola_blanca"]]
 mass = 0.17
@@ -23,3 +23,4 @@ script = ExtResource("1_oowhv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_oowhv")
+debug_color = Color(0, 0.6, 0.701961, 1)

@@ -11,9 +11,10 @@ height = 3.5
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wfgq"]
 albedo_color = Color(0.465021, 0.305048, 0.211887, 1)
 
-[node name="Palo" type="Node3D" node_paths=PackedStringArray("punta_palo") groups=["palo"]]
+[node name="Palo" type="Node3D" node_paths=PackedStringArray("punta_en_bola_blanca", "punta_palo") groups=["palo"]]
 script = ExtResource("1_5bnsl")
 bola_blanca = ExtResource("2_v5gji")
+punta_en_bola_blanca = NodePath("PosicionBola")
 punta_palo = NodePath("Punta")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -21,4 +22,7 @@ mesh = SubResource("CylinderMesh_4wfgq")
 surface_material_override/0 = SubResource("StandardMaterial3D_4wfgq")
 
 [node name="Punta" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.87484, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.74937, 0)
+
+[node name="PosicionBola" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.00005, 0)
