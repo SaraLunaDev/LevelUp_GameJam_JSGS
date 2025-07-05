@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://37qdnl666ni0"]
+[gd_scene load_steps=5 format=3 uid="uid://37qdnl666ni0"]
 
 [ext_resource type="Script" uid="uid://c1nen411o4q4r" path="res://Scripts/Audio/AudioManager.gd" id="1_4rlc4"]
 
@@ -11,46 +11,18 @@ metadata/__load_path__ = "res://Audio/Clips/UI/hover_clip.ogg"
 [sub_resource type="Resource" id="Resource_7xo4d"]
 metadata/__load_path__ = "res://Audio/Clips/UI/UI_cancel.ogg"
 
-[sub_resource type="Resource" id="Resource_8l041"]
-metadata/__load_path__ = "res://Audio/Clips/Ciclico/Hook_test.ogg"
-
-[sub_resource type="Resource" id="Resource_lu82t"]
-metadata/__load_path__ = "res://Audio/Clips/Ciclico/decelerate_loop.ogg"
-
-[sub_resource type="Resource" id="Resource_ft5o5"]
-metadata/__load_path__ = "res://Audio/Clips/Ciclico/accelerate_loop.ogg"
-
-[sub_resource type="Resource" id="Resource_2wtmb"]
-metadata/__load_path__ = "res://Audio/Clips/Ciclico/player_hit.ogg"
-
-[sub_resource type="Resource" id="Resource_7nmqq"]
-metadata/__load_path__ = "res://Audio/Clips/Interactions/memory_collect.ogg"
-
-[sub_resource type="Resource" id="Resource_omf2n"]
-metadata/__load_path__ = "res://Audio/Clips/Interactions/flame_gained.ogg"
-
-[sub_resource type="Resource" id="Resource_dpp4s"]
-metadata/__load_path__ = "res://Audio/Clips/Interactions/enemy_explosion.ogg"
-
 [node name="AudioManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_4rlc4")
 ui_accept_sound = SubResource("Resource_goatc")
 ui_hover_sound = SubResource("Resource_mavxc")
 ui_close_sound = SubResource("Resource_7xo4d")
-hook_sound = SubResource("Resource_8l041")
-decelerate_loop_sound = SubResource("Resource_lu82t")
-accelerate_loop_sound = SubResource("Resource_ft5o5")
-player_hit = SubResource("Resource_2wtmb")
-memory_collected = SubResource("Resource_7nmqq")
-flame_gained = SubResource("Resource_omf2n")
-enemy_explosion = SubResource("Resource_dpp4s")
 
-[node name="IntroSongPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MenuSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 volume_db = -6.0
 
-[node name="BattleSongPlayer" type="AudioStreamPlayer" parent="."]
+[node name="GameSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 volume_db = -12.0
 
@@ -66,7 +38,7 @@ volume_db = -6.0
 autoplay = true
 mix_target = 2
 
-[node name="MoveShootPlayer" type="AudioStreamPlayer" parent="."]
+[node name="RollSoundPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 volume_db = -6.0
 autoplay = true
