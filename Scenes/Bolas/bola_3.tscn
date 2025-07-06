@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://crlxdtt6kf75l"]
+
+[ext_resource type="PackedScene" uid="uid://dkyoei4y4ha5i" path="res://Scenes/Bolas/bola_base.tscn" id="1_xhg27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xhg27"]
+albedo_color = Color(0.784314, 0.0627451, 0.180392, 1)
+
+[node name="Bola_3" instance=ExtResource("1_xhg27")]
+
+[node name="Bola" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_xhg27")

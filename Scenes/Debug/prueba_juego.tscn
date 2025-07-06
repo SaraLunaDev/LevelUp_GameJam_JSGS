@@ -1,7 +1,14 @@
-[gd_scene load_steps=10 format=4 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=15 format=4 uid="uid://bxq1rpar87bgq"]
 
-[ext_resource type="Texture2D" uid="uid://cx4uu5lwjcwte" path="res://Models/billarScene_mesaBillarUVs.png" id="1_yucep"]
-[ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="3_yucep"]
+[ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
+[ext_resource type="Texture2D" uid="uid://cx4uu5lwjcwte" path="res://Models/billarScene_mesaBillarUVs.png" id="1_mfyro"]
+[ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
+[ext_resource type="PackedScene" uid="uid://vuhrfbw0v7uw" path="res://Scenes/Bolas/bola_1.tscn" id="2_fx1ok"]
+[ext_resource type="PackedScene" uid="uid://dx4sc6lo56cyf" path="res://Scenes/Bolas/bola_2.tscn" id="3_xewvi"]
+[ext_resource type="PackedScene" uid="uid://crlxdtt6kf75l" path="res://Scenes/Bolas/bola_3.tscn" id="4_5voe7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c26n1"]
+size = Vector3(2.04155, 0.001, 2.9303)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yucep"]
 transparency = 1
@@ -14,7 +21,7 @@ radius = 0.114746
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50c6s"]
 resource_name = "poolTableMat"
 cull_mode = 2
-albedo_texture = ExtResource("1_yucep")
+albedo_texture = ExtResource("1_mfyro")
 roughness = 0.5
 texture_filter = 2
 
@@ -58,7 +65,25 @@ size = Vector2(128, 128)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_727gd"]
 albedo_color = Color(0.169245, 0.169245, 0.169245, 1)
 
-[node name="PruebaRebotes" type="Node3D"]
+[node name="PruebaJuego" type="Node3D"]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("palo", "camara", "spawn_area", "area_boquetes", "spawn_bola_blanca", "boquetes")]
+script = ExtResource("1_c26n1")
+palo = NodePath("../Palo")
+camara = NodePath("../Camera3D")
+spawn_area = NodePath("../SpawnArea")
+area_boquetes = NodePath("../Boquetes")
+spawn_bola_blanca = NodePath("../SpawnBlanca")
+boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), NodePath("../Boquetes/Boquete3"), NodePath("../Boquetes/Boquete4"), NodePath("../Boquetes/Boquete5"), NodePath("../Boquetes/Boquete6")]
+bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7")])
+radio_proteccion_spawn = 0.5
+
+[node name="SpawnArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.205385)
+shape = SubResource("BoxShape3D_c26n1")
 
 [node name="Colliders" type="CSGCombiner3D" parent="." groups=["billar"]]
 use_collision = true
@@ -160,6 +185,24 @@ shape = SubResource("CylinderShape3D_727gd")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36224, 1.73489, 2.68047)
 shape = SubResource("CylinderShape3D_727gd")
 
+[node name="Boquete" type="Node3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30741, 1.8794, 0.00318211)
+
+[node name="Boquete2" type="Node3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25157, 1.8794, 2.57565)
+
+[node name="Boquete3" type="Node3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24911, 1.8794, 2.57964)
+
+[node name="Boquete4" type="Node3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31691, 1.8794, -0.00080657)
+
+[node name="Boquete5" type="Node3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24911, 1.8794, -2.57726)
+
+[node name="Boquete6" type="Node3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25157, 1.8794, -2.58125)
+
 [node name="MesaBillar" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.63, 0, 0, 0, 1, 0, 0, 0, 2.9, 0, 0.997007, 0)
 mesh = SubResource("ArrayMesh_rcfv8")
@@ -169,20 +212,32 @@ skeleton = NodePath("")
 mesh = SubResource("PlaneMesh_5oubr")
 surface_material_override/0 = SubResource("StandardMaterial3D_727gd")
 
-[node name="Palo" parent="." node_paths=PackedStringArray("bola_blanca_spawn") instance=ExtResource("3_yucep")]
-transform = Transform3D(-0.00610852, 0.499962, -0.866026, 0.999925, 0.012217, -8.14188e-17, 0.0105803, -0.86596, -0.5, 0.177539, 1.84229, -0.369608)
+[node name="Palo" parent="." node_paths=PackedStringArray("bola_blanca_spawn") instance=ExtResource("2_c26n1")]
+transform = Transform3D(-0.00610853, 0.499962, -0.866026, 0.999925, 0.012217, 6.2386e-11, 0.0105803, -0.86596, -0.5, 0.167496, 1.84229, -0.505888)
 bola_blanca_spawn = NodePath("../SpawnBlanca")
 rotacion_palo = Vector3(0, 90, -80)
+distancia_entre_bolas = 0.15
+numero_rebotes = 0
 
-[node name="SpawnBlanca" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89324, -1.77159)
+[node name="SpawnBlanca" type="Node3D" parent="." groups=["spawn_blanca"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.893, -1.8)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -4.9738e-14, 8.74228e-08, 4.8304e-08, 0.833491, 0.552534, -7.28661e-08, 0.552534, -0.833491, 0, 3.99094, -4.5609)
-fov = 50.0
+transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 6.19735e-08, 0.78263, 0.622487, -2.42938e-07, 0.622487, -0.78263, 0, 3.85309, -3.99018)
+fov = 60.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.59502, 0)
-light_color = Color(0.99635, 0.962084, 0.891787, 1)
-light_energy = 2.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.10922, 1.68688)
+light_color = Color(0.995897, 0.95728, 0.878062, 1)
+light_energy = 3.0
+shadow_enabled = true
 omni_range = 10.0
+omni_attenuation = 2.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.10922, -1.64003)
+light_color = Color(0.995897, 0.95728, 0.878062, 1)
+light_energy = 3.0
+shadow_enabled = true
+omni_range = 10.0
+omni_attenuation = 2.0

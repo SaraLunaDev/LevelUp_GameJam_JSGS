@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="LevelUp_GameJam_JSGS"
+run/main_scene="uid://bxq1rpar87bgq"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,6 +21,8 @@ bola_blanca=""
 billar=""
 boquete=""
 objeto=""
+bola=""
+spawn_blanca=""
 
 [layer_names]
 
@@ -30,3 +33,7 @@ objeto=""
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/default_filters/use_nearest_mipmap_filter=true
