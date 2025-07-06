@@ -13,7 +13,7 @@ extends Node3D
 @export_group("Palo")
 @export var punta_en_bola_blanca: Node3D
 @export var punta_palo: Node3D
-@export var rotacion_palo: Vector3 = Vector3(0, 90, -75)
+@export var rotacion_palo: Vector3 = Vector3(0, -90, -75)
 @export var cooldown_palo: float = 0.5
 @export var lerp_palo: float = 0.05
 
@@ -33,9 +33,9 @@ extends Node3D
 var bola_blanca_instance: RigidBody3D
 var palo_posicionado: bool = false
 var lanzando: bool = false
+
 var reseteando_potencia: bool = false
 var moviendo_bola: bool = false
-var trayectoria_eliminada: bool = false
 var potencia: float = 0.0
 var posicion_mouse
 var trayectoria_mesh: MeshInstance3D = null
@@ -49,14 +49,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if palo_posicionado and not lanzando:
-		trayectoria_eliminada = false
 		# Rotar el palo basado en la entrada del mouse
 		rotar_palo(delta)
 		# Mostrar la trayectoria del palo
 		mostrar_trayectoria()
-	elif lanzando and not trayectoria_eliminada:
-		trayectoria_eliminada = true
-		eliminar_trayectoria()
 	# Actualizar la posicion del mouse
 	posicion_mouse = get_viewport().get_mouse_position()
 
@@ -83,11 +79,8 @@ func instanciar_bola_blanca() -> void:
 			boquete.connect("body_entered", Callable(bola_blanca_instance, "_on_boquetes_body_entered"))
 		if boquete.has_signal("body_exited"):
 			boquete.connect("body_exited", Callable(bola_blanca_instance, "_on_boquetes_body_exited"))
-
-		if boquete.is_connected("body_entered", Callable(bola_blanca_instance, "_on_boquetes_body_entered")):
-			print("La señal body_entered ya esta conectada")
-		else:
-			print("La señal body_entered NO esta conectada")
+	
+	bola_blanca_instance.connect("bola_blanca_reposicionada", Callable(self, "resetear_bola_blanca"))
 
 func posicionar_palo() -> void:
 	if palo_posicionado:
@@ -142,15 +135,17 @@ func mostrar_trayectoria() -> void:
 	var rebotes = 0
 	while rebotes <= numero_rebotes and distancia_restante > 0.1:
 		var ray_params = PhysicsRayQueryParameters3D.new()
-		# Ajustar el origen para que el raycast empiece desde el borde de la bola
 		ray_params.from = origen + dir * radio_bola
 		ray_params.to = origen + dir * (distancia_restante - radio_bola)
 		ray_params.exclude = [bola]
 		var result = get_world_3d().direct_space_state.intersect_ray(ray_params)
 		if result:
-			# Ajustar el punto de colision para simular donde rebotaria la bola 
-			var col_pos = result.position + result.normal * radio_bola
+			var col_pos = result.position
+			if not result.collider.is_in_group("bola"):
+				col_pos += result.normal * radio_bola
 			puntos.append(col_pos)
+			if result.collider.is_in_group("bola"):
+				break
 			distancia_restante -= origen.distance_to(col_pos)
 			dir = dir.bounce(result.normal).normalized()
 			origen = col_pos + dir * 0.01
@@ -217,7 +212,7 @@ func resetear_potencia() -> void:
 	if not palo_posicionado:
 		return
 	reseteando_potencia = true
-
+	eliminar_trayectoria()
 	var potencia_inicial = potencia
 	var tiempo := 0.0
 
@@ -236,12 +231,13 @@ func resetear_potencia() -> void:
 		direccion.y = 0
 		bola.mover_bola(direccion, potencia_inicial)
 
-	# Resetear bola blanca cuando pasen x segundos
-	await get_tree().create_timer(cooldown_bola_blanca).timeout
-	await resetear_bola_blanca()
-
-	lanzando = false
-	reseteando_potencia = false
+	# Esperar cooldown solo si lanzando sigue siendo true
+	var tiempo_espera := 0.0
+	while lanzando and tiempo_espera < cooldown_bola_blanca:
+		await get_tree().process_frame
+		tiempo_espera += get_process_delta_time()
+	if lanzando:
+		await resetear_bola_blanca()
 
 func actualizar_posicion_palo() -> void:
 	# Ajusta la distancia del palo respecto al spawn de la bola blanca segun la potencia
@@ -271,6 +267,9 @@ func resetear_bola_blanca() -> void:
 			actualizar_posicion_palo()
 	else:
 		potencia = 0.0
+		
+	lanzando = false
+	reseteando_potencia = false
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
@@ -312,24 +311,3 @@ func get_potencia_maxima():
 
 func set_potencia_maxima(value: float):
 	potencia_maxima = value
-
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Inputs y Debug
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-
-func _input(event: InputEvent) -> void:
-	# Posicionar Palo con tecla S
-	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
-		posicionar_palo()
-	
-	# Manejo del mouse
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if not palo_posicionado:
-			return
-		if event.pressed:
-			# Comenzar a cargar potencia
-			lanzando = true
-		else:
-			# Obtener carga de potencia
-			if lanzando:
-				await resetear_potencia()

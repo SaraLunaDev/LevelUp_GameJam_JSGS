@@ -1,6 +1,7 @@
 extends RigidBody3D
 
 var bola_activa: bool = false
+signal bola_blanca_reposicionada
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -24,27 +25,13 @@ func mover_bola(direccion: Vector3, potencia_inicial: float) -> void:
 # Estados de la Bola Blanca
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func resetear_bola(nueva_posicion: Vector3) -> void:
-	# Resetear la posicion de la bola blanca
-	global_position = nueva_posicion
-	linear_velocity = Vector3.ZERO
-	angular_velocity = Vector3.ZERO
-	bola_activa = false
+func resetear_bola() -> void:
+	emit_signal("bola_blanca_reposicionada")
 
 func eliminar_bola() -> void:
 	# Eliminar la bola blanca del juego
 	queue_free()
 	bola_activa = false
-
-# Si la bola pasa por un area3d con grupo "boquete", desactiva el rebote
-func _on_boquetes_body_entered(body: Node3D) -> void:
-	if body.is_in_group("bola_blanca"):
-		desactivar_rebote()
-
-# Si la bola sale del area3d con grupo "boquete", activa el rebote
-func _on_boquetes_body_exited(body: Node3D) -> void:
-	if body.is_in_group("bola_blanca"):
-		activar_rebote()
 
 func activar_rebote() -> void:
 	# Activa la propiedad de rebote de la bola

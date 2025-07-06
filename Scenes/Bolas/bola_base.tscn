@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkyoei4y4ha5i"]
+
+[ext_resource type="Script" uid="uid://c6uon4p2md1nu" path="res://Scripts/Bola/bola.gd" id="1_r6cnw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
+friction = 0.01
+bounce = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_leks5"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lsdfy"]
+radius = 0.093
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r6cnw"]
+radius = 0.113347
+
+[node name="Bola_Base" type="RigidBody3D" groups=["bola"]]
+mass = 0.17
+physics_material_override = SubResource("PhysicsMaterial_oowhv")
+continuous_cd = true
+contact_monitor = true
+linear_damp_mode = 1
+linear_damp = 0.5
+angular_damp_mode = 1
+angular_damp = 0.5
+script = ExtResource("1_r6cnw")
+
+[node name="Bola" type="MeshInstance3D" parent="." groups=["bola"]]
+transform = Transform3D(0.0929955, 0, 0, 0, 0.0929955, 0, 0, 0, 0.0929955, 0, 0, 0)
+mesh = SubResource("SphereMesh_leks5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["bola"]]
+shape = SubResource("SphereShape3D_lsdfy")
+debug_color = Color(0, 0.6, 0.701961, 1)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_r6cnw")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
