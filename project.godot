@@ -18,6 +18,14 @@ config/icon="res://icon.svg"
 
 bola_blanca=""
 billar=""
+boquete=""
+objeto=""
+
+[layer_names]
+
+3d_physics/layer_30="Objetos"
+3d_physics/layer_31="Bolas"
+3d_physics/layer_32="Bola Blanca"
 
 [physics]
 

@@ -27,7 +27,7 @@ extends Node3D
 @export_group("Lanzamiento")
 @export var velocidad_lanzamiento: float = 2
 @export var tiempo_retorno_palo = 0.1
-@export var potencia_maxima: float = 2.5
+@export var potencia_maxima: float = 2.0
 
 # Internas
 var bola_blanca_instance: RigidBody3D
@@ -77,11 +77,23 @@ func instanciar_bola_blanca() -> void:
 	get_tree().current_scene.add_child(bola_blanca_instance)
 	bola_blanca_instance.global_position = bola_blanca_spawn.global_position
 
+	# Conectar las señales de las areas de los boquetes pa modificar el rebote de la bola cuando entre o salga
+	for boquete in get_tree().get_nodes_in_group("boquete"):
+		if boquete.has_signal("body_entered"):
+			boquete.connect("body_entered", Callable(bola_blanca_instance, "_on_boquetes_body_entered"))
+		if boquete.has_signal("body_exited"):
+			boquete.connect("body_exited", Callable(bola_blanca_instance, "_on_boquetes_body_exited"))
+
+		if boquete.is_connected("body_entered", Callable(bola_blanca_instance, "_on_boquetes_body_entered")):
+			print("La señal body_entered ya esta conectada")
+		else:
+			print("La señal body_entered NO esta conectada")
+
 func posicionar_palo() -> void:
 	if palo_posicionado:
 		return
 		
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
 	instanciar_bola_blanca()
 	rotation_degrees = Vector3.ZERO
 	global_position = Vector3.ZERO
@@ -134,7 +146,6 @@ func mostrar_trayectoria() -> void:
 		ray_params.from = origen + dir * radio_bola
 		ray_params.to = origen + dir * (distancia_restante - radio_bola)
 		ray_params.exclude = [bola]
-		ray_params.collision_mask = 1
 		var result = get_world_3d().direct_space_state.intersect_ray(ray_params)
 		if result:
 			# Ajustar el punto de colision para simular donde rebotaria la bola 
