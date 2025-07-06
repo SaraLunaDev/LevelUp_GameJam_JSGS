@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=27 format=4 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="Texture2D" uid="uid://cx4uu5lwjcwte" path="res://Models/billarScene_mesaBillarUVs.png" id="1_mfyro"]
@@ -6,6 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://vuhrfbw0v7uw" path="res://Scenes/Bolas/bola_1.tscn" id="2_fx1ok"]
 [ext_resource type="PackedScene" uid="uid://dx4sc6lo56cyf" path="res://Scenes/Bolas/bola_2.tscn" id="3_xewvi"]
 [ext_resource type="PackedScene" uid="uid://crlxdtt6kf75l" path="res://Scenes/Bolas/bola_3.tscn" id="4_5voe7"]
+[ext_resource type="PackedScene" uid="uid://d3x4efbjgiv8y" path="res://Scenes/Bolas/bola_4.tscn" id="5_xhqt2"]
+[ext_resource type="PackedScene" uid="uid://btvisrfdrmxka" path="res://Scenes/Bolas/bola_5.tscn" id="6_lx6m1"]
+[ext_resource type="PackedScene" uid="uid://okt7jsll6c84" path="res://Scenes/Bolas/bola_6.tscn" id="7_c6pg2"]
+[ext_resource type="PackedScene" uid="uid://bh0ru7dippuqi" path="res://Scenes/Bolas/bola_7.tscn" id="8_gqvos"]
+[ext_resource type="PackedScene" uid="uid://bscx2qd5ektdn" path="res://Scenes/Bolas/bola_8.tscn" id="9_k7vqf"]
+[ext_resource type="PackedScene" uid="uid://dflb8u4fmukdm" path="res://Scenes/Bolas/bola_9.tscn" id="10_052qh"]
+[ext_resource type="PackedScene" uid="uid://ipdjnacb8g7d" path="res://Scenes/Bolas/bola_10.tscn" id="11_ypxt0"]
+[ext_resource type="PackedScene" uid="uid://camvr7p0m48h5" path="res://Scenes/Bolas/bola_11.tscn" id="12_iupe7"]
+[ext_resource type="PackedScene" uid="uid://bljkara2ygqby" path="res://Scenes/Bolas/bola_12.tscn" id="13_lrfhe"]
+[ext_resource type="PackedScene" uid="uid://pu0b45bv8xqq" path="res://Scenes/Bolas/bola_13.tscn" id="14_vgul8"]
+[ext_resource type="PackedScene" uid="uid://ceohbj21efbbp" path="res://Scenes/Bolas/bola_14.tscn" id="15_pidso"]
+[ext_resource type="PackedScene" uid="uid://bmtw1qgaeb0j8" path="res://Scenes/Bolas/bola_15.tscn" id="16_4u777"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c26n1"]
 size = Vector3(2.04155, 0.001, 2.9303)
@@ -75,7 +87,7 @@ spawn_area = NodePath("../SpawnArea")
 area_boquetes = NodePath("../Boquetes")
 spawn_bola_blanca = NodePath("../SpawnBlanca")
 boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), NodePath("../Boquetes/Boquete3"), NodePath("../Boquetes/Boquete4"), NodePath("../Boquetes/Boquete5"), NodePath("../Boquetes/Boquete6")]
-bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7")])
+bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7"), ExtResource("5_xhqt2"), ExtResource("6_lx6m1"), ExtResource("7_c6pg2"), ExtResource("8_gqvos"), ExtResource("9_k7vqf"), ExtResource("10_052qh"), ExtResource("11_ypxt0"), ExtResource("12_iupe7"), ExtResource("13_lrfhe"), ExtResource("14_vgul8"), ExtResource("15_pidso"), ExtResource("16_4u777")])
 radio_proteccion_spawn = 0.5
 
 [node name="SpawnArea" type="Area3D" parent="."]
