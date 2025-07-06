@@ -36,6 +36,24 @@ func eliminar_bola() -> void:
 	queue_free()
 	bola_activa = false
 
+# Si la bola pasa por un area3d con grupo "boquete", desactiva el rebote
+func _on_boquetes_body_entered(body: Node3D) -> void:
+	if body.is_in_group("bola_blanca"):
+		desactivar_rebote()
+
+# Si la bola sale del area3d con grupo "boquete", activa el rebote
+func _on_boquetes_body_exited(body: Node3D) -> void:
+	if body.is_in_group("bola_blanca"):
+		activar_rebote()
+
+func activar_rebote() -> void:
+	# Activa la propiedad de rebote de la bola
+	physics_material_override.bounce = 1
+
+func desactivar_rebote() -> void:
+	# Desactiva la propiedad de rebote de la bola
+	physics_material_override.bounce = 0
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦

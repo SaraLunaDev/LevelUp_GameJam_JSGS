@@ -1,16 +1,15 @@
-[gd_scene load_steps=11 format=4 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=10 format=4 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="Texture2D" uid="uid://cx4uu5lwjcwte" path="res://Models/billarScene_mesaBillarUVs.png" id="1_yucep"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="3_yucep"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_727gd"]
-size = Vector3(3.262, 0.199, 5.804)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yucep"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5oubr"]
-size = Vector3(0.328094, 0.207794, 5.7937)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_yucep"]
-size = Vector3(0.292236, 0.597351, 3.24878)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_727gd"]
+height = 0.610657
+radius = 0.114746
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50c6s"]
 resource_name = "poolTableMat"
@@ -61,31 +60,108 @@ albedo_color = Color(0.169245, 0.169245, 0.169245, 1)
 
 [node name="PruebaRebotes" type="Node3D"]
 
-[node name="BodyBillar" type="StaticBody3D" parent="." groups=["billar"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2571, 0)
+[node name="Colliders" type="CSGCombiner3D" parent="." groups=["billar"]]
+use_collision = true
 
-[node name="CsBillar_Suelo" type="CollisionShape3D" parent="BodyBillar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000427246, 0.443688, -0.00180054)
-shape = SubResource("BoxShape3D_727gd")
+[node name="CSGBox3D" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0156965, 1.41181, -0.00825262)
+use_collision = true
+size = Vector3(3.24962, 0.787109, 5.78618)
+material = SubResource("StandardMaterial3D_yucep")
 
-[node name="CsBillar_Banda" type="CollisionShape3D" parent="BodyBillar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47313, 0.642854, 0.00695801)
-shape = SubResource("BoxShape3D_5oubr")
+[node name="CSGBox3D2" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46646, 1.70197, -0.00012207)
+size = Vector3(0.313171, 0.579102, 5.7854)
+material = SubResource("StandardMaterial3D_yucep")
 
-[node name="CsBillar_Banda2" type="CollisionShape3D" parent="BodyBillar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47289, 0.642854, 0.00695801)
-shape = SubResource("BoxShape3D_5oubr")
+[node name="CSGBox3D3" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46827, 1.70197, -0.00012207)
+size = Vector3(0.3172, 0.579102, 5.7854)
+material = SubResource("StandardMaterial3D_yucep")
 
-[node name="CsBillar_Banda3" type="CollisionShape3D" parent="BodyBillar"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00345373, 0.441529, -2.75629)
-shape = SubResource("BoxShape3D_yucep")
+[node name="CSGBox3D4" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.000701666, 1.70197, -2.75265)
+size = Vector3(0.284973, 0.579102, 3.23843)
+material = SubResource("StandardMaterial3D_yucep")
 
-[node name="CsBillar_Banda4" type="CollisionShape3D" parent="BodyBillar"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00345373, 0.441529, 2.75722)
-shape = SubResource("BoxShape3D_yucep")
+[node name="CSGBox3D5" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.000701666, 1.70197, 2.75367)
+size = Vector3(0.284973, 0.579102, 3.23843)
+material = SubResource("StandardMaterial3D_yucep")
 
-[node name="MesaBillar" type="MeshInstance3D" parent="BodyBillar"]
-transform = Transform3D(1.63, 0, 0, 0, 1, 0, 0, 0, 2.9, 0, -0.260093, 0)
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3088, 1.71929, 0)
+operation = 2
+radius = 0.181641
+height = 0.598206
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31385, 1.71746, 0)
+operation = 2
+radius = 0.181641
+height = 0.642395
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25591, 1.72087, -2.57953)
+operation = 2
+radius = 0.181641
+height = 0.649231
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25179, 1.72258, -2.57692)
+operation = 2
+radius = 0.181641
+height = 0.73468
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25591, 1.71868, 2.57441)
+operation = 2
+radius = 0.181641
+height = 0.681946
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25179, 1.74749, 2.57702)
+operation = 2
+radius = 0.181641
+height = 0.684875
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="Boquetes" type="Area3D" parent="." groups=["boquete"]]
+monitorable = false
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45883, 1.73489, 0)
+shape = SubResource("CylinderShape3D_727gd")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36242, 1.73489, -2.68479)
+shape = SubResource("CylinderShape3D_727gd")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35647, 1.73489, -2.68203)
+shape = SubResource("CylinderShape3D_727gd")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.46233, 1.73489, 0.000132196)
+shape = SubResource("CylinderShape3D_727gd")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35673, 1.73489, 2.68365)
+shape = SubResource("CylinderShape3D_727gd")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Boquetes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36224, 1.73489, 2.68047)
+shape = SubResource("CylinderShape3D_727gd")
+
+[node name="MesaBillar" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.63, 0, 0, 0, 1, 0, 0, 0, 2.9, 0, 0.997007, 0)
 mesh = SubResource("ArrayMesh_rcfv8")
 skeleton = NodePath("")
 
@@ -94,7 +170,7 @@ mesh = SubResource("PlaneMesh_5oubr")
 surface_material_override/0 = SubResource("StandardMaterial3D_727gd")
 
 [node name="Palo" parent="." node_paths=PackedStringArray("bola_blanca_spawn") instance=ExtResource("3_yucep")]
-transform = Transform3D(0.890443, -0.455094, -1.98928e-08, 1.71359e-15, -4.37114e-08, 1, -0.455094, -0.890443, -3.89225e-08, 0, 1.83062, -0.594298)
+transform = Transform3D(-0.00610852, 0.499962, -0.866026, 0.999925, 0.012217, -8.14188e-17, 0.0105803, -0.86596, -0.5, 0.177539, 1.84229, -0.369608)
 bola_blanca_spawn = NodePath("../SpawnBlanca")
 rotacion_palo = Vector3(0, 90, -80)
 
