@@ -11,9 +11,34 @@ config_version=5
 [application]
 
 config/name="LevelUp_GameJam_JSGS"
+run/main_scene="uid://bxq1rpar87bgq"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
 
 [autoload]
 
 AudioManager="*res://Scenes/Audio/audio_manager.tscn"
+
+[global_group]
+
+bola_blanca=""
+billar=""
+boquete=""
+objeto=""
+bola=""
+spawn_blanca=""
+
+[layer_names]
+
+3d_physics/layer_30="Objetos"
+3d_physics/layer_31="Bolas"
+3d_physics/layer_32="Bola Blanca"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/default_filters/use_nearest_mipmap_filter=true
