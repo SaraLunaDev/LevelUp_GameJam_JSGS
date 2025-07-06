@@ -1,22 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://37qdnl666ni0"]
+[gd_scene load_steps=2 format=3 uid="uid://37qdnl666ni0"]
 
 [ext_resource type="Script" uid="uid://c1nen411o4q4r" path="res://Scripts/Audio/AudioManager.gd" id="1_4rlc4"]
-
-[sub_resource type="Resource" id="Resource_goatc"]
-metadata/__load_path__ = "res://Audio/Clips/UI/UI_accept.ogg"
-
-[sub_resource type="Resource" id="Resource_mavxc"]
-metadata/__load_path__ = "res://Audio/Clips/UI/hover_clip.ogg"
-
-[sub_resource type="Resource" id="Resource_7xo4d"]
-metadata/__load_path__ = "res://Audio/Clips/UI/UI_cancel.ogg"
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_4rlc4")
-ui_accept_sound = SubResource("Resource_goatc")
-ui_hover_sound = SubResource("Resource_mavxc")
-ui_close_sound = SubResource("Resource_7xo4d")
 
 [node name="MenuSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
