@@ -10,6 +10,7 @@ var initial_velocity_magnitude:float = 0.0
 var current_velocity_magnitude:float = 0.0
 var current_pitch:float = 1.0
 
+# Work in progress
 func _physics_process(delta: float) -> void:
 	if (!is_playing and abs(rb.linear_velocity.length()) > 0.2):
 		initial_velocity_magnitude = abs(rb.linear_velocity.length())

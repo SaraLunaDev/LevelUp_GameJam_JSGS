@@ -1,5 +1,7 @@
 extends HSlider
 
+# Script para slider de audio en los menús
+
 @export var bus:AudioManager.AUDIOBUS
 
 func _init() -> void:
@@ -22,4 +24,4 @@ func _on_mouse_entered() -> void:
 
 func _on_drag_started() -> void:
 	if bus == AudioManager.AUDIOBUS.SFX_M:
-		AudioManager._play_hook_sound()
+		AudioManager._play_test_audio()

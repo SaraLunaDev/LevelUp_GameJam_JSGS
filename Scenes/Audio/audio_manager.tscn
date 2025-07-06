@@ -26,8 +26,5 @@ volume_db = -6.0
 autoplay = true
 mix_target = 2
 
-[node name="RollSoundPlayer" type="AudioStreamPlayer" parent="."]
+[node name="PrioritySFXAudioPlayer3D" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
-volume_db = -6.0
-autoplay = true
-mix_target = 2
