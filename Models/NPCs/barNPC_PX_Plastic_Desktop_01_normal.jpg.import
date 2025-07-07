@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx4uu5lwjcwte"
-path.s3tc="res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"
+uid="uid://7vd4l5toeqnr"
+path.s3tc="res://.godot/imported/barNPC_PX_Plastic_Desktop_01_normal.jpg-43fed1dd04a0289297aa05c200a6b858.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "80783617b589207f4f57749ee22c2481"
+"md5": "99a52cb2bd355d7e752cc069b62cfee7"
 }
 
 [deps]
 
-source_file="res://Textures/billarScene_mesaBillarUVs.png"
-dest_files=["res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"]
+source_file="res://Models/NPCs/barNPC_PX_Plastic_Desktop_01_normal.jpg"
+dest_files=["res://.godot/imported/barNPC_PX_Plastic_Desktop_01_normal.jpg-43fed1dd04a0289297aa05c200a6b858.s3tc.ctex"]
 
 [params]
 
@@ -23,12 +23,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://Models/NPCs/barNPC_PX_Plastic_Desktop_01_normal.jpg"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

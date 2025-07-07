@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx4uu5lwjcwte"
-path.s3tc="res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"
+uid="uid://bm4btym652a3x"
+path.s3tc="res://.godot/imported/billarScene2_PX_Plastic_Desktop_01_roughness.png-3ff3d8d4126e72f97bda23005a02250f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "80783617b589207f4f57749ee22c2481"
+"md5": "debeec1cd9f98557de80512af765ebe7"
 }
 
 [deps]
 
-source_file="res://Textures/billarScene_mesaBillarUVs.png"
-dest_files=["res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"]
+source_file="res://Textures/billarScene2_PX_Plastic_Desktop_01_roughness.png"
+dest_files=["res://.godot/imported/billarScene2_PX_Plastic_Desktop_01_roughness.png-3ff3d8d4126e72f97bda23005a02250f.s3tc.ctex"]
 
 [params]
 

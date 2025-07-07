@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="Texture2D" uid="uid://cx4uu5lwjcwte" path="res://Models/billarScene_mesaBillarUVs.png" id="1_mfyro"]
+
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
 [ext_resource type="PackedScene" uid="uid://vuhrfbw0v7uw" path="res://Scenes/Bolas/bola_1.tscn" id="2_fx1ok"]
 [ext_resource type="PackedScene" uid="uid://dx4sc6lo56cyf" path="res://Scenes/Bolas/bola_2.tscn" id="3_xewvi"]
@@ -93,6 +94,7 @@ boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), N
 bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7"), ExtResource("5_xhqt2"), ExtResource("6_lx6m1"), ExtResource("7_c6pg2"), ExtResource("8_gqvos"), ExtResource("9_k7vqf"), ExtResource("10_052qh"), ExtResource("11_ypxt0"), ExtResource("12_iupe7"), ExtResource("13_lrfhe"), ExtResource("14_vgul8"), ExtResource("15_pidso"), ExtResource("16_4u777")])
 objetos = Array[PackedScene]([ExtResource("17_gqvos"), ExtResource("18_k7vqf"), ExtResource("19_052qh")])
 
+
 [node name="SpawnArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
 
@@ -101,6 +103,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.205385)
 shape = SubResource("BoxShape3D_c26n1")
 
 [node name="Colliders" type="CSGCombiner3D" parent="."]
+
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Colliders" groups=["billar"]]
@@ -198,6 +201,7 @@ shape = SubResource("CylinderShape3D_727gd")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="Boquetes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25509, 1.31333, 2.57332)
+
 shape = SubResource("CylinderShape3D_727gd")
 
 [node name="Boquete" type="Node3D" parent="Boquetes"]
