@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://bwe4borr82paf"]
 
-[ext_resource type="Texture2D" uid="uid://dugnqiiug0av0" path="res://Models/billarScene2_beerUVs.png" id="1_yffc7"]
+[ext_resource type="Texture2D" uid="uid://bdiribvq35kl2" path="res://Models/billarScene2_beerUVs.png" id="1_yffc7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t765v"]
 resource_name = "beerMat"

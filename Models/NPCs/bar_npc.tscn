@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://p6q2yak4jmwf"]
+
+[ext_resource type="PackedScene" uid="uid://qgvcreeu2hx5" path="res://Models/NPCs/barNPC.glb" id="1_u72t5"]
+[ext_resource type="Script" uid="uid://woylkc0cay5p" path="res://Scripts/npc3_anim.gd" id="2_u72t5"]
+
+[node name="barNPC" instance=ExtResource("1_u72t5")]
+script = ExtResource("2_u72t5")
+
+[node name="Skeleton3D" parent="NPC_003" index="0"]
+bones/1/rotation = Quaternion(-0.224243, 0, 0, 0.974533)
+bones/2/rotation = Quaternion(-0.272694, 0, 0, 0.962101)
+bones/3/position = Vector3(0.878732, 0.655873, -1.29328)
+bones/3/rotation = Quaternion(-3.08721e-07, -6.3102e-08, 0.99994, -0.0109663)
+bones/4/position = Vector3(-0.626877, 0.354962, -0.804429)
+bones/4/rotation = Quaternion(3.08721e-07, -6.3102e-08, 0.99994, 0.0109663)

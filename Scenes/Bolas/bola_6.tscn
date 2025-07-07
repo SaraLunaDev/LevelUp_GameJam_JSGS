@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://okt7jsll6c84"]
 
 [ext_resource type="PackedScene" uid="uid://dkyoei4y4ha5i" path="res://Scenes/Bolas/bola_base.tscn" id="1_5csyn"]
-[ext_resource type="Texture2D" uid="uid://c8g3usvrta45y" path="res://Textures/Bola6.png" id="2_m2umi"]
+[ext_resource type="Texture2D" uid="uid://c555bw5802ev4" path="res://Textures/Bola6.png" id="2_m2umi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rm8an"]
 albedo_texture = ExtResource("2_m2umi")

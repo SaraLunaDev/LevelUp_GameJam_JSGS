@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0qe0ahl5sdim" path="res://Scripts/Palo/palo.gd" id="1_5bnsl"]
 [ext_resource type="PackedScene" uid="uid://b0fvy3llnel1v" path="res://Scenes/BolaBlanca/bola_blanca.tscn" id="2_v5gji"]
-[ext_resource type="Texture2D" uid="uid://dgg5owm7uc04s" path="res://Models/billarScene_poolStickUVs.png" id="3_8ylg7"]
+[ext_resource type="Texture2D" uid="uid://b3avqkeunpvfy" path="res://Models/billarScene_poolStickUVs.png" id="3_8ylg7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6105"]
 resource_name = "poolStickMat"

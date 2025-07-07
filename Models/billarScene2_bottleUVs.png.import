@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddmpghjvbtmda"
+uid="uid://lvdthm8v28kb"
 path.s3tc="res://.godot/imported/billarScene2_bottleUVs.png-2b680087718a849b529b8b99d3e61233.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "d3fe7d6297c7f9c23fbcc4f6c09ac049"
 }
 
 [deps]

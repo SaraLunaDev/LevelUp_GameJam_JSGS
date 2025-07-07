@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv2efkxfm8por"
+uid="uid://ddijfeeko3587"
 path.s3tc="res://.godot/imported/ball_Bola9.png-b407a774d949b5af90af03ceb7a7efce.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "960f199aa817c836ad99006dcb001023"
 }
 
 [deps]

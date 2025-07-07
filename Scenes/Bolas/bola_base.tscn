@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=4 uid="uid://dkyoei4y4ha5i"]
 
 [ext_resource type="Script" uid="uid://c6uon4p2md1nu" path="res://Scripts/Bola/bola.gd" id="1_r6cnw"]
-[ext_resource type="Texture2D" uid="uid://b27d406q4f2w0" path="res://Textures/Bola1.png" id="2_6ttbc"]
+[ext_resource type="Texture2D" uid="uid://dli3xo3pb8l1q" path="res://Textures/Bola1.png" id="2_6ttbc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
 friction = 0.1

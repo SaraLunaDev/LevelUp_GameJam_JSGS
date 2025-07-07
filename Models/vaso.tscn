@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://cjbexi1r7c1dr"]
 
-[ext_resource type="Texture2D" uid="uid://ddmpghjvbtmda" path="res://Models/billarScene2_bottleUVs.png" id="1_nof8w"]
+[ext_resource type="Texture2D" uid="uid://lvdthm8v28kb" path="res://Models/billarScene2_bottleUVs.png" id="1_nof8w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f43js"]
 resource_name = "botle1"

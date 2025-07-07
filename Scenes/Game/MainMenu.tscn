@@ -1,0 +1,200 @@
+[gd_scene load_steps=12 format=3 uid="uid://cb2xiir7ika68"]
+
+[ext_resource type="Script" uid="uid://c0l3c2n2lw6da" path="res://Scripts/v_box_container.gd" id="1_de4cs"]
+[ext_resource type="Texture2D" uid="uid://b3nnmnv6myblr" path="res://Textures/playButton.png" id="2_hn2at"]
+[ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="3_esq62"]
+[ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
+[ext_resource type="Texture2D" uid="uid://c3rnpxr16gkmt" path="res://Textures/TitleAnim/titleAnimatedTexture.tres" id="5_ymo5r"]
+[ext_resource type="Script" uid="uid://8uj6f0jgwost" path="res://Scenes/Game/camera_3d.gd" id="6_h6d63"]
+[ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="7_tnjq2"]
+[ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="8_lo35h"]
+[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
+[ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="10_5fpg2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kvjn8"]
+load_path = "res://.godot/imported/playButton.png-582c7b559a9b460928caf36f2f89ddff.ctex"
+
+[node name="GameScene" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+
+[node name="Buttons" type="VBoxContainer" parent="Control/CanvasLayer"]
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = -254.0
+offset_right = 146.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_stretch_ratio = 1.41
+alignment = 1
+script = ExtResource("1_de4cs")
+
+[node name="PlayButton" type="Button" parent="Control/CanvasLayer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+theme_override_icons/icon = SubResource("CompressedTexture2D_kvjn8")
+icon = ExtResource("2_hn2at")
+flat = true
+clip_text = true
+
+[node name="ExitButton" type="Button" parent="Control/CanvasLayer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+icon = ExtResource("3_esq62")
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bg" type="Sprite2D" parent="Control/CanvasLayer/TextureRect"]
+modulate = Color(1, 1, 1, 0.482353)
+position = Vector2(20, -58)
+scale = Vector2(28.975, 0.95)
+texture = ExtResource("4_p1lor")
+
+[node name="TitleAnimatedTexture" type="Sprite2D" parent="Control/CanvasLayer/TextureRect"]
+position = Vector2(-2, -55)
+texture = ExtResource("5_ymo5r")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.704634, -0.333123, 0.626514, 0, 0.882948, 0.469471, -0.709571, -0.330805, 0.622155, 13.5355, 2.00734, 0.684937)
+script = ExtResource("6_h6d63")
+
+[node name="Luces" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.00102806, 2.33435, -0.00614643)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Luces"]
+light_energy = 5.0
+spot_angle = 50.1478
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.73183, 16.0898, 5.78173)
+light_energy = 16.0
+light_indirect_energy = 2.801
+spot_range = 13.0248
+spot_angle = 50.1478
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4492, 12.3036, 5.78173)
+light_energy = 16.0
+light_indirect_energy = 2.801
+spot_range = 13.0248
+spot_angle = 50.1478
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.83101, -0.00614643, -0.0150449)
+light_energy = 5.0
+spot_angle = 50.1478
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7236, 0.00788546, -0.139329)
+light_energy = 5.0
+spot_angle = 50.1478
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 15.7236, 0.00788547, -0.439922)
+light_energy = 5.0
+spot_angle = 61.875
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 7.83574, 0.00788547, -0.439922)
+light_energy = 5.0
+spot_angle = 61.875
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00399351, 0.00788547, -0.439922)
+light_energy = 5.0
+spot_angle = 61.875
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 10.1129, 15.857, 1.4946)
+light_energy = 7.967
+light_indirect_energy = 1.318
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+spot_angle = 86.3855
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(-4.37114e-08, 0, 1, 1, -4.37114e-08, 4.37114e-08, 4.37114e-08, 1, 1.91069e-15, -7.42688, 6.84206, 2.05824)
+light_energy = 7.967
+light_indirect_energy = 1.318
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+spot_angle = 86.3855
+
+[node name="barNPC" parent="." instance=ExtResource("7_tnjq2")]
+script = ExtResource("8_lo35h")
+
+[node name="barNPC4" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(0.51139, 0, 0.615207, 0, 0.8, 0, -0.615207, 0, 0.51139, 19.5298, 0, -12.0167)
+script = ExtResource("8_lo35h")
+
+[node name="barNPC5" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.107535, 0, 0.79274, 0, 0.8, 0, -0.79274, 0, -0.107535, 20.0673, 0, -17.6134)
+script = ExtResource("8_lo35h")
+
+[node name="barNPC2" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.576606, -2.79658e-08, -0.55455, 2.14169e-08, 0.8, -6.26125e-08, 0.55455, -5.99743e-08, -0.576606, -7.65288, 0, -18.2602)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC9" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.601822, -2.51406e-08, -0.527077, 2.14169e-08, 0.8, -6.26125e-08, 0.527077, -6.12124e-08, -0.601822, 1.60404, 0, -19.042)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC10" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(0.510165, -6.18868e-08, -0.616224, 2.14169e-08, 0.8, -6.26125e-08, 0.616224, 2.34314e-08, 0.510165, 9.95403, 0, -1.2162)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC11" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(0.565705, 2.91276e-08, 0.565666, 2.14169e-08, 0.8, -6.26125e-08, -0.565666, 5.94187e-08, 0.565705, 28.3115, 0, -10.692)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC12" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.508733, 6.1941e-08, 0.617406, 2.14169e-08, 0.8, -6.26124e-08, -0.617406, -2.32876e-08, -0.508733, 19.6726, 0, -27.604)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC6" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.696998, -1.20734e-08, -0.392674, 2.14169e-08, 0.8, -6.26125e-08, 0.392674, -6.50633e-08, -0.696998, -5.25162, 0, -7.19853)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC7" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(0.374701, -6.53511e-08, -0.706823, 2.14169e-08, 0.8, -6.26124e-08, 0.706823, 1.04038e-08, 0.374701, 0.0867414, 0, 12.1709)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC13" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.999997, 2.69677e-08, 0.00251352, 2.67711e-08, 1, -7.82656e-08, -0.00251352, -7.8198e-08, -0.999997, -10.4539, 0, -28.9177)
+script = ExtResource("9_vdvk2")
+
+[node name="barNPC3" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(-0.776871, 5.85087e-09, -0.190976, 2.14169e-08, 0.8, -6.26125e-08, 0.190976, -6.59149e-08, -0.776871, -0.504722, 0, -19.3133)
+
+[node name="barNPC8" parent="." instance=ExtResource("7_tnjq2")]
+transform = Transform3D(0.999958, -2.74885e-08, -0.00918046, 2.67711e-08, 1, -7.82656e-08, 0.00918046, 7.80165e-08, 0.999958, 5.00335, 0.0877597, 0.311431)
+
+[node name="bar" parent="." instance=ExtResource("10_5fpg2")]
+
+[connection signal="pressed" from="Control/CanvasLayer/Buttons/PlayButton" to="Control/CanvasLayer/Buttons" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/CanvasLayer/Buttons/PlayButton" to="Camera3D" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/CanvasLayer/Buttons/ExitButton" to="Control/CanvasLayer/Buttons" method="_on_exit_button_pressed"]

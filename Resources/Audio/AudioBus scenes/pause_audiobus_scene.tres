@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AudioBusSceneData" load_steps=2 format=3 uid="uid://owkvdykx4h04"]
 
-[ext_resource type="Script" uid="uid://ddo0c3261xgsc" path="res://Resources/AudioBus scenes/audiobus_scene_data.gd" id="1_kvfs2"]
+[ext_resource type="Script" uid="uid://ddo0c3261xgsc" path="res://Resources/Audio/AudioBus scenes/audiobus_scene_data.gd" id="1_kvfs2"]
 
 [resource]
 script = ExtResource("1_kvfs2")

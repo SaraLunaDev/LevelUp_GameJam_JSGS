@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=4 uid="uid://b0fvy3llnel1v"]
 
 [ext_resource type="Script" uid="uid://i4daboik1xrd" path="res://Scripts/Bola Blanca/bola_blanca.gd" id="1_oowhv"]
-[ext_resource type="Texture2D" uid="uid://ohpsabqyigfy" path="res://Textures/BolaPlayer.png" id="2_mk7pw"]
-[ext_resource type="Texture2D" uid="uid://b27d406q4f2w0" path="res://Textures/Bola1.png" id="3_sgyg5"]
+[ext_resource type="Texture2D" uid="uid://cm6hns0wvpg5b" path="res://Textures/BolaPlayer.png" id="2_mk7pw"]
+[ext_resource type="Texture2D" uid="uid://dli3xo3pb8l1q" path="res://Textures/Bola1.png" id="3_sgyg5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
 friction = 0.05
