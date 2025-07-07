@@ -93,7 +93,7 @@ func posicionar_palo() -> void:
 	if palo_posicionado:
 		return
 		
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	instanciar_bola_blanca()
 	rotation_degrees = Vector3.ZERO
 	global_position = Vector3.ZERO
@@ -106,30 +106,13 @@ func posicionar_palo() -> void:
 # Movimiento del Palo
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func rotar_palo(_delta: float) -> void:
-	# Limitar el mouse a un círculo alrededor del spawn de la bola blanca
-	var mouse_pos = posicion_mouse
-	var camera = get_viewport().get_camera_3d()
-	var ray_origin = camera.project_ray_origin(mouse_pos)
-	var ray_dir = camera.project_ray_normal(mouse_pos)
-	var ground_plane = Plane(Vector3.UP, bola_blanca_spawn.global_position.y)
-	var hit = ground_plane.intersects_ray(ray_origin, ray_dir)
-	if hit:
-		var center = bola_blanca_spawn.global_position
-		var dir = (hit - center)
-		var max_radius = 2.0 # Cambia este valor para ajustar el radio máximo
-		if dir.length() > max_radius:
-			dir = dir.normalized() * max_radius
-			hit = center + dir
-		dir = (hit - center).normalized()
-		var target_angle = atan2(dir.x, dir.z) + deg_to_rad(90)
-		var current_angle = deg_to_rad(rotation_degrees.y)
-		# Interpolacion suave
-		var smooth_angle = lerp_angle(current_angle, target_angle, lerp_palo)
-		rotation_degrees.y = rad_to_deg(smooth_angle)
-		# Mantener la punta en el mismo sitio
-		var offset = punta_en_bola_blanca.global_position - global_position
-		global_position = bola_blanca_spawn.global_position - offset
+func rotar_palo(delta: float) -> void:
+	var mouse_vel = Input.get_last_mouse_velocity().x
+	if mouse_vel != 0:
+		# Suaviza la rotación usando lerp
+		var target_rot = rotation_degrees.y - mouse_vel * delta * 0.75
+		rotation_degrees.y = lerp(rotation_degrees.y, target_rot, lerp_palo)
+	actualizar_posicion_palo()
 
 func mostrar_trayectoria() -> void:
 	var bola = get_bola_blanca()
