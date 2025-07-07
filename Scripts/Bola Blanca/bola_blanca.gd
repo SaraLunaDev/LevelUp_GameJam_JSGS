@@ -3,6 +3,8 @@ extends RigidBody3D
 var bola_activa: bool = false
 signal bola_blanca_reposicionada
 
+var daño: int = 1
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -26,7 +28,12 @@ func mover_bola(direccion: Vector3, potencia_inicial: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func resetear_bola() -> void:
-	emit_signal("bola_blanca_reposicionada")
+	#obtener el palo por grupo palo
+	var palo = get_tree().get_nodes_in_group("palo")
+	if palo.size() > 0:
+		var palo_obj = palo[0]
+		if not palo_obj.reseteando_bola_blanca:
+			emit_signal("bola_blanca_reposicionada")
 
 func eliminar_bola() -> void:
 	# Eliminar la bola blanca del juego
@@ -47,3 +54,9 @@ func desactivar_rebote() -> void:
 
 func is_bola_activa() -> bool:
 	return bola_activa
+
+func set_daño(value: int) -> void:
+	daño = value
+
+func get_daño() -> int:
+	return daño

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpkgr8h35xoe7"]
+
+[ext_resource type="PackedScene" uid="uid://7x1h6uwyq7dq" path="res://Scenes/Objetos/objeto_base.tscn" id="1_kj0ug"]
+[ext_resource type="PackedScene" uid="uid://cjbexi1r7c1dr" path="res://Models/vaso.tscn" id="2_w6122"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kj0ug"]
+height = 0.267273
+radius = 0.119629
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_w6122"]
+height = 0.316467
+radius = 0.169922
+
+[node name="Objeto_Vaso" instance=ExtResource("1_kj0ug")]
+tipo_objeto = 1
+
+[node name="Vaso" parent="." index="0" instance=ExtResource("2_w6122")]
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00768185, 0)
+shape = SubResource("CylinderShape3D_kj0ug")
+
+[node name="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0171325, 0)
+shape = SubResource("CylinderShape3D_w6122")

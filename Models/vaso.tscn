@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=4 uid="uid://cjbexi1r7c1dr"]
+
+[ext_resource type="Texture2D" uid="uid://ddmpghjvbtmda" path="res://Models/billarScene2_bottleUVs.png" id="1_nof8w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f43js"]
+resource_name = "botle1"
+cull_mode = 2
+albedo_texture = ExtResource("1_nof8w")
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ghkfw"]
+_surfaces = [{
+"aabb": AABB(-0.866025, -1, -1, 1.73205, 2, 2),
+"format": 34896613377,
+"index_count": 168,
+"index_data": PackedByteArray("AAABAAIAAwACAAEABAAAAAIABAACAAUABgAFAAIABgACAAMABgAHAAUABAAFAAcAAwAIAAYABAAJAAAABgAKAAcACgAGAAgABAAHAAsACgAMAAcACwAHAAwABAALAA0ABAAOAAkABAANAA4ACwAPAA0ADgANAA8ACwAMABAACwAQAA8ADgARAAkAAAAJABEADgAPABIAEAASAA8ADgASABEAEAATABIAAAARABQAFAARABIAFAASABMAAAAUAAEAEAAVABMAFAATABUAFAAVAAEAEAAMABUAFgABABUAAwABABYAFwAVAAwACgAXAAwAFgAVABgAFwAYABUAFgAZAAMAAwAZAAgAGAAaABYAFgAaABkAGAAXABsAFwAKABwACgAIABwAFwAcABsAGQAaAB0AGQAdAAgAGAAdABoAHAAIAB0AGAAbAB0AHAAdABsA"),
+"name": "botle1",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 30,
+"vertex_data": PackedByteArray("//+QE/8/AAD//////78AAP//////PwAARO7//9xIAAD/f5ATAAAAAP9///8AAAAA/3///5caAAAAAP///z8AAP9/SNyXGgAAaOkAAEtLAAC6Ef//3EgAAAAAkBP/PwAAAAD///+/AACWFgAAS0sAAP9/AACWFgAAlhYAALO0AAAAAJAT/78AAGjpAACztAAA/38AAGjpAAD/f5AT//8AAP//kBP/vwAA/3//////AABE7v//IrcAALoR//8itwAA/3///2flAABE7kjc3EgAAETuSNwitwAAuhFI3CK3AAC6EUjc3EgAAP9/SNxn5QAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wymfv"]
+resource_name = "billarScene2_0_Cylinder_033"
+_surfaces = [{
+"aabb": AABB(-0.866025, -1, -1, 1.73205, 2, 2),
+"attribute_data": PackedByteArray("f+AhSnnLZxt64GUbb8siSm/LIkqatWsbectnG5+1K0p29iVKeuBlG3n2ZRt/4CFKdvYlSoHgCVd/4CFKcPZTZn/gIUpsyw1Xb8siSoHgCVdvyyJKo7VWZp+1K0psyw1XcPZTZmzLDVeB4AlXo7VWZmzLDVeB4AlXdPa4F3rgZRt64LsXectnG3n2ZRt4y70XeuBlG5q1axt64LsXmrW+F3nLZxt4y70XmrW+F3bLDhB4y70XmbUOEHjLvRd64AwQeuC7F3bLDhB64LsXcPYHEHT2uBd64AwQoeskj+jajaro2gmHoetzoqHrJI+h63Oif+AhSnnLZxtvyyJKeuBlG2/LIkqatWsbn7UrSnnLZxt29iVKeuBlG3/gIUp59mUbdvYlSoHgCVdw9lNmf+AhSn/gIUpsyw1XgeAJV2/LIkpvyyJKo7VWZmzLDVeftStKmrW+F3bLDhCZtQ4QeMu9F3jLvRd64AwQdssOEHrguxd64LsXcPYHEHrgDBB09rgX"),
+"format": 34896613399,
+"index_count": 168,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAGAAcABsAGAAdABwAHgAfACAAIAAfACEAHgAiAB8AIAAhACMAHgAkACIAIwAhACUAHgAmACQAIwAlACcAJgAoACQAKQAnACUAJgApACgAKQAlACgAKgArACwAKgAtACsALgAvADAALgAxAC8AMgAzADQAMgA1ADMANgA3ADgANgA5ADcAOgA4ADcAOgA3ADsAPAA9AD4APAA/AD0AQABBAEIAQABDAEEARABFAEYARABHAEUASABJAEoASABLAEkATABNAE4ATABPAE0AUABRAFIAUABTAFEAVABVAFYAVABXAFUAWABZAFoAWABbAFkAXABdAF4AXABfAF0A"),
+"material": SubResource("StandardMaterial3D_f43js"),
+"name": "botle1",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 96,
+"vertex_data": PackedByteArray("//+QE/8//7///////7//v///////P/+///+QE/+//7///5AT/79Ulf9//////1SV//////+/VJX/f5AT//9Ulf9/kBMAAKnq//////8/qer/f///AACp6v//kBP/P6nq/3+QEwAArepo6QAAS0sS7P//kBP/P1Ds/38AAJYWSOr//5AT/z/9xWjpAACztPzF//+QE/+//MVo6QAAS0v9xf//kBP/v/Kp/38AAGjpiab/f5AT//8mpmjpAACztDmr/38AAJYWrSpo6QAAs7RW1WjpAABLS1nV/38AAGjprCqWFgAAs7SsKpYWAABLS68q/3///5caUD3//////z9S40Tu///cSMvj//////+/Scr/f///AABEPUTu//8itwvKAAD///8/OTb/f/////8uDboR///cSIk2/3///2fl7gwAAP///79vHboR//8itxUd/3///2fl//9E7kjcIrf//0Tu//8it////39I3Gfl//9E7v//Irf//0TuSNzcSP//RO7//9xI//9E7kjcIrf//0Tu///cSPf//39I3Jca+f//f///lxr5/0TuSNzcSPf/RO5I3NxI/7//f0jcZ+UAAP9/SNyXGgAARO5I3CK3/7+6EUjc3EgAALoRSNwitwAAAACQE/8/AAAAAP///78AAAAAkBP/vwAAAAD///8/AAAAAJAT/78LAP9//////wcA/3+QE///DQAAAP///78FAP9/kBMAAAAAAAD///8/AAAAAJAT/z8AAP9///8AAAAA/3+QEwAArh2WFgAAS0uuHv9/AACWFmEdAACQE/8/2R4AAJAT/z9VFpYWAACztFQWlhYAAEtLVhYAAJAT/79UFgAAkBP/vx0S/38AAGjpjgmWFgAAs7SHFP9/kBP//xcI/3///2flYRK6EUjcIrdhEv9/SNxn5WESuhH//yK3YRK6Ef//Irf/P7oRSNzcSP8/uhFI3CK3/z+6Ef//3Ej/P7oR///cSJ1t/39I3JcanW26EUjc3Eidbf9///+XGp1tA4AHAAOACAAEgAkAAoAGABGAVwAMgD8ACIAqABaAawD2fwYA/H8CAACAAADyfwoAdnJdLgp2bCysdhQsdXHoLgJj/TkBY/45AWP+OQNj/TlJTUBU5D+rVCw9wFR3UCdUUFVXVVdVU1VbVVFVU1VVVVJVVlVOVVhVy+mYU/bN7Ru8zXobtN1qO6rpVVPy3ec7PN56PLPGZw2R3iQ9lMYqDVTOqRwozlMc///jl///45f4/xZo///jl/z/AMD8/wDA////v/z/AMD8/xvo/P8b6P3/G+j8/xvo////f/9//7//f/+//v//f/9//7//f/+//z//f/8//3//P/9//z//f/NkA4DzZAKA82QEgPNkAYD3/xKb//8Mm/X/E5tBG0KAMihwcfUjCHVZKXZwMCOvdflKCmr6Sgpq+UoLavpKCWpRZ2Nj+2rnYENmGWSaa3tg/H8CAPp/BAD9fwEA+X8EAPR/BQD0fwUA9H8FAPR/BQDGfwoA1H8HAMF/CwDZfwcA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ghkfw")
+
+[node name="Vaso" type="MeshInstance3D"]
+transform = Transform3D(0.132528, 0, 0, 0, 0.132528, 0, 0, 0, 0.132528, 0, 0, 0)
+mesh = SubResource("ArrayMesh_wymfv")
+skeleton = NodePath("")

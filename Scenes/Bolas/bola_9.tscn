@@ -7,6 +7,7 @@
 albedo_texture = ExtResource("2_rrj2k")
 
 [node name="Bola_9" instance=ExtResource("1_6jlc1")]
+tipo_bola = 8
 
 [node name="Bola" parent="." index="0"]
 material_override = SubResource("StandardMaterial3D_qpm5a")

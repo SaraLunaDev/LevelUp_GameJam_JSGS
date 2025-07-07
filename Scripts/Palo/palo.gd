@@ -9,13 +9,15 @@ extends Node3D
 @export var bola_blanca: PackedScene
 @export var bola_blanca_spawn: Node3D
 @export var cooldown_bola_blanca: float = 2.5
+var tiempo_bola_moviendose := 0.0
 
 @export_group("Palo")
 @export var punta_en_bola_blanca: Node3D
 @export var punta_palo: Node3D
 @export var rotacion_palo: Vector3 = Vector3(0, -90, -75)
 @export var cooldown_palo: float = 0.5
-@export var lerp_palo: float = 0.05
+@export var cooldown_palo_minimo: float = 0.1
+@export var lerp_palo: float = 0.1
 
 @export_group("Trayectoria")
 @export var distancia_entre_bolas: float = 0.2
@@ -33,12 +35,15 @@ extends Node3D
 var bola_blanca_instance: RigidBody3D
 var palo_posicionado: bool = false
 var lanzando: bool = false
-
+var reseteando_bola_blanca: bool = false
 var reseteando_potencia: bool = false
 var moviendo_bola: bool = false
 var potencia: float = 0.0
 var posicion_mouse
 var trayectoria_mesh: MeshInstance3D = null
+@onready var mesh_palo: MeshInstance3D = $PaloBillar
+var posicion_mesh_palo: Vector3
+var bola_moviendose: bool = false
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -46,9 +51,11 @@ var trayectoria_mesh: MeshInstance3D = null
 
 func _ready() -> void:
 	palo_posicionado = false
+	lanzando = false
+	posicion_mesh_palo = mesh_palo.position
 
 func _process(delta: float) -> void:
-	if palo_posicionado and not lanzando:
+	if palo_posicionado:
 		# Rotar el palo basado en la entrada del mouse
 		rotar_palo(delta)
 		# Mostrar la trayectoria del palo
@@ -100,23 +107,29 @@ func posicionar_palo() -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func rotar_palo(_delta: float) -> void:
+	# Limitar el mouse a un círculo alrededor del spawn de la bola blanca
+	var mouse_pos = posicion_mouse
 	var camera = get_viewport().get_camera_3d()
-	var ray_origin = camera.project_ray_origin(posicion_mouse)
-	var ray_dir = camera.project_ray_normal(posicion_mouse)
+	var ray_origin = camera.project_ray_origin(mouse_pos)
+	var ray_dir = camera.project_ray_normal(mouse_pos)
 	var ground_plane = Plane(Vector3.UP, bola_blanca_spawn.global_position.y)
 	var hit = ground_plane.intersects_ray(ray_origin, ray_dir)
 	if hit:
-		var dir = (hit - bola_blanca_spawn.global_position).normalized()
+		var center = bola_blanca_spawn.global_position
+		var dir = (hit - center)
+		var max_radius = 2.0 # Cambia este valor para ajustar el radio máximo
+		if dir.length() > max_radius:
+			dir = dir.normalized() * max_radius
+			hit = center + dir
+		dir = (hit - center).normalized()
 		var target_angle = atan2(dir.x, dir.z) + deg_to_rad(90)
 		var current_angle = deg_to_rad(rotation_degrees.y)
-		# Guardar la posicion de la punta
-		var punta_pos_antes = punta_en_bola_blanca.global_position
-		# Interpolacion to wapa
+		# Interpolacion suave
 		var smooth_angle = lerp_angle(current_angle, target_angle, lerp_palo)
 		rotation_degrees.y = rad_to_deg(smooth_angle)
 		# Mantener la punta en el mismo sitio
-		var punta_pos_despues = punta_en_bola_blanca.global_position
-		global_position += punta_pos_antes - punta_pos_despues
+		var offset = punta_en_bola_blanca.global_position - global_position
+		global_position = bola_blanca_spawn.global_position - offset
 
 func mostrar_trayectoria() -> void:
 	var bola = get_bola_blanca()
@@ -124,7 +137,7 @@ func mostrar_trayectoria() -> void:
 		return
 
 	var radio_bola = 0.093
-	var direction = (bola.global_position - punta_palo.global_position).normalized()
+	var direction = (bola_blanca_spawn.global_position - punta_palo.global_position).normalized()
 	direction.y = 0
 
 	var puntos = []
@@ -181,17 +194,19 @@ func mostrar_trayectoria() -> void:
 
 	var pos_actual = bola_blanca_spawn.global_position
 	var esfera_idx = 0
+	var distancia_acumulada = 0.0
 	for seg_idx in range(puntos.size()):
 		var seg_inicio = pos_actual
 		var seg_fin = puntos[seg_idx]
 		var seg_dir = (seg_fin - seg_inicio).normalized()
 		var seg_dist = seg_inicio.distance_to(seg_fin)
-		var t = 0.0
-		while t < seg_dist and esfera_idx < esferas.size():
+		while distancia_acumulada < seg_dist and esfera_idx < esferas.size():
+			var punto = seg_inicio + seg_dir * distancia_acumulada
 			esferas[esfera_idx].visible = true
-			esferas[esfera_idx].position = bola_blanca_spawn.to_local(seg_inicio + seg_dir * t)
+			esferas[esfera_idx].position = bola_blanca_spawn.to_local(punto)
 			esfera_idx += 1
-			t += distancia_entre_bolas
+			distancia_acumulada += distancia_entre_bolas
+		distancia_acumulada -= seg_dist
 		pos_actual = seg_fin
 	for i in range(esfera_idx, esferas.size()):
 		esferas[i].visible = false
@@ -205,6 +220,13 @@ func eliminar_trayectoria() -> void:
 func aplicar_potencia(_delta: float) -> void:
 	if not palo_posicionado:
 		return
+	var bola = get_bola_blanca()
+	if not bola:
+		return
+	# Solo aplicar si la bola está en la posición de bola spawn (con tolerancia)
+	var tolerancia = 0.01
+	if bola.global_position.distance_to(bola_blanca_spawn.global_position) > tolerancia:
+		return
 	potencia = min(potencia + velocidad_lanzamiento * _delta, potencia_maxima)
 	actualizar_posicion_palo()
 
@@ -212,9 +234,12 @@ func resetear_potencia() -> void:
 	if not palo_posicionado:
 		return
 	reseteando_potencia = true
-	eliminar_trayectoria()
 	var potencia_inicial = potencia
 	var tiempo := 0.0
+
+	# Desactivar rotación del palo durante el retorno
+	var rotacion_original = palo_posicionado
+	palo_posicionado = false
 
 	while tiempo < tiempo_retorno_palo:
 		var t: float = (tiempo / tiempo_retorno_palo)
@@ -224,10 +249,14 @@ func resetear_potencia() -> void:
 		await get_tree().process_frame
 		tiempo += get_process_delta_time()
 
+	# Restaurar la rotación del palo
+	palo_posicionado = rotacion_original
+
 	# Calcular la direccion desde la punta del palo hacia el spawn de la bola blanca
 	var bola = get_bola_blanca()
 	if bola:
-		var direccion = (bola.global_position - punta_palo.global_position).normalized()
+		bola_moviendose = true
+		var direccion = (bola_blanca_spawn.global_position - punta_palo.global_position).normalized()
 		direccion.y = 0
 		bola.mover_bola(direccion, potencia_inicial)
 
@@ -236,40 +265,51 @@ func resetear_potencia() -> void:
 	while lanzando and tiempo_espera < cooldown_bola_blanca:
 		await get_tree().process_frame
 		tiempo_espera += get_process_delta_time()
-	if lanzando:
-		await resetear_bola_blanca()
+	reseteando_potencia = false
 
 func actualizar_posicion_palo() -> void:
 	# Ajusta la distancia del palo respecto al spawn de la bola blanca segun la potencia
 	var offset = punta_en_bola_blanca.global_position - global_position
-	global_position = bola_blanca_spawn.global_position - offset * (1 + (potencia / 2.0) / potencia_maxima)
-
+	global_position = bola_blanca_spawn.global_position - offset * (1 + (potencia / 4.0) / potencia_maxima)
+	
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Estados de la Bola Blanca
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func resetear_bola_blanca() -> void:
+	if reseteando_bola_blanca:
+		return
+	tiempo_bola_moviendose = 0.0
+	bola_moviendose = false
+	reseteando_bola_blanca = true
 	var bola = get_bola_blanca()
 	if bola:
 		bola.freeze = true
 		var start_pos = bola.global_position
 		var end_pos = bola_blanca_spawn.global_position
 		var t := 0.0
-		var duration := 0.3
+		var duration := 0.2
 		while t < 1.0:
 			bola.global_position = start_pos.lerp(end_pos, t)
 			await get_tree().process_frame
 			t += get_process_delta_time() / duration
 		bola.global_position = end_pos
-		potencia = 0.0
 		bola.freeze = false
 		if palo_posicionado:
 			actualizar_posicion_palo()
-	else:
-		potencia = 0.0
 		
 	lanzando = false
 	reseteando_potencia = false
+	reseteando_bola_blanca = false
+
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+# Bufos
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+
+func reducir_cooldown_palo(cantidad_reduccion: float) -> void:
+	# Reducir el cooldown del palo
+	velocidad_lanzamiento = max(velocidad_lanzamiento + cantidad_reduccion, cooldown_palo_minimo)
+	print("Cooldown del palo reducido a: ", velocidad_lanzamiento)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
@@ -311,3 +351,9 @@ func get_potencia_maxima():
 
 func set_potencia_maxima(value: float):
 	potencia_maxima = value
+
+func set_velocidad_lanzamiento(value: float):
+	velocidad_lanzamiento = value
+
+func get_velocidad_lanzamiento():
+	return velocidad_lanzamiento

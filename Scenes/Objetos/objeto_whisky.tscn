@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://5fmw8lswb1ln"]
+
+[ext_resource type="PackedScene" uid="uid://7x1h6uwyq7dq" path="res://Scenes/Objetos/objeto_base.tscn" id="1_y487d"]
+[ext_resource type="PackedScene" uid="uid://b7dw5n1s6oaap" path="res://Models/whisky.tscn" id="2_lisq4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y487d"]
+size = Vector3(0.34758, 0.686951, 0.20166)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lisq4"]
+size = Vector3(0.460876, 0.769775, 0.330139)
+
+[node name="Objeto_Whisky" instance=ExtResource("1_y487d")]
+
+[node name="Whisky_004" parent="." index="0" instance=ExtResource("2_lisq4")]
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00281525, 0.209159, -0.00756836)
+shape = SubResource("BoxShape3D_y487d")
+
+[node name="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038147, 0.213696, -0.00869751)
+shape = SubResource("BoxShape3D_lisq4")
