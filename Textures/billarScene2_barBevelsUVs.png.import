@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx4uu5lwjcwte"
-path.s3tc="res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"
+uid="uid://cy6hm8xdjmcby"
+path.s3tc="res://.godot/imported/billarScene2_barBevelsUVs.png-ff36a41ba5b9c95b8e347eb0cb27b6dd.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "80783617b589207f4f57749ee22c2481"
+"md5": "7f0615ad83c35e99875ab987048d755e"
 }
 
 [deps]
 
-source_file="res://Textures/billarScene_mesaBillarUVs.png"
-dest_files=["res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"]
+source_file="res://Textures/billarScene2_barBevelsUVs.png"
+dest_files=["res://.godot/imported/billarScene2_barBevelsUVs.png-ff36a41ba5b9c95b8e347eb0cb27b6dd.s3tc.ctex"]
 
 [params]
 

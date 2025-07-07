@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnly4ljfnnt3j"]
+
+[ext_resource type="PackedScene" uid="uid://dvs37p5vprpeh" path="res://Models/bar.glb" id="1_a1isu"]
+
+[node name="bar" instance=ExtResource("1_a1isu")]
+
+[node name="Vaso_009" parent="." index="78"]
+visible = false

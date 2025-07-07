@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx4uu5lwjcwte"
-path.s3tc="res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"
+uid="uid://cdprxb2lcabfp"
+path.s3tc="res://.godot/imported/billarScene2_mesaBillarUVs.png-96cc4e328cbe8df8252dc850c3f4b900.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Textures/billarScene_mesaBillarUVs.png"
-dest_files=["res://.godot/imported/billarScene_mesaBillarUVs.png-1e8577faffe4351c5ecc79280a4e05c6.s3tc.ctex"]
+source_file="res://Textures/billarScene2_mesaBillarUVs.png"
+dest_files=["res://.godot/imported/billarScene2_mesaBillarUVs.png-96cc4e328cbe8df8252dc850c3f4b900.s3tc.ctex"]
 
 [params]
 
