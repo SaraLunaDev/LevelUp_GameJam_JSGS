@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dflb8u4fmukdm"]
+
+[ext_resource type="PackedScene" uid="uid://dkyoei4y4ha5i" path="res://Scenes/Bolas/bola_base.tscn" id="1_6jlc1"]
+[ext_resource type="Texture2D" uid="uid://dros7sn8ol5ap" path="res://Textures/Bola9.png" id="2_rrj2k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpm5a"]
+albedo_texture = ExtResource("2_rrj2k")
+
+[node name="Bola_9" instance=ExtResource("1_6jlc1")]
+tipo_bola = 8
+
+[node name="Bola" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_qpm5a")
