@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://37qdnl666ni0"]
+
+[ext_resource type="Script" uid="uid://c1nen411o4q4r" path="res://Scripts/Audio/AudioManager.gd" id="1_4rlc4"]
+
+[node name="AudioManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_4rlc4")
+
+[node name="MenuSongPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+volume_db = -6.0
+
+[node name="GameSongPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+volume_db = -12.0
+
+[node name="AmbiencePlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+volume_db = -18.0
+autoplay = true
+mix_target = 2
+
+[node name="PrioritySFXAudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+volume_db = -6.0
+autoplay = true
+mix_target = 2
+
+[node name="PrioritySFXAudioPlayer3D" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
