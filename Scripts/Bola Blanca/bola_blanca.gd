@@ -10,7 +10,6 @@ var daño: int = 1
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func _process(_delta: float) -> void:
-	# Obtener actividad de la bola si ha sido golpeada
 	if linear_velocity.length() > 0.1:
 		bola_activa = true
 
@@ -28,7 +27,6 @@ func mover_bola(direccion: Vector3, potencia_inicial: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func resetear_bola() -> void:
-	#obtener el palo por grupo palo
 	var palo = get_tree().get_nodes_in_group("palo")
 	if palo.size() > 0:
 		var palo_obj = palo[0]
@@ -36,17 +34,8 @@ func resetear_bola() -> void:
 			emit_signal("bola_blanca_reposicionada")
 
 func eliminar_bola() -> void:
-	# Eliminar la bola blanca del juego
 	queue_free()
 	bola_activa = false
-
-func activar_rebote() -> void:
-	# Activa la propiedad de rebote de la bola
-	physics_material_override.bounce = 1
-
-func desactivar_rebote() -> void:
-	# Desactiva la propiedad de rebote de la bola
-	physics_material_override.bounce = 0
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters

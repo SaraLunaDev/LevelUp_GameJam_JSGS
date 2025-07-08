@@ -4,11 +4,16 @@ extends Node3D
 # Variables
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
+@export_group("Referencias de Escena")
+@export var buffs_manager: Node = null
+@export var game_manager: Node = null
+
 # Exportadas
 @export_group("Bola Blanca")
 @export var bola_blanca: PackedScene
 @export var bola_blanca_spawn: Node3D
 @export var cooldown_bola_blanca: float = 2.5
+@export var retorno_bola_blanca: float = 0.4
 var tiempo_bola_moviendose := 0.0
 
 @export_group("Palo")
@@ -56,11 +61,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if palo_posicionado:
-		# Rotar el palo basado en la entrada del mouse
 		rotar_palo(delta)
-		# Mostrar la trayectoria del palo
 		mostrar_trayectoria()
-	# Actualizar la posicion del mouse
+
 	posicion_mouse = get_viewport().get_mouse_position()
 
 	if lanzando and not reseteando_potencia:
@@ -71,16 +74,13 @@ func _process(delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func instanciar_bola_blanca() -> void:
-	# Eliminar bolas blancas existentes
 	for bola in get_tree().get_nodes_in_group("bola_blanca"):
 		bola.eliminar_bola()
 
-	# Instanciar nueva bola blanca
 	bola_blanca_instance = bola_blanca.instantiate()
 	get_tree().current_scene.add_child(bola_blanca_instance)
 	bola_blanca_instance.global_position = bola_blanca_spawn.global_position
 
-	# Conectar las señales de las areas de los boquetes pa modificar el rebote de la bola cuando entre o salga
 	for boquete in get_tree().get_nodes_in_group("boquete"):
 		if boquete.has_signal("body_entered"):
 			boquete.connect("body_entered", Callable(bola_blanca_instance, "_on_boquetes_body_entered"))
@@ -109,7 +109,6 @@ func posicionar_palo() -> void:
 func rotar_palo(delta: float) -> void:
 	var mouse_vel = Input.get_last_mouse_velocity().x
 	if mouse_vel != 0:
-		# Suaviza la rotación usando lerp
 		var target_rot = rotation_degrees.y - mouse_vel * delta * 0.75
 		rotation_degrees.y = lerp(rotation_degrees.y, target_rot, lerp_palo)
 	actualizar_posicion_palo()
@@ -154,7 +153,6 @@ func mostrar_trayectoria() -> void:
 	for i in range(1, puntos.size()):
 		total_dist += puntos[i - 1].distance_to(puntos[i])
 	var num_esferas = int(total_dist / distancia_entre_bolas)
-	# Crear esferas a lo largo de la trayectoria
 	var esferas := []
 	for child in bola_blanca_spawn.get_children():
 		if child.name.begins_with("TrayectoriaEsfera"):
@@ -195,7 +193,6 @@ func mostrar_trayectoria() -> void:
 		esferas[i].visible = false
 
 func eliminar_trayectoria() -> void:
-	# Eliminar las esferas de trayectoria
 	for child in bola_blanca_spawn.get_children():
 		if child.name.begins_with("TrayectoriaEsfera"):
 			child.queue_free()
@@ -206,11 +203,10 @@ func aplicar_potencia(_delta: float) -> void:
 	var bola = get_bola_blanca()
 	if not bola:
 		return
-	# Solo aplicar si la bola está en la posición de bola spawn (con tolerancia)
 	var tolerancia = 0.01
 	if bola.global_position.distance_to(bola_blanca_spawn.global_position) > tolerancia:
 		return
-	potencia = min(potencia + velocidad_lanzamiento * _delta, potencia_maxima)
+	potencia = min(potencia + (velocidad_lanzamiento + buffs_manager.get_velocidad_lanzamiento()) * _delta, (potencia_maxima + buffs_manager.get_potencia_bola()))
 	actualizar_posicion_palo()
 
 func resetear_potencia() -> void:
@@ -220,22 +216,18 @@ func resetear_potencia() -> void:
 	var potencia_inicial = potencia
 	var tiempo := 0.0
 
-	# Desactivar rotación del palo durante el retorno
 	var rotacion_original = palo_posicionado
 	palo_posicionado = false
 
 	while tiempo < tiempo_retorno_palo:
 		var t: float = (tiempo / tiempo_retorno_palo)
-		# Ease In
 		potencia = potencia_inicial * (1.0 - t * t)
 		actualizar_posicion_palo()
 		await get_tree().process_frame
 		tiempo += get_process_delta_time()
 
-	# Restaurar la rotación del palo
 	palo_posicionado = rotacion_original
 
-	# Calcular la direccion desde la punta del palo hacia el spawn de la bola blanca
 	var bola = get_bola_blanca()
 	if bola:
 		bola_moviendose = true
@@ -243,7 +235,6 @@ func resetear_potencia() -> void:
 		direccion.y = 0
 		bola.mover_bola(direccion, potencia_inicial)
 
-	# Esperar cooldown solo si lanzando sigue siendo true
 	var tiempo_espera := 0.0
 	while lanzando and tiempo_espera < cooldown_bola_blanca:
 		await get_tree().process_frame
@@ -251,10 +242,9 @@ func resetear_potencia() -> void:
 	reseteando_potencia = false
 
 func actualizar_posicion_palo() -> void:
-	# Ajusta la distancia del palo respecto al spawn de la bola blanca segun la potencia
 	var offset = punta_en_bola_blanca.global_position - global_position
-	global_position = bola_blanca_spawn.global_position - offset * (1 + (potencia / 4.0) / potencia_maxima)
-	
+	var potencia_visual = min(potencia, potencia_maxima)
+	global_position = bola_blanca_spawn.global_position - offset * (1 + (potencia_visual / 6.0) / potencia_maxima)
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Estados de la Bola Blanca
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -271,11 +261,10 @@ func resetear_bola_blanca() -> void:
 		var start_pos = bola.global_position
 		var end_pos = bola_blanca_spawn.global_position
 		var t := 0.0
-		var duration := 0.2
 		while t < 1.0:
 			bola.global_position = start_pos.lerp(end_pos, t)
 			await get_tree().process_frame
-			t += get_process_delta_time() / duration
+			t += get_process_delta_time() / (retorno_bola_blanca - buffs_manager.get_retorno_bola())
 		bola.global_position = end_pos
 		bola.freeze = false
 		if palo_posicionado:
@@ -284,15 +273,6 @@ func resetear_bola_blanca() -> void:
 	lanzando = false
 	reseteando_potencia = false
 	reseteando_bola_blanca = false
-
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Bufos
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-
-func reducir_cooldown_palo(cantidad_reduccion: float) -> void:
-	# Reducir el cooldown del palo
-	velocidad_lanzamiento = max(velocidad_lanzamiento + cantidad_reduccion, cooldown_palo_minimo)
-	print("Cooldown del palo reducido a: ", velocidad_lanzamiento)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
