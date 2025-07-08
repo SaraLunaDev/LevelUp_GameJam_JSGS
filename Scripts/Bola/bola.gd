@@ -53,7 +53,6 @@ func _physics_process(_delta: float) -> void:
 	direccion.y = 0
 	var fuerza = direccion.normalized() * aceleracion * mass
 
-	# Limitar la velocidad maxima
 	if linear_velocity.length() > VELOCIDAD_MAXIMA:
 		linear_velocity = linear_velocity.normalized() * VELOCIDAD_MAXIMA
 	else:
@@ -64,33 +63,53 @@ func _physics_process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func recibir_golpe(daño: int) -> void:
-	# Reducir la vida del objeto al recibir daño
 	# TODO: Aplicar efectos visuales o sonoros al recibir daño
 	vida -= daño
 	if vida <= 0:
 		eliminar_bola()
 
 func eliminar_bola() -> void:
-	# Eliminar la bola del juego
 	aplicar_efecto()
 	# TODO: Aplicar efectos visuales o sonoros al morir
-	# TODO: Sumar al contador de puntos
+	
+	var game_manager = get_tree().get_nodes_in_group("game_manager")
+	if game_manager.size() > 0:
+		var game_manager_obj = game_manager[0]
+		if game_manager_obj.has_method("sumar_puntuacion"):
+			game_manager_obj.sumar_puntuacion(1)
+
+		if game_manager_obj.has_method("get_puntuacion"):
+			if game_manager_obj.get_puntuacion() % 10 == 0:
+				if game_manager_obj.has_method("sumar_vida"):
+					game_manager_obj.sumar_vida(1)
+	
 	queue_free()
 	bola_activa = false
 
 func suicidar_bola() -> void:
+	var game_manager = get_tree().get_nodes_in_group("game_manager")
+	if game_manager.size() > 0:
+		var game_manager_obj = game_manager[0]
+		if game_manager_obj.has_method("restar_vida"):
+			game_manager_obj.restar_vida(1)
+		
 	queue_free()
 	bola_activa = false
 
-# en base al tipo de bola al morir deben dar una ventaja al jugador, por ahora todas van a reducir el cooldown del palo buscando por su grupo "palo"
 func aplicar_efecto() -> void:
-	var palo = get_tree().get_nodes_in_group("palo")
-	if palo.size() > 0:
-		var palo_obj = palo[0]
+	var buffs_manager = get_tree().get_nodes_in_group("buffs_manager")
+	if buffs_manager.size() > 0:
+		var buffs_manager_obj = buffs_manager[0]
 		match tipo_bola:
-			_:
-				if palo_obj.has_method("reducir_cooldown_palo"):
-					palo_obj.reducir_cooldown_palo(0.1)
+			TipoBola.TIPO_1, TipoBola.TIPO_2, TipoBola.TIPO_3, TipoBola.TIPO_4, TipoBola.TIPO_5, TipoBola.TIPO_6, TipoBola.TIPO_7:
+				if buffs_manager_obj.has_method("aumentar_velocidad_lanzamiento"):
+					buffs_manager_obj.aumentar_velocidad_lanzamiento(buffs_manager_obj.velocidad_lanzamiento_incremento)
+			TipoBola.TIPO_9, TipoBola.TIPO_10, TipoBola.TIPO_11, TipoBola.TIPO_12, TipoBola.TIPO_13, TipoBola.TIPO_14, TipoBola.TIPO_15:
+				if buffs_manager_obj.has_method("aumentar_retorno_bola"):
+					buffs_manager_obj.aumentar_retorno_bola(buffs_manager_obj.retorno_bola_decremento)
+			TipoBola.TIPO_8:
+				if buffs_manager_obj.has_method("aumentar_potencia_bola"):
+					buffs_manager_obj.aumentar_potencia_bola(buffs_manager_obj.potencia_bola_incremento)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Setters y Getters
