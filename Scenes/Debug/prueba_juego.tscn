@@ -48,7 +48,7 @@ dof_blur_amount = 0.06
 
 [node name="PruebaJuego" type="Node3D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "palo", "camara", "spawn_area", "area_boquetes", "spawn_bola_blanca", "vida_label", "puntuacion_label", "vida_maxima_label", "boquetes") groups=["game_manager"]]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "palo", "camara", "spawn_area", "area_boquetes", "spawn_bola_blanca", "vida_label", "puntuacion_label", "vida_maxima_label", "global_timer_label", "boquetes") groups=["game_manager"]]
 script = ExtResource("1_c26n1")
 buffs_manager = NodePath("../BuffsManager")
 palo = NodePath("../Palo")
@@ -59,6 +59,7 @@ spawn_bola_blanca = NodePath("../SpawnBlanca")
 vida_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer2/Vidas")
 puntuacion_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer/Puntos")
 vida_maxima_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer2/VidaMaxima")
+global_timer_label = NodePath("../Control/VBoxContainer3/HBoxContainer/Timer")
 boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), NodePath("../Boquetes/Boquete3"), NodePath("../Boquetes/Boquete4"), NodePath("../Boquetes/Boquete5"), NodePath("../Boquetes/Boquete6")]
 bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7"), ExtResource("5_xhqt2"), ExtResource("6_lx6m1"), ExtResource("7_c6pg2"), ExtResource("8_gqvos"), ExtResource("9_k7vqf"), ExtResource("10_052qh"), ExtResource("11_ypxt0"), ExtResource("12_iupe7"), ExtResource("13_lrfhe"), ExtResource("14_vgul8"), ExtResource("15_pidso"), ExtResource("16_4u777")])
 objetos = Array[PackedScene]([ExtResource("17_gqvos"), ExtResource("18_k7vqf"), ExtResource("19_052qh")])
@@ -78,6 +79,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Control"]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 97.0
@@ -157,6 +159,17 @@ expand_mode = 3
 [node name="Lb_RetrocesoBola" type="Label" parent="Control/VBoxContainer3/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 text = "-0.000"
+
+[node name="HSeparator2" type="HSeparator" parent="Control/VBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer3"]
+layout_mode = 2
+alignment = 1
+
+[node name="Timer" type="Label" parent="Control/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "00:00"
 
 [node name="SpawnArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)

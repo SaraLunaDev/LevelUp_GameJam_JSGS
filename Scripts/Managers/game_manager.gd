@@ -17,6 +17,7 @@ class_name GameManager
 @export var vida_label: Label = null
 @export var puntuacion_label: Label = null
 @export var vida_maxima_label: Label = null
+@export var global_timer_label: Label = null
 
 @export_group("Gestion de Partida")
 @export var vida: int
@@ -45,6 +46,7 @@ var bolas_activas: Array[Node3D] = []
 var puede_spawnear_objeto := true
 var objetos_activos: Array[Node3D] = []
 var partida_iniciada: bool = false
+var global_timer_seconds: float = 0.0
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -80,7 +82,13 @@ func _process(_delta: float) -> void:
 		cooldown_bola_spawn -= decremento_de_cooldown_bola_spawn * _delta
 		if cooldown_bola_spawn < cooldown_bola_spawn_minimo:
 			cooldown_bola_spawn = cooldown_bola_spawn_minimo
-
+	
+	if global_timer_seconds >= 0:
+		global_timer_seconds += _delta
+		var minutes = int(floor(global_timer_seconds / 60.0))
+		var seconds = int(global_timer_seconds) % 60
+		global_timer_label.text = "%02d:%02d" % [minutes, seconds]
+	
 func _physics_process(_delta: float) -> void:
 	if partida_iniciada:
 		if Input.is_action_pressed("left_click"):
