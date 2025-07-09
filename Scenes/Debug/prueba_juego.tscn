@@ -378,6 +378,7 @@ transform = Transform3D(-0.00610853, 0.499962, -0.866026, 0.999925, 0.012217, 6.
 buffs_manager = NodePath("../BuffsManager")
 game_manager = NodePath("../GameManager")
 bola_blanca_spawn = NodePath("../SpawnBlanca")
+cooldown_bola_blanca = 10.0
 rotacion_palo = Vector3(0, 90, -80)
 "tamaño_bolas_trayectoria" = 0.025
 numero_rebotes = 0

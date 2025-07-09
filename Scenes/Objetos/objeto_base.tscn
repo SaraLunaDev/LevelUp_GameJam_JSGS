@@ -11,6 +11,9 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_oowhv")
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 10
 linear_damp_mode = 1
 linear_damp = 0.5
 angular_damp_mode = 1
@@ -26,4 +29,5 @@ debug_color = Color(0, 0.6, 0.701961, 1)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.215283, 0)
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

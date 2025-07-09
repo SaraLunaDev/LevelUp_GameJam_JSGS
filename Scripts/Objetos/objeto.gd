@@ -88,7 +88,6 @@ func is_activa() -> bool:
 # Señales
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
+func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("bola_blanca"):
 		recibir_golpe(body.get_daño())
-		body.mover_hacia_bola_cercana()

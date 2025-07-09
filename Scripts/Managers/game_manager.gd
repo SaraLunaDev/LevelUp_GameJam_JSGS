@@ -311,7 +311,6 @@ func set_pasives(value: Array) -> void:
 	pasives = value
 
 func set_rebotes_guiados_label(text: String) -> void:
-	print("Actualizando etiqueta de rebotes guiados: ", text)
 	rebotes_guiados_label.text = text
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦

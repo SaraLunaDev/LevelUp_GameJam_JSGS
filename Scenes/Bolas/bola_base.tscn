@@ -57,6 +57,9 @@ radius = 0.102942
 [node name="Bola_Base" type="RigidBody3D" groups=["bola"]]
 mass = 0.15
 physics_material_override = SubResource("PhysicsMaterial_oowhv")
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 10
 linear_damp_mode = 1
 linear_damp = 0.5
 angular_damp_mode = 1
