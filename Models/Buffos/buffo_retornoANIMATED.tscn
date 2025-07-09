@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqr30lk4203v2"]
+
+[ext_resource type="PackedScene" uid="uid://ef5s6l7x851j" path="res://Models/Buffos/buffoRetorno.glb" id="1_52rm0"]
+[ext_resource type="Script" uid="uid://dmyreya8k3kpb" path="res://Scripts/buffo_retornoANIM.gd" id="2_gknu7"]
+
+[node name="buffoRetorno" instance=ExtResource("1_52rm0")]
+script = ExtResource("2_gknu7")

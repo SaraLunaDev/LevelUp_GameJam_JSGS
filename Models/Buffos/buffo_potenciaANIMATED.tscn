@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtq0u6qpytksi"]
+
+[ext_resource type="PackedScene" uid="uid://cahwxjwy0htj6" path="res://Models/Buffos/buffoPotencia.glb" id="1_yrjlk"]
+[ext_resource type="Script" uid="uid://b0lum7cidyyul" path="res://Scripts/buffo_potenciaAnim.gd" id="2_7y6ms"]
+
+[node name="buffoPotencia" instance=ExtResource("1_yrjlk")]
+script = ExtResource("2_7y6ms")
