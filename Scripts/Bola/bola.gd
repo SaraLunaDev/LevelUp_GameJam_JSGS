@@ -102,7 +102,7 @@ func suicidar_bola() -> void:
 		if game_manager_obj.has_method("restar_vida"):
 			game_manager_obj.restar_vida(1)
 		
-	queue_free()
+	call_deferred("queue_free")
 
 func aplicar_efecto() -> void:
 	var buffs_manager = get_tree().get_nodes_in_group("buffs_manager")

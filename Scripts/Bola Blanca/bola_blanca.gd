@@ -55,20 +55,8 @@ func mover_hacia_bola_cercana() -> void:
 		objetivo_cercano.linear_velocity = Vector3.ZERO
 		objetivo_cercano.angular_velocity = Vector3.ZERO
 
-		# Posicionar la bola blanca cerca del objetivo
 		var direccion := objetivo_cercano.global_transform.origin - global_transform.origin
 		direccion = direccion.normalized()
-		var spawn_bola_blanca = get_tree().get_first_node_in_group("spawn_bola_blanca")
-		var posicion_cercana: Vector3
-		if spawn_bola_blanca:
-			var direccion_spawn = (spawn_bola_blanca.global_transform.origin - objetivo_cercano.global_transform.origin).normalized()
-			posicion_cercana = objetivo_cercano.global_transform.origin + direccion_spawn * 0.5
-		else:
-			posicion_cercana = objetivo_cercano.global_transform.origin - direccion * 0.5
-		posicion_cercana.y = global_transform.origin.y
-		global_transform.origin = posicion_cercana
-
-		# Aplicar el impulso hacia el objetivo
 		var palos := get_tree().get_nodes_in_group("palo")
 		if palos.size() > 0 and palos[0].has_method("get_potencia_maxima"):
 			var potencia_inicial: float = palos[0].get_potencia_maxima()

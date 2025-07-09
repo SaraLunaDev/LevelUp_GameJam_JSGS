@@ -75,7 +75,7 @@ func eliminar_objeto() -> void:
 						game_manager_obj.sumar_vida(vida_maxima)
 			pass
 
-	queue_free()
+	call_deferred("queue_free")
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Setters y Getters
