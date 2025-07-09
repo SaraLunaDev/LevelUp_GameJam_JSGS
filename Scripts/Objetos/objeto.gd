@@ -4,7 +4,7 @@ extends RigidBody3D
 # Variables
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-var objeto_activa: bool = false
+var objeto_activo: bool = true
 
 enum TipoObjeto {
 	WHISKY,
@@ -51,7 +51,7 @@ func recibir_golpe(daño: int) -> void:
 		eliminar_objeto()
 
 func eliminar_objeto() -> void:
-	# TODO: Aplicar efectos visuales o sonoros al recibir morir
+	objeto_activo = false
 	match tipo_objeto:
 		TipoObjeto.VASO:
 			var game_manager = get_tree().get_nodes_in_group("game_manager")
@@ -76,7 +76,13 @@ func eliminar_objeto() -> void:
 			pass
 
 	queue_free()
-	objeto_activa = false
+
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+# Setters y Getters
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+
+func is_activa() -> bool:
+	return objeto_activo
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Señales
@@ -84,5 +90,5 @@ func eliminar_objeto() -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("bola_blanca"):
-		body.resetear_bola()
 		recibir_golpe(body.get_daño())
+		body.mover_hacia_bola_cercana()

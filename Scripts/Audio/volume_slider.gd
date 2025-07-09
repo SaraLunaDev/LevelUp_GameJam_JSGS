@@ -2,7 +2,7 @@ extends HSlider
 
 # Script para slider de audio en los menús
 
-@export var bus:AudioManager.AUDIOBUS
+@export var bus: AudioManager.AUDIOBUS
 
 func _init() -> void:
 	focus_entered.connect(_on_focus_entered)

@@ -27,10 +27,10 @@ boquete=""
 objeto=""
 bola=""
 spawn_blanca=""
-bandas=""
 buffs_manager=""
 game_manager=""
 palo=""
+banda=""
 
 [input]
 

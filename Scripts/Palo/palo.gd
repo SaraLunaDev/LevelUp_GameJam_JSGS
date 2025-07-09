@@ -219,7 +219,7 @@ func resetear_potencia() -> void:
 	var rotacion_original = palo_posicionado
 	palo_posicionado = false
 
-	while tiempo < tiempo_retorno_palo:
+	while tiempo < tiempo_retorno_palo and game_manager.partida_iniciada:
 		var t: float = (tiempo / tiempo_retorno_palo)
 		potencia = potencia_inicial * (1.0 - t * t)
 		actualizar_posicion_palo()
@@ -229,14 +229,14 @@ func resetear_potencia() -> void:
 	palo_posicionado = rotacion_original
 
 	var bola = get_bola_blanca()
-	if bola:
+	if bola and game_manager.partida_iniciada:
 		bola_moviendose = true
 		var direccion = (bola_blanca_spawn.global_position - punta_palo.global_position).normalized()
 		direccion.y = 0
 		bola.mover_bola(direccion, potencia_inicial)
 
 	var tiempo_espera := 0.0
-	while lanzando and tiempo_espera < cooldown_bola_blanca:
+	while lanzando and tiempo_espera < cooldown_bola_blanca and game_manager.partida_iniciada:
 		await get_tree().process_frame
 		tiempo_espera += get_process_delta_time()
 	reseteando_potencia = false
@@ -245,6 +245,7 @@ func actualizar_posicion_palo() -> void:
 	var offset = punta_en_bola_blanca.global_position - global_position
 	var potencia_visual = min(potencia, potencia_maxima)
 	global_position = bola_blanca_spawn.global_position - offset * (1 + (potencia_visual / 6.0) / potencia_maxima)
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Estados de la Bola Blanca
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -257,19 +258,30 @@ func resetear_bola_blanca() -> void:
 	reseteando_bola_blanca = true
 	var bola = get_bola_blanca()
 	if bola:
+		bola.set_numero_rebotes_guiados(0)
+		bola.set_activado_rebote_guiado(false)
 		bola.freeze = true
+		bola.set_transparencia(0.2)
 		var start_pos = bola.global_position
+		start_pos.y = bola_blanca_spawn.global_position.y
+		bola.global_position = start_pos
+
 		var end_pos = bola_blanca_spawn.global_position
 		var t := 0.0
 		while t < 1.0:
-			bola.global_position = start_pos.lerp(end_pos, t)
-			await get_tree().process_frame
+			var eased_t = t * t
+			bola.global_position = start_pos.lerp(end_pos, eased_t)
+			if get_tree():
+				await get_tree().process_frame
+			else:
+				break
 			t += get_process_delta_time() / (retorno_bola_blanca - buffs_manager.get_retorno_bola())
 		bola.global_position = end_pos
 		bola.freeze = false
 		if palo_posicionado:
 			actualizar_posicion_palo()
-		
+	
+	bola.set_transparencia(1)
 	lanzando = false
 	reseteando_potencia = false
 	reseteando_bola_blanca = false
@@ -282,6 +294,8 @@ func get_palo():
 	return self
 
 func get_bola_blanca():
+	if not get_tree():
+		return null
 	var bolas = get_tree().get_nodes_in_group("bola_blanca")
 	return bolas[0] if bolas.size() > 0 else null
 

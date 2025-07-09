@@ -5,18 +5,19 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
 friction = 0.5
 
-[node name="Objeto_Base" type="RigidBody3D"]
+[node name="Objeto_Base" type="RigidBody3D" groups=["objeto"]]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_oowhv")
-continuous_cd = true
-contact_monitor = true
 linear_damp_mode = 1
 linear_damp = 0.5
 angular_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_7mv2o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["bola"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["objeto"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.216819, 0)
 debug_color = Color(0, 0.6, 0.701961, 1)
 

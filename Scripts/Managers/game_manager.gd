@@ -18,6 +18,7 @@ class_name GameManager
 @export var puntuacion_label: Label = null
 @export var vida_maxima_label: Label = null
 @export var global_timer_label: Label = null
+@export var rebotes_guiados_label: Label = null
 
 @export_group("Gestion de Partida")
 @export var vida: int
@@ -116,7 +117,7 @@ func terminar_partida() -> void:
 	if vida <= 0:
 		print("Partida terminada.")
 		partida_iniciada = false
-		get_tree().reload_current_scene()
+		get_tree().call_deferred("reload_current_scene")
 		
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Gestion de Spawns
@@ -154,6 +155,10 @@ func spawn_bola() -> void:
 				break
 		for bola_blanca in get_tree().get_nodes_in_group("bola_blanca"):
 			if bola_blanca.global_position.distance_to(pos) < radio_proteccion_spawn_bola:
+				hay_cerca = true
+				break
+		for objeto in objetos_activos:
+			if objeto.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
 				hay_cerca = true
 				break
 		if hay_cerca:
@@ -222,11 +227,15 @@ func spawn_objeto() -> void:
 		)
 		var hay_cerca := false
 		for b in bolas_activas:
-			if b.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
+			if is_instance_valid(b) and b.global_position.distance_to(pos) < max(radio_proteccion_spawn_objetos, radio_proteccion_spawn_bola):
 				hay_cerca = true
 				break
 		for o in objetos_activos:
-			if o.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
+			if is_instance_valid(o) and o.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
+				hay_cerca = true
+				break
+		for b in bolas_activas:
+			if is_instance_valid(b) and b.global_position == pos:
 				hay_cerca = true
 				break
 
@@ -300,6 +309,10 @@ func get_pasives() -> Array:
 
 func set_pasives(value: Array) -> void:
 	pasives = value
+
+func set_rebotes_guiados_label(text: String) -> void:
+	print("Actualizando etiqueta de rebotes guiados: ", text)
+	rebotes_guiados_label.text = text
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Input y Debug

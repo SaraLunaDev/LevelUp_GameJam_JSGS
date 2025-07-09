@@ -48,7 +48,7 @@ dof_blur_amount = 0.06
 
 [node name="PruebaJuego" type="Node3D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "palo", "camara", "spawn_area", "area_boquetes", "spawn_bola_blanca", "vida_label", "puntuacion_label", "vida_maxima_label", "global_timer_label", "boquetes") groups=["game_manager"]]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "palo", "camara", "spawn_area", "area_boquetes", "spawn_bola_blanca", "vida_label", "puntuacion_label", "vida_maxima_label", "global_timer_label", "rebotes_guiados_label", "boquetes") groups=["game_manager"]]
 script = ExtResource("1_c26n1")
 buffs_manager = NodePath("../BuffsManager")
 palo = NodePath("../Palo")
@@ -60,9 +60,17 @@ vida_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer2/Vi
 puntuacion_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer/Puntos")
 vida_maxima_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer2/VidaMaxima")
 global_timer_label = NodePath("../Control/VBoxContainer3/HBoxContainer/Timer")
+rebotes_guiados_label = NodePath("../Control/VBoxContainer3/HBoxContainer2/Rebotes")
 boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), NodePath("../Boquetes/Boquete3"), NodePath("../Boquetes/Boquete4"), NodePath("../Boquetes/Boquete5"), NodePath("../Boquetes/Boquete6")]
 bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7"), ExtResource("5_xhqt2"), ExtResource("6_lx6m1"), ExtResource("7_c6pg2"), ExtResource("8_gqvos"), ExtResource("9_k7vqf"), ExtResource("10_052qh"), ExtResource("11_ypxt0"), ExtResource("12_iupe7"), ExtResource("13_lrfhe"), ExtResource("14_vgul8"), ExtResource("15_pidso"), ExtResource("16_4u777")])
+radio_proteccion_spawn_bola = 0.2
+cooldown_bola_spawn = 0.5
+decremento_de_cooldown_bola_spawn = 0.025
+cooldown_bola_spawn_minimo = 0.5
+limite_bolas = 10
 objetos = Array[PackedScene]([ExtResource("17_gqvos"), ExtResource("18_k7vqf"), ExtResource("19_052qh")])
+radio_proteccion_spawn_objetos = 0.2
+cooldown_objeto_spawn = 0.2
 
 [node name="BuffsManager" type="Node" parent="." node_paths=PackedStringArray("game_manager", "palo", "velocidad_lanzamiento_label", "retorno_bola_label", "potencia_bola_label") groups=["buffs_manager"]]
 script = ExtResource("20_iupe7")
@@ -171,6 +179,20 @@ alignment = 1
 layout_mode = 2
 text = "00:00"
 
+[node name="HSeparator3" type="HSeparator" parent="Control/VBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Lb_Rebotes" type="Label" parent="Control/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+text = "Rebotes:"
+
+[node name="Rebotes" type="Label" parent="Control/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+text = "10"
+
 [node name="SpawnArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
 
@@ -182,9 +204,9 @@ shape = SubResource("BoxShape3D_c26n1")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Colliders" groups=["billar"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0156965, 1.41181, -0.00825262)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0156965, 1.80486, -0.00825262)
 use_collision = true
-size = Vector3(3.24962, 0.787109, 5.78618)
+size = Vector3(3.24962, 0.001, 5.78618)
 material = SubResource("StandardMaterial3D_yucep")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Colliders" groups=["billar"]]
@@ -364,7 +386,7 @@ numero_rebotes = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.893, -1.8)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 9.70283e-09, 0.895673, 0.444713, -2.5053e-07, 0.444713, -0.895673, 0, 3.9751, -4.60027)
+transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 2.386e-08, 0.869081, 0.49467, -2.4958e-07, 0.49467, -0.869081, 0, 4.35471, -5.18325)
 attributes = SubResource("CameraAttributesPractical_ypxt0")
 fov = 50.0
 

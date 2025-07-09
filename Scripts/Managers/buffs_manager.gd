@@ -33,19 +33,16 @@ func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
 	velocidad_lanzamiento = min(velocidad_lanzamiento + cantidad, velocidad_lanzamiento_maxima)
 	if velocidad_lanzamiento_label:
 		velocidad_lanzamiento_label.text = str("+", velocidad_lanzamiento)
-	print("Cooldown del palo reducido a: ", velocidad_lanzamiento)
 
 func aumentar_retorno_bola(cantidad: float) -> void:
 	retorno_bola = min(retorno_bola + cantidad, retorno_bola_minimo)
 	if retorno_bola_label:
 		retorno_bola_label.text = str("-", retorno_bola)
-	print("Retorno de bola aumentado a: ", retorno_bola)
 
 func aumentar_potencia_bola(cantidad: float) -> void:
 	potencia_bola = min(potencia_bola + cantidad, potencia_bola_maxima)
 	if potencia_bola_label:
 		potencia_bola_label.text = str("+", potencia_bola)
-	print("Potencia de bola aumentada a: ", potencia_bola)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters

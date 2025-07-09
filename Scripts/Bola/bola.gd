@@ -4,13 +4,15 @@ extends RigidBody3D
 # Variables
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-var bola_activa: bool = false
+var bola_activa: bool = true
 var aceleracion: float = 1
 var VELOCIDAD_MAXIMA: float = 2
 var destino: Vector3 = Vector3.ZERO
 
 var VIDA_MAXIMA: int
 var vida: int
+
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
 enum TipoBola {
 	TIPO_1,
@@ -63,14 +65,13 @@ func _physics_process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func recibir_golpe(daño: int) -> void:
-	# TODO: Aplicar efectos visuales o sonoros al recibir daño
 	vida -= daño
 	if vida <= 0:
 		eliminar_bola()
 
 func eliminar_bola() -> void:
+	bola_activa = false
 	aplicar_efecto()
-	# TODO: Aplicar efectos visuales o sonoros al morir
 	
 	var game_manager = get_tree().get_nodes_in_group("game_manager")
 	if game_manager.size() > 0:
@@ -83,10 +84,18 @@ func eliminar_bola() -> void:
 				if game_manager_obj.has_method("sumar_vida"):
 					game_manager_obj.sumar_vida(1)
 	
+	collision_shape_3d.disabled = true
+	var fuerza_vertical = Vector3.UP * 1
+	var fuerza_horizontal = linear_velocity.normalized()
+	var fuerza = fuerza_vertical + fuerza_horizontal
+	apply_impulse(fuerza)
+	await get_tree().create_timer(1.0).timeout
 	queue_free()
-	bola_activa = false
-
+	
 func suicidar_bola() -> void:
+	if bola_activa == false:
+		return
+	bola_activa = false
 	var game_manager = get_tree().get_nodes_in_group("game_manager")
 	if game_manager.size() > 0:
 		var game_manager_obj = game_manager[0]
@@ -94,7 +103,6 @@ func suicidar_bola() -> void:
 			game_manager_obj.restar_vida(1)
 		
 	queue_free()
-	bola_activa = false
 
 func aplicar_efecto() -> void:
 	var buffs_manager = get_tree().get_nodes_in_group("buffs_manager")
@@ -118,10 +126,10 @@ func aplicar_efecto() -> void:
 func set_direccion(direccion: Vector3) -> void:
 	destino = global_transform.origin + direccion
 
-func set_bola_activa(value: bool) -> void:
+func set_activa(value: bool) -> void:
 	bola_activa = value
 
-func is_bola_activa() -> bool:
+func is_activa() -> bool:
 	return bola_activa
 
 func set_aceleracion(value: float) -> void:
@@ -148,5 +156,5 @@ func get_destino() -> Vector3:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("bola_blanca"):
-		body.resetear_bola()
 		recibir_golpe(body.get_daño())
+		body.mover_hacia_bola_cercana()
