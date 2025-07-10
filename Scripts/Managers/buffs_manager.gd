@@ -11,22 +11,30 @@ var bola_blanca: Node3D = null
 var bolas: Array[RigidBody3D] = []
 var objetos: Array[RigidBody3D] = []
 
-@export_group("Configuración de Buffs")
+@export_group("Configuración de Pasivas")
+
 @export_subgroup("Velocidad de Lanzamiento")
 @export var velocidad_lanzamiento: float = 0.0
 @export var velocidad_lanzamiento_incremento: float = 0.2
 @export var velocidad_lanzamiento_maxima: float = 14.0
+
 @export_subgroup("Retorno de Bola")
 @export var retorno_bola: float = 0.0
 @export var retorno_bola_decremento: float = 0.0025
 @export var retorno_bola_minimo: float = 0.3
+
 @export_subgroup("Potencia de Bola")
 @export var potencia_bola: float = 0.0
 @export var potencia_bola_incremento: float = 0.25
 @export var potencia_bola_maxima: float = 5.0
 
+@export_group("Rebotes Guiados")
+@export var numero_rebotes_guiados: int = 0
+@export var numero_rebotes_incremento: int = 1
+@export var numero_rebotes_guiados_maximo: int = 0
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Bufos 
+# Pasivas 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
@@ -43,6 +51,11 @@ func aumentar_potencia_bola(cantidad: float) -> void:
 	potencia_bola = min(potencia_bola + cantidad, potencia_bola_maxima)
 	if potencia_bola_label:
 		potencia_bola_label.text = str("+", potencia_bola)
+
+func aumentar_rebotes_guiados(cantidad: int) -> void:
+	numero_rebotes_guiados = min(numero_rebotes_guiados + cantidad, numero_rebotes_guiados_maximo)
+	if game_manager and game_manager.has_method("set_rebotes_guiados_label"):
+		game_manager.set_rebotes_guiados_label(str(numero_rebotes_guiados))
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
@@ -104,3 +117,22 @@ func get_potencia_bola_maxima() -> float:
 func set_potencia_bola_maxima(value: float) -> void:
 	potencia_bola_maxima = max(0.0, value)
 	potencia_bola = clamp(potencia_bola, 0.0, potencia_bola_maxima)
+
+func get_numero_rebotes_guiados() -> int:
+	return numero_rebotes_guiados
+
+func set_numero_rebotes_guiados(value: int) -> void:
+	numero_rebotes_guiados = clamp(value, 0, numero_rebotes_guiados_maximo)
+
+func get_numero_rebotes_incremento() -> int:
+	return numero_rebotes_incremento
+
+func set_numero_rebotes_incremento(value: int) -> void:
+	numero_rebotes_incremento = max(0, value)
+
+func get_numero_rebotes_guiados_maximo() -> int:
+	return numero_rebotes_guiados_maximo
+
+func set_numero_rebotes_guiados_maximo(value: int) -> void:
+	numero_rebotes_guiados_maximo = max(0, value)
+	numero_rebotes_guiados = clamp(numero_rebotes_guiados, 0, numero_rebotes_guiados_maximo)

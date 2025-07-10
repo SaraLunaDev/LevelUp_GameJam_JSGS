@@ -6,7 +6,7 @@ signal bola_blanca_reposicionada
 var daño: int = 1
 @onready var bola_mesh: MeshInstance3D = $Bola
 var numero_rebotes_guiados: int = 0
-var numero_rebotes_guiados_maximo: int = 100
+var numero_rebotes_guiados_maximo: int = 0
 var activado_rebote_guiado: bool = false
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
