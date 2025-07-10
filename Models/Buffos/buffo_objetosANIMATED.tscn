@@ -1,10 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdvsisxqmctfa"]
+[gd_scene load_steps=5 format=3 uid="uid://bdvsisxqmctfa"]
 
 [ext_resource type="PackedScene" uid="uid://csvj3en02l6b8" path="res://Models/Buffos/buffoObjetos.glb" id="1_xofxd"]
 [ext_resource type="Script" uid="uid://dj0nlcbh1n8k7" path="res://Scripts/buffo_objetosAnim.gd" id="2_hdveu"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xofxd"]
+albedo_color = Color(0, 0.713726, 0, 1)
+emission_enabled = true
+
+[sub_resource type="TextMesh" id="TextMesh_hdveu"]
+material = SubResource("StandardMaterial3D_xofxd")
+text = "1"
+depth = 0.023
+
 [node name="buffoObjetos" instance=ExtResource("1_xofxd")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 script = ExtResource("2_hdveu")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/position = Vector3(0, 0, 0)
+
+[node name="Label" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.561045, 0)
+mesh = SubResource("TextMesh_hdveu")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="3"]
+transform = Transform3D(-1.42857, -2.4978e-07, -1.2489e-07, -2.25662e-09, -0.628529, 1.28287, -2.79253e-07, 1.28287, 0.628529, 0, 1.08224, 0.655861)
+spot_range = 1.202
+spot_angle = 63.58

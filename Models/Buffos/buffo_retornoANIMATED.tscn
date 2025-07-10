@@ -1,7 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqr30lk4203v2"]
+[gd_scene load_steps=5 format=3 uid="uid://bqr30lk4203v2"]
 
 [ext_resource type="PackedScene" uid="uid://ef5s6l7x851j" path="res://Models/Buffos/buffoRetorno.glb" id="1_52rm0"]
 [ext_resource type="Script" uid="uid://dmyreya8k3kpb" path="res://Scripts/buffo_retornoANIM.gd" id="2_gknu7"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52rm0"]
+albedo_color = Color(0, 0.713726, 0, 1)
+emission_enabled = true
+
+[sub_resource type="TextMesh" id="TextMesh_52rm0"]
+material = SubResource("StandardMaterial3D_52rm0")
+text = "1"
+depth = 0.023
+
 [node name="buffoRetorno" instance=ExtResource("1_52rm0")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 script = ExtResource("2_gknu7")
+
+[node name="Label" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.561045, 0)
+mesh = SubResource("TextMesh_52rm0")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="3"]
+transform = Transform3D(-1.42857, -2.4978e-07, -1.2489e-07, -2.25662e-09, -0.628529, 1.28287, -2.79253e-07, 1.28287, 0.628529, 0, 1.08224, 0.655861)
+spot_range = 1.202
+spot_angle = 63.58
