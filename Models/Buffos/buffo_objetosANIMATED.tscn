@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdvsisxqmctfa"]
+
+[ext_resource type="PackedScene" uid="uid://csvj3en02l6b8" path="res://Models/Buffos/buffoObjetos.glb" id="1_xofxd"]
+[ext_resource type="Script" uid="uid://dj0nlcbh1n8k7" path="res://Scripts/buffo_objetosAnim.gd" id="2_hdveu"]
+
+[node name="buffoObjetos" instance=ExtResource("1_xofxd")]
+script = ExtResource("2_hdveu")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(0, 0, 0)
