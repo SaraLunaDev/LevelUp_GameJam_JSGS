@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=43 format=3 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
+[ext_resource type="PackedScene" uid="uid://dqjq7sved6u5w" path="res://Scenes/Bolas/bola_vida.tscn" id="2_fekwy"]
 [ext_resource type="PackedScene" uid="uid://vuhrfbw0v7uw" path="res://Scenes/Bolas/bola_1.tscn" id="2_fx1ok"]
 [ext_resource type="PackedScene" uid="uid://dx4sc6lo56cyf" path="res://Scenes/Bolas/bola_2.tscn" id="3_xewvi"]
 [ext_resource type="PackedScene" uid="uid://crlxdtt6kf75l" path="res://Scenes/Bolas/bola_3.tscn" id="4_5voe7"]
@@ -23,15 +24,23 @@
 [ext_resource type="Script" uid="uid://bukb1d8m2ooua" path="res://Scripts/Managers/buffs_manager.gd" id="20_iupe7"]
 [ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="21_iupe7"]
 [ext_resource type="Texture2D" uid="uid://b1qn3s4telsxg" path="res://Textures/Icconos/retroceso_palo.png" id="21_pidso"]
+[ext_resource type="PackedScene" uid="uid://cq485op5a3qth" path="res://Models/Buffos/buffo_paloANIMATED.tscn" id="21_v08tv"]
 [ext_resource type="Texture2D" uid="uid://chyk2s3krwdbi" path="res://Textures/Icconos/potencia_bola.png" id="22_4u777"]
+[ext_resource type="PackedScene" uid="uid://bqr30lk4203v2" path="res://Models/Buffos/buffo_retornoANIMATED.tscn" id="22_fekwy"]
 [ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
 [ext_resource type="Texture2D" uid="uid://bsw5m58nhetf" path="res://Textures/Icconos/retroceso_bola.png" id="23_cia7l"]
+[ext_resource type="PackedScene" uid="uid://dtq0u6qpytksi" path="res://Models/Buffos/buffo_potenciaANIMATED.tscn" id="23_m8bvx"]
 [ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
+[ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
+[ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
 [ext_resource type="PackedScene" uid="uid://cmugk03txtqpa" path="res://Models/NPCs/npcIdle.glb" id="29_4u777"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c26n1"]
 size = Vector3(2.04155, 0.001, 2.9303)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v08tv"]
+size = Vector3(1.83984, 0.001, 1.40544)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yucep"]
 transparency = 1
@@ -41,6 +50,15 @@ albedo_color = Color(1, 1, 1, 0)
 height = 0.610657
 radius = 0.179199
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v08tv"]
+emission_enabled = true
+emission = Color(0.674815, 0.674815, 0.674815, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_v08tv"]
+material = SubResource("StandardMaterial3D_v08tv")
+text = "0"
+font_size = 22
+
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ypxt0"]
 dof_blur_far_enabled = true
 dof_blur_far_distance = 4.62
@@ -49,23 +67,27 @@ dof_blur_amount = 0.06
 
 [node name="PruebaJuego" type="Node3D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "palo", "camara", "spawn_area", "area_boquetes", "spawn_bola_blanca", "vida_label", "puntuacion_label", "vida_maxima_label", "global_timer_label", "rebotes_guiados_label", "boquetes") groups=["game_manager"]]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "palo", "camara", "spawn_bolas", "spawn_objetos", "area_boquetes", "spawn_bola_blanca", "spawn_vida", "vida_label", "puntuacion_label", "puntuacion_mesh_label", "vida_maxima_label", "global_timer_label", "rebotes_guiados_label", "boquetes") groups=["game_manager"]]
 script = ExtResource("1_c26n1")
 buffs_manager = NodePath("../BuffsManager")
 palo = NodePath("../Palo")
 camara = NodePath("../Camera3D")
-spawn_area = NodePath("../SpawnArea")
+spawn_bolas = NodePath("../SpawnBolas")
+spawn_objetos = NodePath("../SpawnObjetos")
 area_boquetes = NodePath("../Boquetes")
 spawn_bola_blanca = NodePath("../SpawnBlanca")
+spawn_vida = NodePath("../SpawnVida")
+bola_vida = ExtResource("2_fekwy")
 vida_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer2/Vidas")
 puntuacion_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer/Puntos")
+puntuacion_mesh_label = NodePath("../bar/Label")
 vida_maxima_label = NodePath("../Control/VBoxContainer3/VBoxContainer/HBoxContainer2/VidaMaxima")
 global_timer_label = NodePath("../Control/VBoxContainer3/HBoxContainer/Timer")
 rebotes_guiados_label = NodePath("../Control/VBoxContainer3/HBoxContainer2/Rebotes")
 boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), NodePath("../Boquetes/Boquete3"), NodePath("../Boquetes/Boquete4"), NodePath("../Boquetes/Boquete5"), NodePath("../Boquetes/Boquete6")]
 bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7"), ExtResource("5_xhqt2"), ExtResource("6_lx6m1"), ExtResource("7_c6pg2"), ExtResource("8_gqvos"), ExtResource("9_k7vqf"), ExtResource("10_052qh"), ExtResource("11_ypxt0"), ExtResource("12_iupe7"), ExtResource("13_lrfhe"), ExtResource("14_vgul8"), ExtResource("15_pidso"), ExtResource("16_4u777")])
 radio_proteccion_spawn_bola = 0.2
-cooldown_bola_spawn = 0.5
+cooldown_bola_spawn = 2.5
 decremento_de_cooldown_bola_spawn = 0.025
 cooldown_bola_spawn_minimo = 0.5
 limite_bolas = 10
@@ -73,13 +95,20 @@ objetos = Array[PackedScene]([ExtResource("17_gqvos"), ExtResource("18_k7vqf"), 
 radio_proteccion_spawn_objetos = 0.2
 cooldown_objeto_spawn = 0.2
 
-[node name="BuffsManager" type="Node" parent="." node_paths=PackedStringArray("game_manager", "palo", "velocidad_lanzamiento_label", "retorno_bola_label", "potencia_bola_label") groups=["buffs_manager"]]
+[node name="BuffsManager" type="Node" parent="." node_paths=PackedStringArray("game_manager", "palo", "poscion_objetos", "velocidad_lanzamiento_label", "retorno_bola_label", "potencia_bola_label") groups=["buffs_manager"]]
 script = ExtResource("20_iupe7")
 game_manager = NodePath("../GameManager")
 palo = NodePath("../Palo")
+poscion_objetos = [NodePath("../Pasivas/Node3D"), NodePath("../Pasivas/Node3D2"), NodePath("../Pasivas/Node3D3"), NodePath("../Pasivas/Node3D4"), NodePath("../Pasivas/Node3D5")]
+modo_texto = 1
 velocidad_lanzamiento_label = NodePath("../Control/VBoxContainer3/VBoxContainer2/HBoxContainer3/Lb_VelocidadLazamiento")
 retorno_bola_label = NodePath("../Control/VBoxContainer3/VBoxContainer2/HBoxContainer2/Lb_RetrocesoBola")
 potencia_bola_label = NodePath("../Control/VBoxContainer3/VBoxContainer2/HBoxContainer/Lb_AumentoPotencia")
+velocidad_lanzamiento_objeto = ExtResource("21_v08tv")
+retorno_bola_objeto = ExtResource("22_fekwy")
+potencia_bola_objeto = ExtResource("23_m8bvx")
+numero_rebotes_guiados_objeto = ExtResource("24_6wyob")
+numero_objetos_objeto = ExtResource("25_4xie2")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -106,7 +135,7 @@ text = "Vidas: "
 
 [node name="Vidas" type="Label" parent="Control/VBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "5"
+text = "10"
 
 [node name="Lb_Divider" type="Label" parent="Control/VBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -114,7 +143,7 @@ text = "/"
 
 [node name="VidaMaxima" type="Label" parent="Control/VBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "5"
+text = "10"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer3/VBoxContainer"]
 layout_mode = 2
@@ -192,14 +221,35 @@ text = "Rebotes:"
 
 [node name="Rebotes" type="Label" parent="Control/VBoxContainer3/HBoxContainer2"]
 layout_mode = 2
-text = "10"
+text = "0"
 
-[node name="SpawnArea" type="Area3D" parent="."]
+[node name="HSeparator4" type="HSeparator" parent="Control/VBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Lb_Objetos" type="Label" parent="Control/VBoxContainer3/HBoxContainer3"]
+layout_mode = 2
+text = "Objetos:"
+
+[node name="Objetos" type="Label" parent="Control/VBoxContainer3/HBoxContainer3"]
+layout_mode = 2
+text = "1"
+
+[node name="SpawnBolas" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnBolas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.205385)
 shape = SubResource("BoxShape3D_c26n1")
+
+[node name="SpawnObjetos" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnObjetos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013, 0.00100005, -0.884486)
+shape = SubResource("BoxShape3D_v08tv")
 
 [node name="Colliders" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -221,8 +271,28 @@ size = Vector3(0.3172, 0.579102, 5.7854)
 material = SubResource("StandardMaterial3D_yucep")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Colliders" groups=["billar"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.000701666, 1.70197, -2.75265)
-size = Vector3(0.284973, 0.579102, 3.23843)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.000701666, 1.90876, -2.75265)
+size = Vector3(0.284973, 0.165528, 3.23843)
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.3111, 1.6743, -2.75265)
+size = Vector3(0.284973, 0.165528, 0.61482)
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.000701666, 1.49473, -2.75265)
+size = Vector3(0.284973, 0.165528, 3.23843)
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00253319, 1.69367, -2.90413)
+size = Vector3(0.0144234, 0.165528, 2.5046)
+material = SubResource("StandardMaterial3D_yucep")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Colliders" groups=["billar"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00253319, 1.69367, -2.69271)
+size = Vector3(0.00833891, 0.165528, 2.5046)
 material = SubResource("StandardMaterial3D_yucep")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Colliders" groups=["billar"]]
@@ -272,6 +342,24 @@ radius = 0.181641
 height = 0.684875
 material = SubResource("StandardMaterial3D_yucep")
 
+[node name="Pasivas" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.99377, 0)
+
+[node name="Node3D" type="Node3D" parent="Pasivas"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.50787, 0, -1.82074)
+
+[node name="Node3D2" type="Node3D" parent="Pasivas"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.50787, 0, -1.1371)
+
+[node name="Node3D3" type="Node3D" parent="Pasivas"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.50135, 0, -0.425961)
+
+[node name="Node3D4" type="Node3D" parent="Pasivas"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.49201, 0, 0.42012)
+
+[node name="Node3D5" type="Node3D" parent="Pasivas"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.51437, 0, 1.13789)
+
 [node name="Boquetes" type="Area3D" parent="." groups=["boquete"]]
 monitorable = false
 linear_damp = 1.0
@@ -319,8 +407,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24911, 1.8794, -2.57726)
 [node name="Boquete6" type="Node3D" parent="Boquetes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25157, 1.8794, -2.58125)
 
+[node name="SpawnVida" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12828, 1.70019, -2.80785)
+
 [node name="bar" type="Node3D" parent="."]
 transform = Transform3D(-1, -3.82137e-15, -8.74228e-08, 3.82137e-15, 1, -8.74228e-08, 8.74228e-08, -8.74228e-08, -1, 0.001224, 1.26003, -0.0474327)
+
+[node name="Label" type="MeshInstance3D" parent="bar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.47266e-07, 0.961833, -2.82521)
+mesh = SubResource("TextMesh_v08tv")
 
 [node name="barNPC" parent="bar" instance=ExtResource("21_iupe7")]
 script = ExtResource("22_lrfhe")
@@ -388,26 +483,26 @@ numero_rebotes = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.893, -1.8)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 2.386e-08, 0.869081, 0.49467, -2.4958e-07, 0.49467, -0.869081, 0, 4.35471, -5.18325)
+transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 1.07041e-08, 0.893889, 0.448289, -2.50489e-07, 0.448289, -0.893889, 0, 3.90057, -5.03675)
 attributes = SubResource("CameraAttributesPractical_ypxt0")
-fov = 50.0
+fov = 46.2061
 
 [node name="Luces" type="Label3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, -0.00102806, 3.37222, -0.00614643)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.47621e-08, 1.08381, 0.323483)
+transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, -7.40401e-08, 0.846314, -0.00979757)
 light_energy = 2.0
 shadow_enabled = true
 spot_range = 15.0
-spot_angle = 50.1478
+spot_angle = 66.03
 
 [node name="SpotLight3D11" type="SpotLight3D" parent="Luces"]
-transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, 6.00703e-08, -0.687516, 0.323483)
+transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, 6.13509e-08, -0.704068, -0.00389123)
 light_energy = 2.0
 shadow_enabled = true
 spot_range = 15.0
-spot_angle = 50.1478
+spot_angle = 66.03
 
 [node name="SpotLight3D9" type="SpotLight3D" parent="Luces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.73183, 16.0898, 5.78173)
@@ -466,7 +561,13 @@ shadow_enabled = true
 spot_angle = 61.875
 
 [node name="SpotLight3D6" type="SpotLight3D" parent="Luces"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00399351, 0.00788547, -0.439922)
+transform = Transform3D(1, 0, -2.5411e-21, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00399344, -0.822842, -0.711496)
+light_energy = 5.0
+shadow_enabled = true
+spot_angle = 61.875
+
+[node name="SpotLight3D14" type="SpotLight3D" parent="Luces"]
+transform = Transform3D(1, 0, -2.5411e-21, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00399359, 0.923704, -0.711496)
 light_energy = 5.0
 shadow_enabled = true
 spot_angle = 61.875
@@ -494,5 +595,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.63919e-07, 22.0498)
 light_color = Color(0.637425, 0.476263, 0.106798, 1)
 light_energy = 0.2
 
-[node name="npcIdle" parent="." instance=ExtResource("29_4u777")]
+[node name="NPC_Idle" parent="." instance=ExtResource("29_4u777")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1553, 0.952704, 16.3569)

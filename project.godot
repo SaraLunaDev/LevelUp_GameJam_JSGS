@@ -32,6 +32,7 @@ buffs_manager=""
 game_manager=""
 palo=""
 banda=""
+bola_vida=""
 
 [input]
 

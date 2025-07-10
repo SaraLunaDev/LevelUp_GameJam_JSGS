@@ -107,9 +107,11 @@ func posicionar_palo() -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func rotar_palo(delta: float) -> void:
+	if game_manager.partida_iniciada == false:
+		return
 	var mouse_vel = Input.get_last_mouse_velocity().x
 	if mouse_vel != 0:
-		var target_rot = rotation_degrees.y - mouse_vel * delta * 0.75
+		var target_rot = rotation_degrees.y + mouse_vel * delta * 0.75
 		rotation_degrees.y = lerp(rotation_degrees.y, target_rot, lerp_palo)
 	actualizar_posicion_palo()
 

@@ -54,27 +54,12 @@ func eliminar_objeto() -> void:
 	objeto_activo = false
 	match tipo_objeto:
 		TipoObjeto.VASO:
-			var game_manager = get_tree().get_nodes_in_group("game_manager")
-			if game_manager.size() > 0:
-				var game_manager_obj = game_manager[0]
-				if game_manager_obj.has_method("sumar_vida"):
-					game_manager_obj.sumar_vida(1)
-		TipoObjeto.BIRRA:
-			var game_manager = get_tree().get_nodes_in_group("game_manager")
-			if game_manager.size() > 0:
-				var game_manager_obj = game_manager[0]
-				if game_manager_obj.has_method("sumar_MAX_VIDA"):
-					game_manager_obj.sumar_MAX_VIDA(1)
-		TipoObjeto.WHISKY:
-			var game_manager = get_tree().get_nodes_in_group("game_manager")
-			if game_manager.size() > 0:
-				var game_manager_obj = game_manager[0]
-				if game_manager_obj.has_method("get_MAX_VIDA"):
-					var vida_maxima = game_manager_obj.get_MAX_VIDA()
-					if game_manager_obj.has_method("sumar_vida"):
-						game_manager_obj.sumar_vida(vida_maxima)
 			pass
-
+		TipoObjeto.BIRRA:
+			pass
+		TipoObjeto.WHISKY:
+			pass
+	
 	call_deferred("queue_free")
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -88,6 +73,6 @@ func is_activa() -> bool:
 # Señales
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func _on_body_entered(body: Node3D) -> void:
+func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("bola_blanca"):
 		recibir_golpe(body.get_daño())

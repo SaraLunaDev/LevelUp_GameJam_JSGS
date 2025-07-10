@@ -91,7 +91,7 @@ func eliminar_bola() -> void:
 	apply_impulse(fuerza)
 	await get_tree().create_timer(1.0).timeout
 	queue_free()
-	
+
 func suicidar_bola() -> void:
 	if bola_activa == false:
 		return
@@ -107,17 +107,14 @@ func suicidar_bola() -> void:
 func aplicar_efecto() -> void:
 	var buffs_manager = get_tree().get_nodes_in_group("buffs_manager")
 	if buffs_manager.size() > 0:
-		var buffs_manager_obj = buffs_manager[0]
+		var _buffs_manager_obj = buffs_manager[0]
 		match tipo_bola:
 			TipoBola.TIPO_1, TipoBola.TIPO_2, TipoBola.TIPO_3, TipoBola.TIPO_4, TipoBola.TIPO_5, TipoBola.TIPO_6, TipoBola.TIPO_7:
-				if buffs_manager_obj.has_method("aumentar_velocidad_lanzamiento"):
-					buffs_manager_obj.aumentar_velocidad_lanzamiento(buffs_manager_obj.velocidad_lanzamiento_incremento)
+				pass
 			TipoBola.TIPO_9, TipoBola.TIPO_10, TipoBola.TIPO_11, TipoBola.TIPO_12, TipoBola.TIPO_13, TipoBola.TIPO_14, TipoBola.TIPO_15:
-				if buffs_manager_obj.has_method("aumentar_retorno_bola"):
-					buffs_manager_obj.aumentar_retorno_bola(buffs_manager_obj.retorno_bola_decremento)
+				pass
 			TipoBola.TIPO_8:
-				if buffs_manager_obj.has_method("aumentar_potencia_bola"):
-					buffs_manager_obj.aumentar_potencia_bola(buffs_manager_obj.potencia_bola_incremento)
+				pass
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Setters y Getters
