@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=35 format=3 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://cmugk03txtqpa" path="res://Models/NPCs/npcIdle.glb" id="29_4u777"]
+[ext_resource type="PackedScene" uid="uid://u0180781l8lr" path="res://Models/Particles/beer_explodeANIMATED.tscn" id="30_cia7l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c26n1"]
 size = Vector3(2.04155, 0.001, 2.9303)
@@ -473,3 +474,6 @@ light_energy = 0.2
 
 [node name="npcIdle" parent="." instance=ExtResource("29_4u777")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1553, 0.952704, 16.3569)
+
+[node name="beerExplode" parent="." instance=ExtResource("30_cia7l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.725696, 1.91305, -1.25062)
