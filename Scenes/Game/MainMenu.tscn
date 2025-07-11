@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cb2xiir7ika68"]
+[gd_scene load_steps=14 format=3 uid="uid://cb2xiir7ika68"]
 
 [ext_resource type="Script" uid="uid://c0l3c2n2lw6da" path="res://Scripts/v_box_container.gd" id="1_de4cs"]
+[ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_hn2at"]
 [ext_resource type="Texture2D" uid="uid://b3nnmnv6myblr" path="res://Textures/playButton.png" id="2_hn2at"]
 [ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="3_esq62"]
 [ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
@@ -15,6 +16,8 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kvjn8"]
 load_path = "res://.godot/imported/playButton.png-582c7b559a9b460928caf36f2f89ddff.ctex"
 
+[sub_resource type="Environment" id="Environment_hn2at"]
+
 [node name="GameScene" type="Node3D"]
 
 [node name="Control" type="Control" parent="."]
@@ -27,8 +30,10 @@ grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control"]
 
+[node name="Transition" parent="Control/CanvasLayer" instance=ExtResource("1_hn2at")]
+
 [node name="Buttons" type="VBoxContainer" parent="Control/CanvasLayer"]
-z_index = 1
+z_index = -1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -59,6 +64,7 @@ icon = ExtResource("3_esq62")
 flat = true
 
 [node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer"]
+z_index = -2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -92,6 +98,7 @@ grow_vertical = 2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.704634, -0.333123, 0.626514, 0, 0.882948, 0.469471, -0.709571, -0.330805, 0.622155, 13.5355, 2.00734, 0.684937)
+environment = SubResource("Environment_hn2at")
 script = ExtResource("6_h6d63")
 
 [node name="Luces" type="Label3D" parent="."]
@@ -155,6 +162,10 @@ light_indirect_energy = 1.318
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
 spot_angle = 86.3855
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Luces"]
+transform = Transform3D(1, 0, 0, 0, 0.890951, -0.454099, 0, 0.454099, 0.890951, 0.00102806, -5.59413, 22.8687)
+light_energy = 0.25
 
 [node name="barNPC" parent="." instance=ExtResource("7_tnjq2")]
 script = ExtResource("8_lo35h")
