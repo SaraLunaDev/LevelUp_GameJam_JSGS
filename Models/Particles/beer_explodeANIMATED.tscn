@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://u0180781l8lr"]
+
+[ext_resource type="PackedScene" uid="uid://ixgcoknc48nr" path="res://Models/Particles/beerExplode.glb" id="1_2iuav"]
+[ext_resource type="Script" uid="uid://cnjsxhmmb8xmt" path="res://Scripts/beer_explodeAnim.gd" id="2_tf5e6"]
+
+[node name="beerExplode" instance=ExtResource("1_2iuav")]
+script = ExtResource("2_tf5e6")
+
+[node name="Birra_002" parent="." index="0"]
+physics_interpolation_mode = 1
+
+[node name="Birra_008" parent="." index="7"]
+physics_interpolation_mode = 1
+
+[node name="Birra_009" parent="." index="8"]
+physics_interpolation_mode = 1
