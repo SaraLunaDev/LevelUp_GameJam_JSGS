@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
 [ext_resource type="Texture2D" uid="uid://c3rnpxr16gkmt" path="res://Textures/TitleAnim/titleAnimatedTexture.tres" id="5_ymo5r"]
 [ext_resource type="Script" uid="uid://8uj6f0jgwost" path="res://Scenes/Game/camera_3d.gd" id="6_h6d63"]
+[ext_resource type="Material" uid="uid://c6bdmb2j1qovw" path="res://Materials/crtShaderMaterial.tres" id="6_hn2at"]
 [ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="7_tnjq2"]
 [ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="8_lo35h"]
 [ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
@@ -85,6 +86,15 @@ texture = ExtResource("4_p1lor")
 [node name="TitleAnimatedTexture" type="Sprite2D" parent="Control/CanvasLayer/TextureRect"]
 position = Vector2(-2, -55)
 texture = ExtResource("5_ymo5r")
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+material = ExtResource("6_hn2at")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.704634, -0.333123, 0.626514, 0, 0.882948, 0.469471, -0.709571, -0.330805, 0.622155, 13.5355, 2.00734, 0.684937)
