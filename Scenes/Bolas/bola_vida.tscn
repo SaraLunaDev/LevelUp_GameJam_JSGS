@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dli3xo3pb8l1q" path="res://Textures/Bola1.png" id="2_84p7p"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
-
 absorbent = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8838o"]
@@ -58,7 +57,6 @@ radius = 0.102942
 axis_lock_linear_z = true
 mass = 0.15
 physics_material_override = SubResource("PhysicsMaterial_oowhv")
-
 continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 10
@@ -67,14 +65,12 @@ linear_damp = 0.5
 angular_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_qqb6q")
-
 bola_mesh = NodePath("Bola")
 
 [node name="Bola" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.0180699, 0, 0.0932657, 0, 0.095, 0, -0.0932657, 0, -0.0180699, 0, 0, 0)
 mesh = SubResource("ArrayMesh_n7nfu")
 skeleton = NodePath("")
-
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["bola_vida"]]
 shape = SubResource("SphereShape3D_lsdfy")

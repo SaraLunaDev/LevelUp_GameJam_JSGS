@@ -64,19 +64,6 @@ func _ready() -> void:
 	aumentar_potencia_bola(potencia_bola)
 	aumentar_rebotes_guiados(numero_rebotes_guiados)
 	aumentar_numero_objetos(numero_objetos)
-
-@export_subgroup("Rebotes Guiados")
-@export var numero_rebotes_guiados: int = 0
-@export var numero_rebotes_incremento: int = 1
-@export var numero_rebotes_guiados_maximo: int = 0
-@export var numero_rebotes_guiados_objeto: PackedScene = null
-@export var numero_rebotes_guiados_veces_usado: int = 0
-
-@export_subgroup("Spawn de Objetos")
-@export var numero_objetos: int = 0
-@export var numero_objetos_incremento: int = 1
-@export var numero_objetos_maximo: int = 10
-@export var numero_objetos_objeto: PackedScene = null
 	
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Pasivas 
