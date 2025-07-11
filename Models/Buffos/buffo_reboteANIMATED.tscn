@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bla4ls0ugnrcn"]
+[gd_scene load_steps=5 format=3 uid="uid://bla4ls0ugnrcn"]
 
 [ext_resource type="PackedScene" uid="uid://big7p5xlxd8wl" path="res://Models/Buffos/buffoRebote.glb" id="1_nyk5u"]
 [ext_resource type="Script" uid="uid://kpgrxvx5wpfp" path="res://Scripts/buffo_reboteAnim.gd" id="2_5um23"]
 
-<<<<<<< Updated upstream
-=======
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrjlk"]
 albedo_color = Color(0, 0.713726, 0, 1)
 emission_enabled = true
@@ -14,11 +12,9 @@ material = SubResource("StandardMaterial3D_yrjlk")
 text = "1"
 depth = 0.023
 
->>>>>>> Stashed changes
 [node name="buffoRebote" instance=ExtResource("1_nyk5u")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 script = ExtResource("2_5um23")
-<<<<<<< Updated upstream
-=======
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/position = Vector3(0, 0, 0)
@@ -33,4 +29,3 @@ spot_angle = 63.58
 [node name="Label" type="MeshInstance3D" parent="." index="3"]
 transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.561045, 0)
 mesh = SubResource("TextMesh_nyk5u")
->>>>>>> Stashed changes

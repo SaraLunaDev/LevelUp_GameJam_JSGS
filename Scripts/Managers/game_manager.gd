@@ -9,23 +9,20 @@ class_name GameManager
 @export var buffs_manager: Node = null
 @export var palo: Node3D
 @export var camara: Camera3D
-@export var spawn_area: Area3D
+@export var spawn_bolas: Area3D
+@export var spawn_objetos: Area3D
 @export var area_boquetes: Area3D
 @export var spawn_bola_blanca: Node3D
+@export var spawn_vida: Node3D
+@export var bola_vida: PackedScene = null
 
 @export_group("Labels")
-<<<<<<< Updated upstream
-@export var vida_label: Label = null
-@export var puntuacion_label: Label = null
-@export var vida_maxima_label: Label = null
-=======
 @export var puntuacion_mesh_label: MeshInstance3D = null
->>>>>>> Stashed changes
 @export var global_timer_label: Label = null
 
 @export_group("Gestion de Partida")
 @export var vida: int
-@export var MAX_VIDA: int = 5
+@export var MAX_VIDA: int = 10
 @export var puntuacion: int = 0
 @export var pasives: Array = []
 
@@ -65,9 +62,11 @@ func _ready() -> void:
 	if not camara:
 		push_error("No se ha encontrado la Camara")
 		return
-	if not spawn_area:
-		push_error("No se ha encontrado el SpawnArea")
+	if not spawn_bolas:
+		push_error("No se ha encontrado el SpawnArea de Bolas")
 		return
+	if not spawn_objetos:
+		push_error("No se ha encontrado el SpawnArea de Objetos")
 
 	area_boquetes.body_entered.connect(_on_area_boquetes_body_entered)
 
@@ -76,7 +75,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not partida_iniciada:
 		return
-	if not palo or not camara or not spawn_area or not palo.palo_posicionado:
+	if not palo or not camara or not spawn_bolas or not spawn_objetos or not palo.palo_posicionado:
 		return
 	
 	limpiar_listas_activas()
@@ -137,16 +136,11 @@ func terminar_partida() -> void:
 	if vida <= 0:
 		print("Partida terminada.")
 		partida_iniciada = false
-<<<<<<< Updated upstream
-		get_tree().reload_current_scene()
-		
-=======
 		await get_tree().create_timer(2.0).timeout
 		transition.play("transition")
 		await get_tree().create_timer(0.5).timeout
 		get_tree().call_deferred("reload_current_scene")
 
->>>>>>> Stashed changes
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Gestion de Spawns
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -161,20 +155,20 @@ func spawn_bola() -> void:
 
 	puede_spawnear_bola = false
 
-	var area_shape = spawn_area.get_node_or_null("CollisionShape3D")
+	var area_shape = spawn_bolas.get_node_or_null("CollisionShape3D")
 	var extents: Vector3
 	if area_shape and area_shape.shape is BoxShape3D:
 		extents = area_shape.shape.extents
 	else:
-		extents = spawn_area.scale * 0.5
+		extents = spawn_bolas.scale * 0.5
 
-	var altura_fija = spawn_area.global_position.y
+	var altura_fija = spawn_bolas.global_position.y
 
 	for _i in range(20):
 		var pos = Vector3(
-			spawn_area.global_position.x + randf_range(-extents.x, extents.x),
+			spawn_bolas.global_position.x + randf_range(-extents.x, extents.x),
 			altura_fija,
-			spawn_area.global_position.z + randf_range(-extents.z, extents.z)
+			spawn_bolas.global_position.z + randf_range(-extents.z, extents.z)
 		)
 		var hay_cerca := false
 		for b in bolas_activas:
@@ -183,6 +177,10 @@ func spawn_bola() -> void:
 				break
 		for bola_blanca in get_tree().get_nodes_in_group("bola_blanca"):
 			if bola_blanca.global_position.distance_to(pos) < radio_proteccion_spawn_bola:
+				hay_cerca = true
+				break
+		for objeto in objetos_activos:
+			if objeto.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
 				hay_cerca = true
 				break
 		if hay_cerca:
@@ -234,28 +232,32 @@ func spawn_objeto() -> void:
 	puede_spawnear_objeto = false
 
 	await get_tree().create_timer(cooldown_objeto_spawn).timeout
-	var area_shape = spawn_area.get_node_or_null("CollisionShape3D")
+	var area_shape = spawn_objetos.get_node_or_null("CollisionShape3D")
 	var extents: Vector3
 	if area_shape and area_shape.shape is BoxShape3D:
 		extents = area_shape.shape.extents
 	else:
-		extents = spawn_area.scale * 0.5
+		extents = spawn_objetos.scale * 0.5
 
-	var altura_fija = spawn_area.global_position.y
+	var altura_fija = spawn_objetos.global_position.y
 
 	for _i in range(20):
 		var pos = Vector3(
-			spawn_area.global_position.x + randf_range(-extents.x, extents.x),
+			spawn_objetos.global_position.x + randf_range(-extents.x, extents.x),
 			altura_fija,
-			spawn_area.global_position.z + randf_range(-extents.z, extents.z)
+			spawn_objetos.global_position.z + randf_range(-extents.z, extents.z)
 		)
 		var hay_cerca := false
 		for b in bolas_activas:
-			if b.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
+			if is_instance_valid(b) and b.global_position.distance_to(pos) < max(radio_proteccion_spawn_objetos, radio_proteccion_spawn_bola):
 				hay_cerca = true
 				break
 		for o in objetos_activos:
-			if o.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
+			if is_instance_valid(o) and o.global_position.distance_to(pos) < radio_proteccion_spawn_objetos:
+				hay_cerca = true
+				break
+		for b in bolas_activas:
+			if is_instance_valid(b) and b.global_position == pos:
 				hay_cerca = true
 				break
 
@@ -299,9 +301,6 @@ func get_vida() -> int:
 
 func restar_vida(value: int) -> void:
 	vida -= value
-<<<<<<< Updated upstream
-	vida_label.text = str(vida)
-=======
 	if spawn_vida and bola_vida and spawn_vida.is_inside_tree():
 		var bola_vida_instance = bola_vida.instantiate()
 		if bola_vida_instance.has_method("set_tipo_bola"):
@@ -309,7 +308,6 @@ func restar_vida(value: int) -> void:
 		spawn_vida.add_child(bola_vida_instance)
 		bola_vida_instance.global_position = spawn_vida.global_position
 		bola_vida_instance.global_rotation = spawn_vida.global_rotation
->>>>>>> Stashed changes
 	if vida <= 0:
 		terminar_partida()
 
@@ -317,14 +315,10 @@ func sumar_vida(value: int) -> void:
 	vida += value
 	if vida > MAX_VIDA:
 		vida = MAX_VIDA
-<<<<<<< Updated upstream
-	vida_label.text = str(vida)
-=======
 	if spawn_vida and spawn_vida.get_child_count() > 0:
 		var first_child = spawn_vida.get_child(0)
 		if is_instance_valid(first_child):
 			first_child.queue_free()
->>>>>>> Stashed changes
 
 func get_MAX_VIDA() -> int:
 	return MAX_VIDA
@@ -338,14 +332,10 @@ func get_puntuacion() -> int:
 
 func sumar_puntuacion(value: int) -> void:
 	puntuacion += value
-<<<<<<< Updated upstream
-	puntuacion_label.text = str(puntuacion)
-=======
 	if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
 		var text_mesh := puntuacion_mesh_label.mesh as TextMesh
 		text_mesh.text = str(puntuacion)
 		puntuacion_mesh_label.mesh = text_mesh
->>>>>>> Stashed changes
 
 func get_pasives() -> Array:
 	return pasives
@@ -353,8 +343,6 @@ func get_pasives() -> Array:
 func set_pasives(value: Array) -> void:
 	pasives = value
 
-<<<<<<< Updated upstream
-=======
 func set_rebotes_guiados_label(_text: String) -> void:
 	pass
 
@@ -364,11 +352,9 @@ func set_numero_objetos_label(_value: int) -> void:
 func get_partida_iniciada() -> bool:
 	return partida_iniciada
 
->>>>>>> Stashed changes
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Input y Debug
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
 		comenzar_partida()

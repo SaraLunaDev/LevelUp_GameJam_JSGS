@@ -3,6 +3,12 @@ extends Node
 @export_group("Referencias de Escena")
 @export var game_manager: Node = null
 @export var palo: Node3D = null
+@export var poscion_objetos: Array[Node3D] = []
+enum ModoTexto {
+	INCREMENTO,
+	VECES_USADO
+}
+@export var modo_texto: ModoTexto = ModoTexto.INCREMENTO
 @export_subgroup("Labels")
 @export var velocidad_lanzamiento_label: Label = null
 @export var retorno_bola_label: Label = null
@@ -11,22 +17,29 @@ var bola_blanca: Node3D = null
 var bolas: Array[RigidBody3D] = []
 var objetos: Array[RigidBody3D] = []
 
-@export_group("Configuración de Buffs")
+@export_group("Configuración de Pasivas")
+
 @export_subgroup("Velocidad de Lanzamiento")
 @export var velocidad_lanzamiento: float = 0.0
 @export var velocidad_lanzamiento_incremento: float = 0.2
 @export var velocidad_lanzamiento_maxima: float = 14.0
+@export var velocidad_lanzamiento_objeto: PackedScene = null
+@export var velocidad_lanzamiento_veces_usado: int = 0
+
 @export_subgroup("Retorno de Bola")
 @export var retorno_bola: float = 0.0
 @export var retorno_bola_decremento: float = 0.0025
 @export var retorno_bola_minimo: float = 0.3
+@export var retorno_bola_objeto: PackedScene = null
+@export var retorno_bola_veces_usado: int = 0
+
 @export_subgroup("Potencia de Bola")
 @export var potencia_bola: float = 0.0
 @export var potencia_bola_incremento: float = 0.25
 @export var potencia_bola_maxima: float = 5.0
+@export var potencia_bola_objeto: PackedScene = null
+@export var potencia_bola_veces_usado: int = 0
 
-<<<<<<< Updated upstream
-=======
 @export_subgroup("Rebotes Guiados")
 @export var numero_rebotes_guiados: int = 0
 @export var numero_rebotes_incremento: int = 1
@@ -52,15 +65,12 @@ func _ready() -> void:
 	aumentar_rebotes_guiados(numero_rebotes_guiados)
 	aumentar_numero_objetos(numero_objetos)
 
->>>>>>> Stashed changes
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Bufos 
+# Pasivas 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
 	velocidad_lanzamiento = min(velocidad_lanzamiento + cantidad, velocidad_lanzamiento_maxima)
-<<<<<<< Updated upstream
-=======
 	if velocidad_lanzamiento == 0.0:
 		return
 	velocidad_lanzamiento_veces_usado += 1
@@ -88,15 +98,15 @@ func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
 			texto = str("+", velocidad_lanzamiento)
 		ModoTexto.VECES_USADO:
 			texto = str("x", velocidad_lanzamiento_veces_usado)
->>>>>>> Stashed changes
 	if velocidad_lanzamiento_label:
-		velocidad_lanzamiento_label.text = str("+", velocidad_lanzamiento)
-	print("Cooldown del palo reducido a: ", velocidad_lanzamiento)
+		velocidad_lanzamiento_label.text = texto
+	if obj_label:
+		var label_node = obj_label.get_node_or_null("Label")
+		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
+			label_node.mesh.text = texto
 
 func aumentar_retorno_bola(cantidad: float) -> void:
 	retorno_bola = min(retorno_bola + cantidad, retorno_bola_minimo)
-<<<<<<< Updated upstream
-=======
 	if retorno_bola == 0.0:
 		return
 	retorno_bola_veces_usado += 1
@@ -124,18 +134,15 @@ func aumentar_retorno_bola(cantidad: float) -> void:
 			texto = str("+", retorno_bola)
 		ModoTexto.VECES_USADO:
 			texto = str("x", retorno_bola_veces_usado)
->>>>>>> Stashed changes
 	if retorno_bola_label:
-		retorno_bola_label.text = str("-", retorno_bola)
-	print("Retorno de bola aumentado a: ", retorno_bola)
+		retorno_bola_label.text = texto
+	if obj_label:
+		var label_node = obj_label.get_node_or_null("Label")
+		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
+			label_node.mesh.text = texto
 
 func aumentar_potencia_bola(cantidad: float) -> void:
 	potencia_bola = min(potencia_bola + cantidad, potencia_bola_maxima)
-<<<<<<< Updated upstream
-	if potencia_bola_label:
-		potencia_bola_label.text = str("+", potencia_bola)
-	print("Potencia de bola aumentada a: ", potencia_bola)
-=======
 	if potencia_bola == 0.0:
 		return
 	potencia_bola_veces_usado += 1
@@ -245,7 +252,6 @@ func aumentar_numero_objetos(cantidad: int) -> void:
 		var label_node = obj_label.get_node_or_null("Label")
 		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
 			label_node.mesh.text = texto
->>>>>>> Stashed changes
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
@@ -307,3 +313,22 @@ func get_potencia_bola_maxima() -> float:
 func set_potencia_bola_maxima(value: float) -> void:
 	potencia_bola_maxima = max(0.0, value)
 	potencia_bola = clamp(potencia_bola, 0.0, potencia_bola_maxima)
+
+func get_numero_rebotes_guiados() -> int:
+	return numero_rebotes_guiados
+
+func set_numero_rebotes_guiados(value: int) -> void:
+	numero_rebotes_guiados = clamp(value, 0, numero_rebotes_guiados_maximo)
+
+func get_numero_rebotes_incremento() -> int:
+	return numero_rebotes_incremento
+
+func set_numero_rebotes_incremento(value: int) -> void:
+	numero_rebotes_incremento = max(0, value)
+
+func get_numero_rebotes_guiados_maximo() -> int:
+	return numero_rebotes_guiados_maximo
+
+func set_numero_rebotes_guiados_maximo(value: int) -> void:
+	numero_rebotes_guiados_maximo = max(0, value)
+	numero_rebotes_guiados = clamp(numero_rebotes_guiados, 0, numero_rebotes_guiados_maximo)

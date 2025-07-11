@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b0fvy3llnel1v"]
+[gd_scene load_steps=11 format=4 uid="uid://b0fvy3llnel1v"]
 
 [ext_resource type="Script" uid="uid://i4daboik1xrd" path="res://Scripts/Bola Blanca/bola_blanca.gd" id="1_oowhv"]
 [ext_resource type="Texture2D" uid="uid://cm6hns0wvpg5b" path="res://Textures/BolaPlayer.png" id="2_mk7pw"]
@@ -6,9 +6,10 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
 friction = 0.05
-bounce = 0.5
+bounce = 0.9
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgyg5"]
+transparency = 1
 albedo_texture = ExtResource("2_mk7pw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8838o"]
@@ -55,11 +56,15 @@ shadow_mesh = SubResource("ArrayMesh_as5sm")
 [sub_resource type="SphereShape3D" id="SphereShape3D_oowhv"]
 radius = 0.093
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_mk7pw"]
+radius = 0.100474
+
 [node name="BolaBlanca" type="RigidBody3D" groups=["bola_blanca"]]
 mass = 0.17
 physics_material_override = SubResource("PhysicsMaterial_oowhv")
 continuous_cd = true
 contact_monitor = true
+max_contacts_reported = 10
 linear_damp_mode = 1
 linear_damp = 0.5
 angular_damp_mode = 1
@@ -75,3 +80,11 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_oowhv")
 debug_color = Color(0, 0.6, 0.701961, 1)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_mk7pw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

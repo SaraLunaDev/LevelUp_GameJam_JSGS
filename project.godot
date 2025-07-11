@@ -13,6 +13,7 @@ config_version=5
 config/name="LevelUp_GameJam_JSGS"
 run/main_scene="uid://cb2xiir7ika68"
 config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
@@ -27,16 +28,12 @@ boquete=""
 objeto=""
 bola=""
 spawn_blanca=""
-bandas=""
 buffs_manager=""
 game_manager=""
 palo=""
-<<<<<<< Updated upstream
-=======
 banda=""
 bola_vida=""
 camera_manager=""
->>>>>>> Stashed changes
 
 [input]
 
