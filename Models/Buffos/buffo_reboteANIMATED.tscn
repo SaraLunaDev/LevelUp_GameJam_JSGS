@@ -3,5 +3,34 @@
 [ext_resource type="PackedScene" uid="uid://big7p5xlxd8wl" path="res://Models/Buffos/buffoRebote.glb" id="1_nyk5u"]
 [ext_resource type="Script" uid="uid://kpgrxvx5wpfp" path="res://Scripts/buffo_reboteAnim.gd" id="2_5um23"]
 
+<<<<<<< Updated upstream
+=======
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrjlk"]
+albedo_color = Color(0, 0.713726, 0, 1)
+emission_enabled = true
+
+[sub_resource type="TextMesh" id="TextMesh_nyk5u"]
+material = SubResource("StandardMaterial3D_yrjlk")
+text = "1"
+depth = 0.023
+
+>>>>>>> Stashed changes
 [node name="buffoRebote" instance=ExtResource("1_nyk5u")]
 script = ExtResource("2_5um23")
+<<<<<<< Updated upstream
+=======
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(0, 0, 0)
+bones/2/position = Vector3(0.826087, 1.52376, -1.26983e-09)
+bones/3/position = Vector3(0.0287251, 2.26797, 1.07671e-07)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="2"]
+transform = Transform3D(-1.42857, -2.4978e-07, -1.2489e-07, -2.25662e-09, -0.628529, 1.28287, -2.79253e-07, 1.28287, 0.628529, 0, 1.08224, 0.655861)
+spot_range = 1.202
+spot_angle = 63.58
+
+[node name="Label" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.561045, 0)
+mesh = SubResource("TextMesh_nyk5u")
+>>>>>>> Stashed changes

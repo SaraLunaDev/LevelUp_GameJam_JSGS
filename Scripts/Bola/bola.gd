@@ -48,6 +48,14 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not bola_activa:
 		return
+	var game_manager = get_tree().get_nodes_in_group("game_manager")
+	if game_manager.size() == 0:
+		var game_manager_obj = game_manager[0]
+		if game_manager_obj.has_method("get_partida_iniciada"):
+			if not game_manager_obj.get_partida_iniciada():
+				# reducir velocidad de la bola
+				linear_velocity *= 0.9
+				return
 
 	var direccion = (destino - global_transform.origin)
 	direccion.y = 0
@@ -141,6 +149,10 @@ func set_destino(value: Vector3) -> void:
 
 func get_destino() -> Vector3:
 	return destino
+
+func get_tipo_bola() -> TipoBola:
+	print("Tipo de bola:", tipo_bola)
+	return tipo_bola
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Señales
