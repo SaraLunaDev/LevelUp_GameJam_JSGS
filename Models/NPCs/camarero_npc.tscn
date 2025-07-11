@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8bc6al8vpc2w"]
+
+[ext_resource type="PackedScene" uid="uid://cgc0p4wvba0jm" path="res://Models/NPCs/camareroNPC.glb" id="1_ae3yh"]
+
+[node name="camareroNPC" instance=ExtResource("1_ae3yh")]
+
+[node name="Skeleton3D" parent="NPC" index="0"]
+bones/0/position = Vector3(0, 0.0541601, 0)
+bones/3/position = Vector3(1.03203, 0.0642021, -1.33953e-07)
+bones/3/rotation = Quaternion(-3.08523e-07, -7.05508e-08, 0.99994, -0.0109663)
+bones/4/position = Vector3(-0.497, 0.474, 0.815)
+bones/4/rotation = Quaternion(3.08523e-07, -7.05508e-08, 0.99994, 0.0109663)

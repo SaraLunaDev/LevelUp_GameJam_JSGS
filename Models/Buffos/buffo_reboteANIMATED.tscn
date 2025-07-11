@@ -3,12 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://big7p5xlxd8wl" path="res://Models/Buffos/buffoRebote.glb" id="1_nyk5u"]
 [ext_resource type="Script" uid="uid://kpgrxvx5wpfp" path="res://Scripts/buffo_reboteAnim.gd" id="2_5um23"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nyk5u"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrjlk"]
 albedo_color = Color(0, 0.713726, 0, 1)
 emission_enabled = true
 
-[sub_resource type="TextMesh" id="TextMesh_5um23"]
-material = SubResource("StandardMaterial3D_nyk5u")
+[sub_resource type="TextMesh" id="TextMesh_nyk5u"]
+material = SubResource("StandardMaterial3D_yrjlk")
+
 text = "1"
 depth = 0.023
 
@@ -27,5 +28,6 @@ spot_range = 1.202
 spot_angle = 63.58
 
 [node name="Label" type="MeshInstance3D" parent="." index="3"]
-transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.914003, 0)
-mesh = SubResource("TextMesh_5um23")
+
+transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.561045, 0)
+mesh = SubResource("TextMesh_nyk5u")

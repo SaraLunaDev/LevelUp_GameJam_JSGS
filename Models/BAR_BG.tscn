@@ -5,12 +5,11 @@
 
 [node name="bar" instance=ExtResource("1_a1isu")]
 
-[node name="billarIndividual" parent="." index="0" instance=ExtResource("2_smqet")]
-
-[node name="MesaBillar" parent="." index="1"]
+[node name="MesaBillar" parent="." index="0"]
 visible = false
 
-[node name="Bola" parent="." index="2"]
+[node name="Bola" parent="." index="1"]
+
 visible = false
 
 [node name="PaloJugador" parent="." index="3"]

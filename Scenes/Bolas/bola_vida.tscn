@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://dqjq7sved6u5w"]
+[gd_scene load_steps=9 format=4 uid="uid://dqjq7sved6u5w"]
 
-[ext_resource type="Script" uid="uid://cnugphseoqgdc" path="res://Scripts/Bola/bola_vida.gd" id="1_qqb6q"]
+[ext_resource type="Script" uid="uid://q0kvqrwp3n2v" path="res://Scripts/Bola/bola_vida.gd" id="1_qqb6q"]
 [ext_resource type="Texture2D" uid="uid://dli3xo3pb8l1q" path="res://Textures/Bola1.png" id="2_84p7p"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
-friction = 0.0
+
 absorbent = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8838o"]
@@ -48,20 +48,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6ttbc")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqb6q"]
-albedo_color = Color(1, 0, 0, 1)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_lsdfy"]
 radius = 0.0951982
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r6cnw"]
 radius = 0.102942
 
-[node name="Bola_Base" type="RigidBody3D" groups=["bola_vida"]]
+[node name="Bola_Base" type="RigidBody3D" node_paths=PackedStringArray("bola_mesh") groups=["bola_vida"]]
 axis_lock_linear_z = true
 mass = 0.15
 physics_material_override = SubResource("PhysicsMaterial_oowhv")
-gravity_scale = 0.0
+
 continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 10
@@ -71,11 +68,13 @@ angular_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_qqb6q")
 
+bola_mesh = NodePath("Bola")
+
 [node name="Bola" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.15258e-09, 0, -0.095, 0, 0.095, 0, 0.095, 0, -4.15258e-09, 0, 0, 0)
+transform = Transform3D(-0.0180699, 0, 0.0932657, 0, 0.095, 0, -0.0932657, 0, -0.0180699, 0, 0, 0)
 mesh = SubResource("ArrayMesh_n7nfu")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_qqb6q")
+
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["bola_vida"]]
 shape = SubResource("SphereShape3D_lsdfy")

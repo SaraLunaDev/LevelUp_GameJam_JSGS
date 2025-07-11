@@ -33,6 +33,8 @@ game_manager=""
 palo=""
 banda=""
 bola_vida=""
+camera_manager=""
+
 
 [input]
 
@@ -60,3 +62,4 @@ right_click={
 [rendering]
 
 textures/default_filters/use_nearest_mipmap_filter=true
+viewport/transparent_background=true
