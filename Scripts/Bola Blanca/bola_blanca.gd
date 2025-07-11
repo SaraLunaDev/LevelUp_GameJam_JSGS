@@ -31,6 +31,7 @@ var ultimo_objetivo_cercano: RigidBody3D = null
 func mover_hacia_objetivo_cercano() -> void:
 	if not activado_rebote_guiado:
 		activado_rebote_guiado = true
+	print("Intentando mover hacia el objetivo cercano")
 	if numero_rebotes_guiados >= numero_rebotes_guiados_maximo:
 		return
 	# me voy

@@ -16,6 +16,11 @@ enum ModoTexto {
 var bola_blanca: Node3D = null
 var bolas: Array[RigidBody3D] = []
 var objetos: Array[RigidBody3D] = []
+var pasiva_escogida: bool = false
+var puede_escoger_pasiva: bool = false
+
+@export_group("Posicion de Pasivas a Elegir")
+@export var poscion_pasivas_elegir: Array[Node3D] = []
 
 @export_group("Configuración de Pasivas")
 
@@ -64,7 +69,47 @@ func _ready() -> void:
 	aumentar_potencia_bola(potencia_bola)
 	aumentar_rebotes_guiados(numero_rebotes_guiados)
 	aumentar_numero_objetos(numero_objetos)
-	
+
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+# Mostrar Pasivas
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+
+func elegir_pasivas_random():
+	if not puede_escoger_pasiva:
+		puede_escoger_pasiva = true
+
+		var pasivas: Array = []
+		if velocidad_lanzamiento_objeto:
+			pasivas.append({"scene": velocidad_lanzamiento_objeto, "nombre": "Velocidad Lanzamiento"})
+		if retorno_bola_objeto:
+			pasivas.append({"scene": retorno_bola_objeto, "nombre": "Retorno Bola"})
+		if potencia_bola_objeto:
+			pasivas.append({"scene": potencia_bola_objeto, "nombre": "Potencia Bola"})
+		if numero_rebotes_guiados_objeto:
+			pasivas.append({"scene": numero_rebotes_guiados_objeto, "nombre": "Rebotes Guiados"})
+		if numero_objetos_objeto:
+			pasivas.append({"scene": numero_objetos_objeto, "nombre": "Spawn Objetos"})
+
+		if pasivas.is_empty() or poscion_pasivas_elegir.size() < 2:
+			return
+
+		for pos in poscion_pasivas_elegir:
+			for child in pos.get_children():
+				child.queue_free()
+
+		var indices_usados := []
+		for i in range(2):
+			var idx := randi() % pasivas.size()
+			while idx in indices_usados and pasivas.size() > 1:
+				idx = randi() % pasivas.size()
+			indices_usados.append(idx)
+			var pasiva_data = pasivas[idx]
+			var pasiva_instance = pasiva_data["scene"].instantiate()
+			pasiva_instance.name = pasiva_data["nombre"]
+			poscion_pasivas_elegir[i].add_child(pasiva_instance)
+			pasiva_instance.global_position = poscion_pasivas_elegir[i].global_position
+		print("pasivas elegidas:", poscion_pasivas_elegir[0].get_child(0).name, poscion_pasivas_elegir[1].get_child(0).name)
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Pasivas 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -254,7 +299,6 @@ func aumentar_numero_objetos(cantidad: int) -> void:
 		ModoTexto.INCREMENTO:
 			texto = str("+", numero_objetos)
 		ModoTexto.VECES_USADO:
-
 			texto = str("x", numero_objetos_veces_usado)
 	if game_manager and game_manager.has_method("set_numero_objetos_label"):
 		game_manager.set_numero_objetos_label(numero_objetos)
@@ -343,3 +387,55 @@ func get_numero_rebotes_guiados_maximo() -> int:
 func set_numero_rebotes_guiados_maximo(value: int) -> void:
 	numero_rebotes_guiados_maximo = max(0, value)
 	numero_rebotes_guiados = clamp(numero_rebotes_guiados, 0, numero_rebotes_guiados_maximo)
+
+func ha_escogido_pasiva() -> bool:
+	print("Ha sido escogida?: ", pasiva_escogida)
+	return pasiva_escogida
+
+func set_pasiva_escogida(value: bool) -> void:
+	pasiva_escogida = value
+
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+# Input y Debug
+# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_1 and not pasiva_escogida and puede_escoger_pasiva:
+		print("Tecla 1 presionada")
+		if poscion_pasivas_elegir.size() > 0 and poscion_pasivas_elegir[0].get_child_count() > 0:
+			var pasiva = poscion_pasivas_elegir[0].get_child(0).name
+			match pasiva:
+				"Velocidad Lanzamiento":
+					aumentar_velocidad_lanzamiento(velocidad_lanzamiento_incremento)
+				"Retorno Bola":
+					aumentar_retorno_bola(retorno_bola_decremento)
+				"Potencia Bola":
+					aumentar_potencia_bola(potencia_bola_incremento)
+				"Rebotes Guiados":
+					aumentar_rebotes_guiados(numero_rebotes_incremento)
+				"Spawn Objetos":
+					aumentar_numero_objetos(numero_objetos_incremento)
+			print("Pasiva Escogida a traves de la tecla 1: ", pasiva)
+			game_manager.reanudar_partida_por_pasiva()
+			pasiva_escogida = true
+			puede_escoger_pasiva = false
+
+	if event is InputEventKey and event.pressed and event.keycode == KEY_2 and not pasiva_escogida and puede_escoger_pasiva:
+		print("Tecla 2 presionada")
+		if poscion_pasivas_elegir.size() > 1 and poscion_pasivas_elegir[1].get_child_count() > 0:
+			var pasiva = poscion_pasivas_elegir[1].get_child(0).name
+			match pasiva:
+				"Velocidad Lanzamiento":
+					aumentar_velocidad_lanzamiento(velocidad_lanzamiento_incremento)
+				"Retorno Bola":
+					aumentar_retorno_bola(retorno_bola_decremento)
+				"Potencia Bola":
+					aumentar_potencia_bola(potencia_bola_incremento)
+				"Rebotes Guiados":
+					aumentar_rebotes_guiados(numero_rebotes_incremento)
+				"Spawn Objetos":
+					aumentar_numero_objetos(numero_objetos_incremento)
+			print("Pasiva Escogida a traves de la tecla 2: ", pasiva)
+			game_manager.reanudar_partida_por_pasiva()
+			pasiva_escogida = true
+			puede_escoger_pasiva = false

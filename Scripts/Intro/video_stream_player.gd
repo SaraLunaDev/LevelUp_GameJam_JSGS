@@ -3,6 +3,13 @@ extends VideoStreamPlayer
 @export var game_manager: Node
 
 func _on_finished() -> void:
+	terminar_intro()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		terminar_intro()
+
+func terminar_intro():
 	if game_manager.has_method("comenzar_partida"):
 		game_manager.comenzar_partida()
 		if get_tree().has_group("camera_manager"):

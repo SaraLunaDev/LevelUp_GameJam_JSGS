@@ -12,49 +12,54 @@ class_name CameraManager
 
 @export_subgroup("Base Position")
 var go_to_base: bool = false
-@export var camera_base_rotation := Vector3(-27, 180, 0)
+@export var camera_base_quaternion := Vector4(0.0, 0.973, 0.232, 0)
 @export var camera_base_position := Vector3(0, 4, -5.04)
 @export var camera_base_fov: float = 46.2
 
 @export_subgroup("Camarero Position")
 var go_to_camarero: bool = false
-@export var camera_camarero_rotation := Vector3(-12.2, -131.5, 0)
-@export var camera_camarero_position := Vector3(0, 4, -5.04)
-@export var camera_camarero_fov: float = 17.4
+@export var camera_camarero_quaternion := Vector4(0.087, 0.875, 0.171, -0.444)
+@export var camera_camarero_position := Vector3(0.089, 4.587, -4.318)
+@export var camera_camarero_fov: float = 17.5
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func _process(delta: float) -> void:
+var tween: Tween
+
+func _ready() -> void:
+	tween = create_tween()
+	tween.set_parallel(true)
+
+func _process(_delta: float) -> void:
 	if go_to_base:
-		lerp_camera_to(camera_base_position, camera_base_rotation, camera_base_fov, delta)
-		if camera.global_transform.origin.distance_to(camera_base_position) < 0.1 and \
-		   camera.global_transform.basis.get_euler().distance_to(camera_base_rotation) < 0.1 and \
-		   abs(camera.fov - camera_base_fov) < 0.1:
-			go_to_base = false
+		move_camera_smooth(camera_base_position, camera_base_quaternion, camera_base_fov)
+		go_to_base = false
 	if go_to_camarero:
-		lerp_camera_to(camera_camarero_position, camera_camarero_rotation, camera_camarero_fov, delta)
-		if camera.global_transform.origin.distance_to(camera_camarero_position) < 0.1 and \
-		   camera.global_transform.basis.get_euler().distance_to(camera_camarero_rotation) < 0.1 and \
-		   abs(camera.fov - camera_camarero_fov) < 0.1:
-			go_to_camarero = false
+		move_camera_smooth(camera_camarero_position, camera_camarero_quaternion, camera_camarero_fov)
+		go_to_camarero = false
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Cambiar Posiciones
+# Cambiar Posiciones Smooth
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func lerp_camera_to(target_position: Vector3, target_rotation: Vector3, target_fov: float, delta: float) -> void:
-	camera.global_transform.origin = camera.global_transform.origin.lerp(target_position, camera_lerp_speed * delta)
-	var start_quat = Quaternion(camera.global_transform.basis)
-	var end_quat = Quaternion(
-		Basis()
-			.rotated(Vector3(1, 0, 0), deg_to_rad(target_rotation.x))
-			.rotated(Vector3(0, 1, 0), deg_to_rad(target_rotation.y))
-			.rotated(Vector3(0, 0, 1), deg_to_rad(target_rotation.z))
+func move_camera_smooth(target_position: Vector3, target_quaternion: Vector4, target_fov: float, duration: float = 1.0) -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_parallel(true)
+
+	tween.tween_property(camera, "global_position", target_position, duration)
+	tween.tween_property(camera, "fov", target_fov, duration)
+
+	var target_quat = Quaternion(target_quaternion.x, target_quaternion.y, target_quaternion.z, target_quaternion.w)
+	var start_quat = camera.global_transform.basis.get_rotation_quaternion()
+	tween.tween_method(
+		func(q): camera.global_transform = Transform3D(Basis(q), camera.global_position),
+		start_quat,
+		target_quat,
+		duration
 	)
-	camera.global_transform.basis = Basis(start_quat.slerp(end_quat, camera_lerp_speed * delta))
-	camera.fov = lerp(camera.fov, target_fov, camera_lerp_speed * delta)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Setters y Getters

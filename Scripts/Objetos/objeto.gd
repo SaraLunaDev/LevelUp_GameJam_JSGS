@@ -62,6 +62,11 @@ func eliminar_objeto() -> void:
 	
 	call_deferred("queue_free")
 
+func eliminar_sin_puntuacion() -> void:
+	objeto_activo = false
+	
+	call_deferred("queue_free")
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Setters y Getters
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
