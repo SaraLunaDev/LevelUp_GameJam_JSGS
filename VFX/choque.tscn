@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cita84qp6yedp"]
+
+[ext_resource type="Script" uid="uid://cepmbhuqa5dy2" path="res://Scripts/choqueVfxAnim.gd" id="1_1rp17"]
+
+[sub_resource type="Curve" id="Curve_m3xgx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.754167, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1a2di"]
+curve = SubResource("Curve_m3xgx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rh447"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_1a2di")
+color = Color(0.76662, 0.76662, 0.76662, 1)
+
+[sub_resource type="FogMaterial" id="FogMaterial_1rp17"]
+albedo = Color(0.774911, 0.800721, 0.863834, 1)
+emission = Color(0.674815, 0.674815, 0.674815, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m3xgx"]
+next_pass = SubResource("FogMaterial_1rp17")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ckujh"]
+material = SubResource("StandardMaterial3D_m3xgx")
+top_radius = 0.1
+bottom_radius = 0.0
+
+[node name="ChoqueVFX" type="Node3D"]
+script = ExtResource("1_1rp17")
+
+[node name="Chispas" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.25
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_rh447")
+draw_pass_1 = SubResource("CylinderMesh_ckujh")
