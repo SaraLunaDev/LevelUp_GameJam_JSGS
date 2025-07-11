@@ -35,6 +35,7 @@ banda=""
 bola_vida=""
 camera_manager=""
 
+
 [input]
 
 left_click={

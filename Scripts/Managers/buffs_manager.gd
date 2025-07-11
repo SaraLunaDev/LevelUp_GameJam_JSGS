@@ -65,14 +65,29 @@ func _ready() -> void:
 	aumentar_rebotes_guiados(numero_rebotes_guiados)
 	aumentar_numero_objetos(numero_objetos)
 
+@export_subgroup("Rebotes Guiados")
+@export var numero_rebotes_guiados: int = 0
+@export var numero_rebotes_incremento: int = 1
+@export var numero_rebotes_guiados_maximo: int = 0
+@export var numero_rebotes_guiados_objeto: PackedScene = null
+@export var numero_rebotes_guiados_veces_usado: int = 0
+
+@export_subgroup("Spawn de Objetos")
+@export var numero_objetos: int = 0
+@export var numero_objetos_incremento: int = 1
+@export var numero_objetos_maximo: int = 10
+@export var numero_objetos_objeto: PackedScene = null
+	
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Pasivas 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
 	velocidad_lanzamiento = min(velocidad_lanzamiento + cantidad, velocidad_lanzamiento_maxima)
+
 	if velocidad_lanzamiento == 0.0:
 		return
+
 	velocidad_lanzamiento_veces_usado += 1
 	var objeto_ya_colocado := false
 	var obj_label = null
@@ -107,8 +122,10 @@ func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
 
 func aumentar_retorno_bola(cantidad: float) -> void:
 	retorno_bola = min(retorno_bola + cantidad, retorno_bola_minimo)
+
 	if retorno_bola == 0.0:
 		return
+
 	retorno_bola_veces_usado += 1
 	var objeto_ya_colocado := false
 	var obj_label = null
@@ -143,8 +160,10 @@ func aumentar_retorno_bola(cantidad: float) -> void:
 
 func aumentar_potencia_bola(cantidad: float) -> void:
 	potencia_bola = min(potencia_bola + cantidad, potencia_bola_maxima)
+
 	if potencia_bola == 0.0:
 		return
+
 	potencia_bola_veces_usado += 1
 	var objeto_ya_colocado := false
 	var obj_label = null
@@ -181,6 +200,7 @@ func aumentar_rebotes_guiados(cantidad: int) -> void:
 	numero_rebotes_guiados = min(numero_rebotes_guiados + cantidad, numero_rebotes_guiados_maximo)
 	if numero_rebotes_guiados == 0:
 		return
+
 	numero_rebotes_guiados_veces_usado += 1
 	if not bola_blanca:
 		bola_blanca = get_tree().get_nodes_in_group("bola_blanca")[0] if get_tree().get_nodes_in_group("bola_blanca") else null
@@ -219,9 +239,11 @@ func aumentar_rebotes_guiados(cantidad: int) -> void:
 
 func aumentar_numero_objetos(cantidad: int) -> void:
 	numero_objetos = min(numero_objetos + cantidad, numero_objetos_maximo)
+
 	if numero_objetos == 0:
 		return
 	numero_objetos_veces_usado += 1
+
 	var objeto_ya_colocado := false
 	var obj_label = null
 	for pos in poscion_objetos:
@@ -245,9 +267,11 @@ func aumentar_numero_objetos(cantidad: int) -> void:
 		ModoTexto.INCREMENTO:
 			texto = str("+", numero_objetos)
 		ModoTexto.VECES_USADO:
+
 			texto = str("x", numero_objetos_veces_usado)
 	if game_manager and game_manager.has_method("set_numero_objetos_label"):
 		game_manager.set_numero_objetos_label(numero_objetos)
+
 	if obj_label:
 		var label_node = obj_label.get_node_or_null("Label")
 		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:

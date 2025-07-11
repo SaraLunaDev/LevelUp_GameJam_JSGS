@@ -9,6 +9,7 @@ emission_enabled = true
 
 [sub_resource type="TextMesh" id="TextMesh_nyk5u"]
 material = SubResource("StandardMaterial3D_yrjlk")
+
 text = "1"
 depth = 0.023
 
@@ -27,5 +28,6 @@ spot_range = 1.202
 spot_angle = 63.58
 
 [node name="Label" type="MeshInstance3D" parent="." index="3"]
+
 transform = Transform3D(0.938258, 0, -0.345937, 0, 1, 0, 0.345937, 0, 0.938258, 0, 0.561045, 0)
 mesh = SubResource("TextMesh_nyk5u")

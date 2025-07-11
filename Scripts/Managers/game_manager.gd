@@ -17,8 +17,12 @@ class_name GameManager
 @export var bola_vida: PackedScene = null
 
 @export_group("Labels")
+
 @export var puntuacion_mesh_label: MeshInstance3D = null
+
 @export var global_timer_label: Label = null
+@export var rebotes_guiados_label: Label = null
+@export var numero_objetos_label: Label = null
 
 @export_group("Gestion de Partida")
 @export var vida: int
@@ -301,10 +305,12 @@ func get_vida() -> int:
 
 func restar_vida(value: int) -> void:
 	vida -= value
+
 	if spawn_vida and bola_vida and spawn_vida.is_inside_tree():
 		var bola_vida_instance = bola_vida.instantiate()
 		if bola_vida_instance.has_method("set_tipo_bola"):
 			bola_vida_instance.set_tipo_bola(tipo_bola)
+
 		spawn_vida.add_child(bola_vida_instance)
 		bola_vida_instance.global_position = spawn_vida.global_position
 		bola_vida_instance.global_rotation = spawn_vida.global_rotation
@@ -315,6 +321,7 @@ func sumar_vida(value: int) -> void:
 	vida += value
 	if vida > MAX_VIDA:
 		vida = MAX_VIDA
+
 	if spawn_vida and spawn_vida.get_child_count() > 0:
 		var first_child = spawn_vida.get_child(0)
 		if is_instance_valid(first_child):
@@ -332,6 +339,7 @@ func get_puntuacion() -> int:
 
 func sumar_puntuacion(value: int) -> void:
 	puntuacion += value
+
 	if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
 		var text_mesh := puntuacion_mesh_label.mesh as TextMesh
 		text_mesh.text = str(puntuacion)
@@ -352,9 +360,11 @@ func set_numero_objetos_label(_value: int) -> void:
 func get_partida_iniciada() -> bool:
 	return partida_iniciada
 
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Input y Debug
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
 		comenzar_partida()
