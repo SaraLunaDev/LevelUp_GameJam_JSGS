@@ -5,11 +5,11 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_jui5i"]
 height = 0.641846
-radius = 0.0893555
+radius = 0.0947266
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_p16xp"]
 height = 0.696289
-radius = 0.126465
+radius = 0.115723
 
 [node name="Objeto_Birra" instance=ExtResource("1_jui5i")]
 tipo_objeto = 2

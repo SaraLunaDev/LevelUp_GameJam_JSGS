@@ -3,20 +3,26 @@
 [ext_resource type="PackedScene" uid="uid://7x1h6uwyq7dq" path="res://Scenes/Objetos/objeto_base.tscn" id="1_y487d"]
 [ext_resource type="PackedScene" uid="uid://b7dw5n1s6oaap" path="res://Models/whisky.tscn" id="2_lisq4"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_y487d"]
-size = Vector3(0.34758, 0.686951, 0.20166)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y487d"]
+height = 0.673218
+radius = 0.112793
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lisq4"]
-size = Vector3(0.460876, 0.769775, 0.330139)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lisq4"]
+height = 0.729004
+radius = 0.133789
 
 [node name="Objeto_Whisky" instance=ExtResource("1_y487d")]
 
 [node name="Whisky_004" parent="." index="0" instance=ExtResource("2_lisq4")]
+transform = Transform3D(0.131745, 0, 0, 0, 0.131745, 0, 0, 0, 0.131745, 0, 0.0563202, 0)
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00281525, 0.209159, -0.00756836)
-shape = SubResource("BoxShape3D_y487d")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00281525, 0.266395, -0.00756836)
+shape = SubResource("CylinderShape3D_y487d")
+
+[node name="Area3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0563202, 0)
 
 [node name="CollisionShape3D" parent="Area3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038147, 0.213696, -0.00869751)
-shape = SubResource("BoxShape3D_lisq4")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00521082, 0.214917, -0.00611112)
+shape = SubResource("CylinderShape3D_lisq4")
