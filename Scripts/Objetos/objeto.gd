@@ -48,8 +48,9 @@ func _ready():
 func recibir_golpe(daño: int) -> void:
 	if choque:
 		var choque_instance = choque.instantiate()
-		choque_instance.global_transform.origin = global_transform.origin
 		get_tree().current_scene.add_child(choque_instance)
+		if is_inside_tree():
+			choque_instance.global_transform.origin = global_transform.origin
 	vida -= daño
 	if vida <= 0:
 		eliminar_objeto()

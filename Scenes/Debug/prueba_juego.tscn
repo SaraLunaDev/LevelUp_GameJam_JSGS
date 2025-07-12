@@ -27,12 +27,10 @@
 [ext_resource type="PackedScene" uid="uid://bqr30lk4203v2" path="res://Models/Buffos/buffo_retornoANIMATED.tscn" id="22_fekwy"]
 [ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
 [ext_resource type="PackedScene" uid="uid://dtq0u6qpytksi" path="res://Models/Buffos/buffo_potenciaANIMATED.tscn" id="23_m8bvx"]
-[ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
+[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
 [ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
-[ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
-[ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 [ext_resource type="Script" uid="uid://d2w0ksa2464cr" path="res://Scripts/Managers/camera_manager.gd" id="27_6wyob"]
 [ext_resource type="VideoStream" uid="uid://blobcjbqydua6" path="res://Videos/POOLOUT_Trailer_1.ogv" id="27_v08tv"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="28_4xie2"]
@@ -42,6 +40,8 @@
 [ext_resource type="Script" uid="uid://d36kopydbuitw" path="res://VFX/damage_overlay.gd" id="30_jttd8"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="30_m8bvx"]
 [ext_resource type="Texture2D" uid="uid://dg6pocufjdoes" path="res://Textures/damage.png" id="31_sbxn4"]
+[ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
+[ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dfqwhx1p1bd7n" path="res://Models/billar_bueno.tscn" id="37_sbxn4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h83sj"]
@@ -561,4 +561,3 @@ light_energy = 0.25
 scene_song = 1
 
 [connection signal="finished" from="Control/AspectRatioContainer/VideoStreamPlayer" to="Control/AspectRatioContainer/VideoStreamPlayer" method="_on_finished"]
-

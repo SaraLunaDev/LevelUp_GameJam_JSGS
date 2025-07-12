@@ -75,8 +75,8 @@ func _physics_process(_delta: float) -> void:
 func recibir_golpe(daño: int) -> void:
 	if choque:
 		var choque_instance = choque.instantiate()
-		choque_instance.global_transform.origin = global_transform.origin
 		get_tree().current_scene.add_child(choque_instance)
+		choque_instance.global_transform.origin = global_transform.origin
 	vida -= daño
 	if vida <= 0:
 		eliminar_bola()

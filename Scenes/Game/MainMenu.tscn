@@ -1,19 +1,17 @@
-
-[gd_scene load_steps=15 format=3 uid="uid://cb2xiir7ika68"]
-
+[gd_scene load_steps=17 format=3 uid="uid://cb2xiir7ika68"]
 
 [ext_resource type="Script" uid="uid://c0l3c2n2lw6da" path="res://Scripts/v_box_container.gd" id="1_de4cs"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_hn2at"]
 [ext_resource type="Texture2D" uid="uid://b3nnmnv6myblr" path="res://Textures/playButton.png" id="2_hn2at"]
 [ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="3_esq62"]
-[ext_resource type="Script" path="res://Scripts/Audio/audio_button.gd" id="3_p1lor"]
+[ext_resource type="Script" uid="uid://uvnwqkrvopy2" path="res://Scripts/Audio/audio_button.gd" id="3_p1lor"]
 [ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
 [ext_resource type="Texture2D" uid="uid://c3rnpxr16gkmt" path="res://Textures/TitleAnim/titleAnimatedTexture.tres" id="5_ymo5r"]
 [ext_resource type="Script" uid="uid://8uj6f0jgwost" path="res://Scenes/Game/camera_3d.gd" id="6_h6d63"]
 [ext_resource type="Material" uid="uid://c6bdmb2j1qovw" path="res://Materials/crtShaderMaterial.tres" id="6_hn2at"]
 [ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="7_tnjq2"]
-[ext_resource type="Script" path="res://Scripts/npc1_anim.gd" id="8_lo35h"]
-[ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
+[ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="8_lo35h"]
+[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="10_5fpg2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="11_hn2at"]
 
