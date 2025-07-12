@@ -6,6 +6,8 @@ extends RigidBody3D
 
 var objeto_activo: bool = true
 @export var choque: PackedScene
+@export var explosion: PackedScene
+@export var charco: PackedScene
 
 enum TipoObjeto {
 	WHISKY,
@@ -59,11 +61,38 @@ func eliminar_objeto() -> void:
 	objeto_activo = false
 	match tipo_objeto:
 		TipoObjeto.VASO:
-			pass
+			var game_manager = get_tree().get_first_node_in_group("game_manager")
+			if game_manager and game_manager.has_method("sumar_vida"):
+				game_manager.sumar_vida(1)
 		TipoObjeto.BIRRA:
-			pass
+			if explosion:
+				var explosion_instance = explosion.instantiate()
+				get_tree().current_scene.add_child(explosion_instance)
+				if is_inside_tree():
+					explosion_instance.global_transform.origin = global_transform.origin
+			
+			var activos := []
+			var objetivos := []
+			objetivos += get_tree().get_nodes_in_group("bola")
+			for obj in objetivos:
+				if obj != self and obj.has_method("is_activa") and obj.is_activa():
+					activos.append(obj)
+		
+			for obj in activos:
+				var distance = obj.global_transform.origin.distance_to(global_transform.origin)
+				if distance < 1:
+					if obj.is_in_group("bola") and obj.has_method("eliminar_bola"):
+						obj.eliminar_bola()
 		TipoObjeto.WHISKY:
-			pass
+			if charco:
+				var charco_instance = charco.instantiate()
+				get_tree().current_scene.add_child(charco_instance)
+				if is_inside_tree():
+					charco_instance.global_transform.origin = global_transform.origin
+					charco_instance.global_transform.origin.y -= 0.05
+					var tween = get_tree().create_tween()
+					charco_instance.scale = Vector3(0.01, 0.01, 0.01)
+					tween.tween_property(charco_instance, "scale", Vector3(1, 1, 1), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
 	call_deferred("queue_free")
 
@@ -78,3 +107,6 @@ func eliminar_sin_puntuacion() -> void:
 
 func is_activa() -> bool:
 	return objeto_activo
+
+func get_tipo() -> TipoObjeto:
+	return tipo_objeto

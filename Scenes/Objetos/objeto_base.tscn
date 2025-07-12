@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://7x1h6uwyq7dq"]
+[gd_scene load_steps=6 format=3 uid="uid://7x1h6uwyq7dq"]
 
 [ext_resource type="Script" uid="uid://cmbfequf0tqkx" path="res://Scripts/Objetos/objeto.gd" id="1_7mv2o"]
 [ext_resource type="PackedScene" uid="uid://cita84qp6yedp" path="res://VFX/choque.tscn" id="2_rj6jn"]
+[ext_resource type="PackedScene" uid="uid://bvrseum6yet0d" path="res://VFX/explosion.tscn" id="3_n3s3p"]
+[ext_resource type="PackedScene" uid="uid://c0u4yis3ogwww" path="res://VFX/charco.tscn" id="4_iwi58"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
 friction = 0.5
@@ -19,6 +21,8 @@ angular_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_7mv2o")
 choque = ExtResource("2_rj6jn")
+explosion = ExtResource("3_n3s3p")
+charco = ExtResource("4_iwi58")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["objeto"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.216819, 0)

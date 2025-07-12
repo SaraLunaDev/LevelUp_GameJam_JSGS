@@ -18,9 +18,9 @@ var go_to_base: bool = false
 
 @export_subgroup("Camarero Position")
 var go_to_camarero: bool = false
-@export var camera_camarero_quaternion := Vector4(0.087, 0.875, 0.171, -0.444)
-@export var camera_camarero_position := Vector3(0.089, 4.587, -4.318)
-@export var camera_camarero_fov: float = 17.5
+@export var camera_camarero_quaternion := Vector4(0.073, 0.895, 0.121, -0.423)
+@export var camera_camarero_position := Vector3(0.0, 4.09, -5.04)
+@export var camera_camarero_fov: float = 16.0
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -96,7 +96,7 @@ func hit_down_camera(intensity: float, duration: float) -> void:
 
 func fov_zoom(intensity: float, duration: float) -> void:
 	var original_fov = camera.fov
-	var target_fov = original_fov + intensity
+	var target_fov = clamp(original_fov + intensity, 1.0, 60.0)
 	var tween := create_tween()
 	tween.tween_property(camera, "fov", target_fov, duration / 2)
 

@@ -52,7 +52,7 @@ func mover_hacia_objetivo_cercano() -> void:
 		return
 
 	var camera_manager = get_tree().get_first_node_in_group("camera_manager")
-	camera_manager.fov_zoom(1 * numero_rebotes_guiados, 0.2)
+	camera_manager.fov_zoom(numero_rebotes_guiados * 0.1, 0.2)
 
 	var objetivos := []
 	objetivos += get_tree().get_nodes_in_group("bola")

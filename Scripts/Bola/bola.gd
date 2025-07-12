@@ -7,8 +7,10 @@ extends RigidBody3D
 var bola_activa: bool = true
 var aceleracion: float = 1
 var VELOCIDAD_MAXIMA: float = 2
+var VELOCIDAD_MAXIMA_LIMITADA: float = 0.4
 var destino: Vector3 = Vector3.ZERO
 @export var choque: PackedScene
+@export var area_detector: Area3D
 
 var VIDA_MAXIMA: int
 var vida: int
@@ -137,6 +139,22 @@ func aplicar_efecto() -> void:
 				pass
 			TipoBola.TIPO_8:
 				pass
+
+func limitar_velocidad() -> void:
+	VELOCIDAD_MAXIMA = VELOCIDAD_MAXIMA_LIMITADA
+
+func _process(_delta: float) -> void:
+	var en_charco = false
+	for area in area_detector.get_overlapping_areas():
+		if area.is_in_group("charco"):
+			en_charco = true
+			break
+	if en_charco:
+		if VELOCIDAD_MAXIMA != VELOCIDAD_MAXIMA_LIMITADA:
+			VELOCIDAD_MAXIMA = VELOCIDAD_MAXIMA_LIMITADA
+	else:
+		if VELOCIDAD_MAXIMA != 2:
+			VELOCIDAD_MAXIMA = 2
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Setters y Getters
