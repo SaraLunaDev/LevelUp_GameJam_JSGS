@@ -8,6 +8,7 @@ var bola_activa: bool = true
 var aceleracion: float = 1
 var VELOCIDAD_MAXIMA: float = 2
 var destino: Vector3 = Vector3.ZERO
+@onready var choque_vfx: Node3D = $ChoqueVFX
 
 var VIDA_MAXIMA: int
 var vida: int
@@ -41,7 +42,7 @@ enum TipoBola {
 func _ready() -> void:
 	match tipo_bola:
 		TipoBola.TIPO_8:
-			VIDA_MAXIMA = 2
+			VIDA_MAXIMA = 1
 		_:
 			VIDA_MAXIMA = 1
 	
@@ -72,6 +73,7 @@ func _physics_process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func recibir_golpe(daño: int) -> void:
+	choque_vfx.explode()
 	vida -= daño
 	if vida <= 0:
 		eliminar_bola()

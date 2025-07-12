@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cita84qp6yedp"]
 
-[ext_resource type="Script" uid="uid://cepmbhuqa5dy2" path="res://Scripts/choqueVfxAnim.gd" id="1_1rp17"]
+[ext_resource type="Script" path="res://Scripts/choqueVfxAnim.gd" id="1_1rp17"]
 
 [sub_resource type="Curve" id="Curve_m3xgx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.754167, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -11,6 +11,7 @@ curve = SubResource("Curve_m3xgx")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rh447"]
 particle_flag_align_y = true
+emission_shape_scale = Vector3(0.3, 0.3, 0.3)
 spread = 180.0
 initial_velocity_min = 12.0
 initial_velocity_max = 14.0

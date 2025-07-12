@@ -26,13 +26,13 @@ var object_mass: float = 1
 func _ready():
 	match tipo_objeto:
 		TipoObjeto.WHISKY:
-			VIDA_MAXIMA = 3
+			VIDA_MAXIMA = 1
 			object_mass = 2
 		TipoObjeto.VASO:
 			VIDA_MAXIMA = 1
 			object_mass = 0.5
 		TipoObjeto.BIRRA:
-			VIDA_MAXIMA = 2
+			VIDA_MAXIMA = 1
 			object_mass = 1
 		_:
 			VIDA_MAXIMA = 1

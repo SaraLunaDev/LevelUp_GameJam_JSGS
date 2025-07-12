@@ -34,11 +34,25 @@ func mover_bola(direccion: Vector3, potencia_inicial: float) -> void:
 var ultimo_objetivo_cercano: RigidBody3D = null
 var rebote_queue: Array = []
 
+func _physics_process(_delta: float) -> void:
+	var activos := []
+	var objetivos := []
+	objetivos += get_tree().get_nodes_in_group("bola")
+	objetivos += get_tree().get_nodes_in_group("objeto")
+	for obj in objetivos:
+		if obj != self and obj.has_method("is_activa") and obj.is_activa():
+			activos.append(obj)
+
 func mover_hacia_objetivo_cercano() -> void:
 	if not activado_rebote_guiado:
 		activado_rebote_guiado = true
 	if numero_rebotes_guiados >= buffs_manager.get_numero_rebotes_guiados():
+		var camera_manager_reset = get_tree().get_first_node_in_group("camera_manager")
+		camera_manager_reset.fov_zoom_reset()
 		return
+
+	var camera_manager = get_tree().get_first_node_in_group("camera_manager")
+	camera_manager.fov_zoom(1 * numero_rebotes_guiados, 0.2)
 
 	var objetivos := []
 	objetivos += get_tree().get_nodes_in_group("bola")

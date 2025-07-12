@@ -58,7 +58,7 @@ var tipo_bola = null
 var pausa_activa = false
 var esperando_pasiva := false
 @onready var transition: Node = $"../Control/Transition/AnimationPlayer"
-@onready var damage_texture: TextureRect = $"../Control/AspectRatioContainer/TextureRect"
+@onready var damage_texture: TextureRect = $"../Control/AspectRatioContainer/Damage"
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -360,7 +360,7 @@ func restar_vida(value: int) -> void:
 		spawn_vida.add_child(bola_vida_instance)
 		bola_vida_instance.global_position = spawn_vida.global_position
 		bola_vida_instance.global_rotation = spawn_vida.global_rotation
-	
+	camera_manager.hit_down_camera(0.05, 0.2)
 	# modulate.a en base a la vida restante
 	if damage_texture:
 		var alpha = 1.0 - (float(vida) / float(MAX_VIDA))
