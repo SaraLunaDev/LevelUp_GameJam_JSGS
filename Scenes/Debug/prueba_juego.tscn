@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=45 format=3 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
@@ -35,7 +35,6 @@
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
 [ext_resource type="PackedScene" uid="uid://cmugk03txtqpa" path="res://Models/NPCs/npcIdle.glb" id="29_4u777"]
-[ext_resource type="PackedScene" uid="uid://dcwvnn5rwyjol" path="res://Scenes/Audio/camera_shake.tscn" id="35_4xie2"]
 [ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 
@@ -489,9 +488,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.893, -1.8)
 transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 1.07041e-08, 0.893889, 0.448289, -2.50489e-07, 0.448289, -0.893889, 0, 3.90057, -5.03675)
 attributes = SubResource("CameraAttributesPractical_ypxt0")
 fov = 46.2061
-
-[node name="CameraShake" parent="Camera3D" node_paths=PackedStringArray("camera") instance=ExtResource("35_4xie2")]
-camera = NodePath("..")
 
 [node name="Luces" type="Label3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, -0.00102806, 3.37222, -0.00614643)
