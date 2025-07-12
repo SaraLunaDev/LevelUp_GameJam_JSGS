@@ -275,6 +275,8 @@ func resetear_bola_blanca() -> void:
 	reseteando_bola_blanca = true
 	var bola = get_bola_blanca()
 	if bola:
+		var camera_manager_reset = get_tree().get_first_node_in_group("camera_manager")
+		camera_manager_reset.fov_zoom_reset()
 		game_manager.set_rebotes_guiados_label("0")
 		bola.set_numero_rebotes_guiados(0)
 		bola.set_activado_rebote_guiado(false)
@@ -308,7 +310,6 @@ func resetear_bola_blanca() -> void:
 			bola.set_collision_mask(1)
 		if palo_posicionado:
 			actualizar_posicion_palo()
-	
 	bola.set_transparencia(1)
 	lanzando = false
 	reseteando_potencia = false

@@ -82,3 +82,26 @@ func shake_camera(intensity: float, duration: float) -> void:
 		timer -= get_process_delta_time()
 		await get_tree().create_timer(0.01).timeout
 	camera.global_position = camera_base_position
+
+func hit_down_camera(intensity: float, duration: float) -> void:
+	var original_position = camera.global_position
+	var target_position = original_position + Vector3(0, -intensity, 0)
+	var tween := create_tween()
+	tween.tween_property(camera, "global_position", target_position, duration / 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	await tween.finished
+	var tween2 := create_tween()
+	tween2.tween_property(camera, "global_position", original_position, duration / 2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	await tween2.finished
+	camera.global_position = original_position
+
+func fov_zoom(intensity: float, duration: float) -> void:
+	var original_fov = camera.fov
+	var target_fov = original_fov + intensity
+	var tween := create_tween()
+	tween.tween_property(camera, "fov", target_fov, duration / 2)
+
+func fov_zoom_reset() -> void:
+	var _original_fov = camera.fov
+	var target_fov = camera_base_fov
+	var tween := create_tween()
+	tween.tween_property(camera, "fov", target_fov, 0.1)
