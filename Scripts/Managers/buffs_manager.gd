@@ -48,7 +48,7 @@ var puede_escoger_pasiva: bool = false
 @export_subgroup("Rebotes Guiados")
 @export var numero_rebotes_guiados: int = 0
 @export var numero_rebotes_incremento: int = 1
-@export var numero_rebotes_guiados_maximo: int = 0
+@export var numero_rebotes_guiados_maximo: int = 100
 @export var numero_rebotes_guiados_objeto: PackedScene = null
 @export var numero_rebotes_guiados_veces_usado: int = 0
 
@@ -63,250 +63,164 @@ var puede_escoger_pasiva: bool = false
 # Ready y Process
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 	
-func _ready() -> void:
-	aumentar_velocidad_lanzamiento(velocidad_lanzamiento)
-	aumentar_retorno_bola(retorno_bola)
-	aumentar_potencia_bola(potencia_bola)
-	aumentar_rebotes_guiados(numero_rebotes_guiados)
-	aumentar_numero_objetos(numero_objetos)
-
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Mostrar Pasivas
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func elegir_pasivas_random():
-	if not puede_escoger_pasiva:
-		puede_escoger_pasiva = true
+	if puede_escoger_pasiva or poscion_pasivas_elegir.size() < 2:
+		return
+		
+	pasiva_escogida = false
+	puede_escoger_pasiva = true
 
-		var pasivas: Array = []
-		if velocidad_lanzamiento_objeto:
-			pasivas.append({"scene": velocidad_lanzamiento_objeto, "nombre": "Velocidad Lanzamiento"})
-		if retorno_bola_objeto:
-			pasivas.append({"scene": retorno_bola_objeto, "nombre": "Retorno Bola"})
-		if potencia_bola_objeto:
-			pasivas.append({"scene": potencia_bola_objeto, "nombre": "Potencia Bola"})
-		if numero_rebotes_guiados_objeto:
-			pasivas.append({"scene": numero_rebotes_guiados_objeto, "nombre": "Rebotes Guiados"})
-		if numero_objetos_objeto:
-			pasivas.append({"scene": numero_objetos_objeto, "nombre": "Spawn Objetos"})
+	for pos in poscion_pasivas_elegir:
+		for child in pos.get_children():
+			child.queue_free()
 
-		if pasivas.is_empty() or poscion_pasivas_elegir.size() < 2:
-			return
+	var pasivas = []
+	if velocidad_lanzamiento_objeto:
+		pasivas.append({"scene": velocidad_lanzamiento_objeto, "nombre": "Velocidad Lanzamiento"})
+	if retorno_bola_objeto:
+		pasivas.append({"scene": retorno_bola_objeto, "nombre": "Retorno Bola"})
+	if potencia_bola_objeto:
+		pasivas.append({"scene": potencia_bola_objeto, "nombre": "Potencia Bola"})
+	if numero_rebotes_guiados_objeto:
+		pasivas.append({"scene": numero_rebotes_guiados_objeto, "nombre": "Rebotes Guiados"})
+	if numero_objetos_objeto:
+		pasivas.append({"scene": numero_objetos_objeto, "nombre": "Spawn Objetos"})
 
-		for pos in poscion_pasivas_elegir:
-			for child in pos.get_children():
-				child.queue_free()
+	if pasivas.size() < 2:
+		return
 
-		var indices_usados := []
-		for i in range(2):
-			var idx := randi() % pasivas.size()
-			while idx in indices_usados and pasivas.size() > 1:
-				idx = randi() % pasivas.size()
-			indices_usados.append(idx)
-			var pasiva_data = pasivas[idx]
-			var pasiva_instance = pasiva_data["scene"].instantiate()
-			pasiva_instance.name = pasiva_data["nombre"]
-			poscion_pasivas_elegir[i].add_child(pasiva_instance)
-			pasiva_instance.global_position = poscion_pasivas_elegir[i].global_position
-		print("pasivas elegidas:", poscion_pasivas_elegir[0].get_child(0).name, poscion_pasivas_elegir[1].get_child(0).name)
+	for pos in poscion_pasivas_elegir:
+		for child in pos.get_children():
+			child.queue_free()
+
+	var indices = []
+	while indices.size() < 2:
+		var idx = randi() % pasivas.size()
+		if idx not in indices:
+			indices.append(idx)
+
+	for i in range(2):
+		var pasiva_data = pasivas[indices[i]]
+		var pasiva_instance = pasiva_data["scene"].instantiate()
+		pasiva_instance.name = pasiva_data["nombre"]
+		poscion_pasivas_elegir[i].add_child(pasiva_instance)
+		pasiva_instance.global_position = poscion_pasivas_elegir[i].global_position
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Pasivas 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
-	velocidad_lanzamiento = min(velocidad_lanzamiento + cantidad, velocidad_lanzamiento_maxima)
-
-	if velocidad_lanzamiento == 0.0:
-		return
-
-	velocidad_lanzamiento_veces_usado += 1
+func _actualizar_objeto_y_label(objeto_escena, veces_usado, cantidad, maximo, label, texto_label, modo_texto_param, pos_array, _obj_label_ref, nombre_label_func: String = ""):
+	var valor = min(cantidad, maximo)
 	var objeto_ya_colocado := false
 	var obj_label = null
-	for pos in poscion_objetos:
+	for pos in pos_array:
 		if pos.get_child_count() > 0:
 			for child in pos.get_children():
-				if velocidad_lanzamiento_objeto and child.scene_file_path == velocidad_lanzamiento_objeto.resource_path:
+				if objeto_escena and child.scene_file_path == objeto_escena.resource_path:
 					objeto_ya_colocado = true
 					obj_label = child
 					break
 		if objeto_ya_colocado:
 			break
 	if not objeto_ya_colocado:
-		for pos in poscion_objetos:
-			if pos.get_child_count() == 0 and velocidad_lanzamiento_objeto:
-				var obj = velocidad_lanzamiento_objeto.instantiate()
+		for pos in pos_array:
+			if pos.get_child_count() == 0 and objeto_escena:
+				var obj = objeto_escena.instantiate()
 				pos.add_child(obj)
 				obj_label = obj
 				break
 	var texto = ""
-	match modo_texto:
+	match modo_texto_param:
 		ModoTexto.INCREMENTO:
-			texto = str("+", velocidad_lanzamiento)
+			texto = str("+", valor)
 		ModoTexto.VECES_USADO:
-			texto = str("x", velocidad_lanzamiento_veces_usado)
-	if velocidad_lanzamiento_label:
-		velocidad_lanzamiento_label.text = texto
+			texto = str("x", veces_usado)
+	if label:
+		label.text = texto_label if texto_label != null else texto
 	if obj_label:
 		var label_node = obj_label.get_node_or_null("Label")
 		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
 			label_node.mesh.text = texto
+	if game_manager and nombre_label_func != "" and game_manager.has_method(nombre_label_func):
+		game_manager.call(nombre_label_func, texto)
+	return valor
+
+func aumentar_velocidad_lanzamiento(cantidad: float) -> void:
+	velocidad_lanzamiento_veces_usado += 1
+	velocidad_lanzamiento = _actualizar_objeto_y_label(
+		velocidad_lanzamiento_objeto,
+		velocidad_lanzamiento_veces_usado,
+		velocidad_lanzamiento + cantidad,
+		velocidad_lanzamiento_maxima,
+		velocidad_lanzamiento_label,
+		null,
+		modo_texto,
+		poscion_objetos,
+		null
+	)
 
 func aumentar_retorno_bola(cantidad: float) -> void:
-	retorno_bola = min(retorno_bola + cantidad, retorno_bola_minimo)
-
-	if retorno_bola == 0.0:
-		return
-
 	retorno_bola_veces_usado += 1
-	var objeto_ya_colocado := false
-	var obj_label = null
-	for pos in poscion_objetos:
-		if pos.get_child_count() > 0:
-			for child in pos.get_children():
-				if retorno_bola_objeto and child.scene_file_path == retorno_bola_objeto.resource_path:
-					objeto_ya_colocado = true
-					obj_label = child
-					break
-		if objeto_ya_colocado:
-			break
-	if not objeto_ya_colocado:
-		for pos in poscion_objetos:
-			if pos.get_child_count() == 0 and retorno_bola_objeto:
-				var obj = retorno_bola_objeto.instantiate()
-				pos.add_child(obj)
-				obj_label = obj
-				break
-	var texto = ""
-	match modo_texto:
-		ModoTexto.INCREMENTO:
-			texto = str("+", retorno_bola)
-		ModoTexto.VECES_USADO:
-			texto = str("x", retorno_bola_veces_usado)
-	if retorno_bola_label:
-		retorno_bola_label.text = texto
-	if obj_label:
-		var label_node = obj_label.get_node_or_null("Label")
-		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
-			label_node.mesh.text = texto
+	retorno_bola = _actualizar_objeto_y_label(
+		retorno_bola_objeto,
+		retorno_bola_veces_usado,
+		retorno_bola + cantidad,
+		retorno_bola_minimo,
+		retorno_bola_label,
+		null,
+		modo_texto,
+		poscion_objetos,
+		null
+	)
 
 func aumentar_potencia_bola(cantidad: float) -> void:
-	potencia_bola = min(potencia_bola + cantidad, potencia_bola_maxima)
-
-	if potencia_bola == 0.0:
-		return
-
 	potencia_bola_veces_usado += 1
-	var objeto_ya_colocado := false
-	var obj_label = null
-	for pos in poscion_objetos:
-		if pos.get_child_count() > 0:
-			for child in pos.get_children():
-				if potencia_bola_objeto and child.scene_file_path == potencia_bola_objeto.resource_path:
-					objeto_ya_colocado = true
-					obj_label = child
-					break
-		if objeto_ya_colocado:
-			break
-	if not objeto_ya_colocado:
-		for pos in poscion_objetos:
-			if pos.get_child_count() == 0 and potencia_bola_objeto:
-				var obj = potencia_bola_objeto.instantiate()
-				pos.add_child(obj)
-				obj_label = obj
-				break
-	var texto = ""
-	match modo_texto:
-		ModoTexto.INCREMENTO:
-			texto = str("+", potencia_bola)
-		ModoTexto.VECES_USADO:
-			texto = str("x", potencia_bola_veces_usado)
-	if potencia_bola_label:
-		potencia_bola_label.text = texto
-	if obj_label:
-		var label_node = obj_label.get_node_or_null("Label")
-		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
-			label_node.mesh.text = texto
+	potencia_bola = _actualizar_objeto_y_label(
+		potencia_bola_objeto,
+		potencia_bola_veces_usado,
+		potencia_bola + cantidad,
+		potencia_bola_maxima,
+		potencia_bola_label,
+		null,
+		modo_texto,
+		poscion_objetos,
+		null
+	)
 
 func aumentar_rebotes_guiados(cantidad: int) -> void:
-	numero_rebotes_guiados = min(numero_rebotes_guiados + cantidad, numero_rebotes_guiados_maximo)
-	if numero_rebotes_guiados == 0:
-		return
-
 	numero_rebotes_guiados_veces_usado += 1
-	if not bola_blanca:
-		bola_blanca = get_tree().get_nodes_in_group("bola_blanca")[0] if get_tree().get_nodes_in_group("bola_blanca") else null
-	if bola_blanca and bola_blanca.has_method("set_numero_rebotes_guiados_maximo"):
-		bola_blanca.set_numero_rebotes_guiados_maximo(numero_rebotes_guiados)
-	var objeto_ya_colocado := false
-	var obj_label = null
-	for pos in poscion_objetos:
-		if pos.get_child_count() > 0:
-			for child in pos.get_children():
-				if numero_rebotes_guiados_objeto and child.scene_file_path == numero_rebotes_guiados_objeto.resource_path:
-					objeto_ya_colocado = true
-					obj_label = child
-					break
-		if objeto_ya_colocado:
-			break
-	if not objeto_ya_colocado:
-		for pos in poscion_objetos:
-			if pos.get_child_count() == 0 and numero_rebotes_guiados_objeto:
-				var obj = numero_rebotes_guiados_objeto.instantiate()
-				pos.add_child(obj)
-				obj_label = obj
-				break
-	var texto = ""
-	match modo_texto:
-		ModoTexto.INCREMENTO:
-			texto = str("+", numero_rebotes_guiados)
-		ModoTexto.VECES_USADO:
-			texto = str("x", numero_rebotes_guiados_veces_usado)
-	if game_manager and game_manager.has_method("set_rebotes_guiados_label"):
-		game_manager.set_rebotes_guiados_label(texto)
-	if obj_label:
-		var label_node = obj_label.get_node_or_null("Label")
-		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
-			label_node.mesh.text = texto
+	numero_rebotes_guiados = _actualizar_objeto_y_label(
+		numero_rebotes_guiados_objeto,
+		numero_rebotes_guiados_veces_usado,
+		numero_rebotes_guiados + cantidad,
+		numero_rebotes_guiados_maximo,
+		null,
+		null,
+		modo_texto,
+		poscion_objetos,
+		null,
+		"set_rebotes_guiados_label"
+	)
 
 func aumentar_numero_objetos(cantidad: int) -> void:
-	numero_objetos = min(numero_objetos + cantidad, numero_objetos_maximo)
-
-	if numero_objetos == 0:
-		return
 	numero_objetos_veces_usado += 1
-
-	var objeto_ya_colocado := false
-	var obj_label = null
-	for pos in poscion_objetos:
-		if pos.get_child_count() > 0:
-			for child in pos.get_children():
-				if numero_objetos_objeto and child.scene_file_path == numero_objetos_objeto.resource_path:
-					objeto_ya_colocado = true
-					obj_label = child
-					break
-		if objeto_ya_colocado:
-			break
-	if not objeto_ya_colocado:
-		for pos in poscion_objetos:
-			if pos.get_child_count() == 0 and numero_objetos_objeto:
-				var obj = numero_objetos_objeto.instantiate()
-				pos.add_child(obj)
-				obj_label = obj
-				break
-	var texto = ""
-	match modo_texto:
-		ModoTexto.INCREMENTO:
-			texto = str("+", numero_objetos)
-		ModoTexto.VECES_USADO:
-			texto = str("x", numero_objetos_veces_usado)
-	if game_manager and game_manager.has_method("set_numero_objetos_label"):
-		game_manager.set_numero_objetos_label(numero_objetos)
-
-	if obj_label:
-		var label_node = obj_label.get_node_or_null("Label")
-		if label_node and label_node is MeshInstance3D and label_node.mesh is TextMesh:
-			label_node.mesh.text = texto
+	numero_objetos = _actualizar_objeto_y_label(
+		numero_objetos_objeto,
+		numero_objetos_veces_usado,
+		numero_objetos + cantidad,
+		numero_objetos_maximo,
+		null,
+		null,
+		modo_texto,
+		poscion_objetos,
+		null,
+		"set_numero_objetos_label"
+	)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Getters y Setters
@@ -388,6 +302,12 @@ func set_numero_rebotes_guiados_maximo(value: int) -> void:
 	numero_rebotes_guiados_maximo = max(0, value)
 	numero_rebotes_guiados = clamp(numero_rebotes_guiados, 0, numero_rebotes_guiados_maximo)
 
+func get_numero_objetos() -> int:
+	return numero_objetos
+
+func set_numero_objetos(value: int) -> void:
+	numero_objetos = clamp(value, 0, numero_objetos_maximo)
+
 func ha_escogido_pasiva() -> bool:
 	print("Ha sido escogida?: ", pasiva_escogida)
 	return pasiva_escogida
@@ -400,10 +320,16 @@ func set_pasiva_escogida(value: bool) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_1 and not pasiva_escogida and puede_escoger_pasiva:
-		print("Tecla 1 presionada")
-		if poscion_pasivas_elegir.size() > 0 and poscion_pasivas_elegir[0].get_child_count() > 0:
-			var pasiva = poscion_pasivas_elegir[0].get_child(0).name
+	if event is InputEventKey and event.pressed and not pasiva_escogida and puede_escoger_pasiva:
+		var idx = -1
+		if event.keycode == KEY_1:
+			idx = 0
+		elif event.keycode == KEY_2:
+			idx = 1
+			
+		if idx >= 0 and poscion_pasivas_elegir.size() > idx and poscion_pasivas_elegir[idx].get_child_count() > 0:
+			pasiva_escogida = true
+			var pasiva = poscion_pasivas_elegir[idx].get_child(0).name
 			match pasiva:
 				"Velocidad Lanzamiento":
 					aumentar_velocidad_lanzamiento(velocidad_lanzamiento_incremento)
@@ -415,27 +341,10 @@ func _input(event: InputEvent) -> void:
 					aumentar_rebotes_guiados(numero_rebotes_incremento)
 				"Spawn Objetos":
 					aumentar_numero_objetos(numero_objetos_incremento)
-			print("Pasiva Escogida a traves de la tecla 1: ", pasiva)
+			
+			for pos in poscion_pasivas_elegir:
+				for child in pos.get_children():
+					child.queue_free()
+			
 			game_manager.reanudar_partida_por_pasiva()
-			pasiva_escogida = true
-			puede_escoger_pasiva = false
-
-	if event is InputEventKey and event.pressed and event.keycode == KEY_2 and not pasiva_escogida and puede_escoger_pasiva:
-		print("Tecla 2 presionada")
-		if poscion_pasivas_elegir.size() > 1 and poscion_pasivas_elegir[1].get_child_count() > 0:
-			var pasiva = poscion_pasivas_elegir[1].get_child(0).name
-			match pasiva:
-				"Velocidad Lanzamiento":
-					aumentar_velocidad_lanzamiento(velocidad_lanzamiento_incremento)
-				"Retorno Bola":
-					aumentar_retorno_bola(retorno_bola_decremento)
-				"Potencia Bola":
-					aumentar_potencia_bola(potencia_bola_incremento)
-				"Rebotes Guiados":
-					aumentar_rebotes_guiados(numero_rebotes_incremento)
-				"Spawn Objetos":
-					aumentar_numero_objetos(numero_objetos_incremento)
-			print("Pasiva Escogida a traves de la tecla 2: ", pasiva)
-			game_manager.reanudar_partida_por_pasiva()
-			pasiva_escogida = true
 			puede_escoger_pasiva = false

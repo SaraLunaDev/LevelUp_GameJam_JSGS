@@ -26,12 +26,6 @@ var go_to_camarero: bool = false
 # Ready y Process
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
-var tween: Tween
-
-func _ready() -> void:
-	tween = create_tween()
-	tween.set_parallel(true)
-
 func _process(_delta: float) -> void:
 	if go_to_base:
 		move_camera_smooth(camera_base_position, camera_base_quaternion, camera_base_fov)
@@ -45,9 +39,7 @@ func _process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func move_camera_smooth(target_position: Vector3, target_quaternion: Vector4, target_fov: float, duration: float = 1.0) -> void:
-	if tween and tween.is_running():
-		tween.kill()
-	tween = create_tween().set_parallel(true)
+	var tween := create_tween().set_parallel(true)
 
 	tween.tween_property(camera, "global_position", target_position, duration)
 	tween.tween_property(camera, "fov", target_fov, duration)
@@ -55,7 +47,9 @@ func move_camera_smooth(target_position: Vector3, target_quaternion: Vector4, ta
 	var target_quat = Quaternion(target_quaternion.x, target_quaternion.y, target_quaternion.z, target_quaternion.w)
 	var start_quat = camera.global_transform.basis.get_rotation_quaternion()
 	tween.tween_method(
-		func(q): camera.global_transform = Transform3D(Basis(q), camera.global_position),
+		func(q):
+			camera.global_transform = Transform3D(Basis(q), camera.global_position)
+			return q,
 		start_quat,
 		target_quat,
 		duration

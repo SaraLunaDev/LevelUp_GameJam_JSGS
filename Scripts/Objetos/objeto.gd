@@ -73,11 +73,3 @@ func eliminar_sin_puntuacion() -> void:
 
 func is_activa() -> bool:
 	return objeto_activo
-
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Señales
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.is_in_group("bola_blanca"):
-		recibir_golpe(body.get_daño())

@@ -16,6 +16,7 @@ class_name GameManager
 @export var spawn_bola_blanca: Node3D
 @export var spawn_vida: Node3D
 @export var bola_vida: PackedScene = null
+@export var timer_to_pasiva: int = 30
 
 @export_group("Labels")
 
@@ -57,6 +58,7 @@ var tipo_bola = null
 var pausa_activa = false
 var esperando_pasiva := false
 @onready var transition: Node = $"../Control/Transition/AnimationPlayer"
+@onready var damage_texture: TextureRect = $"../Control/AspectRatioContainer/TextureRect"
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -85,9 +87,8 @@ func _process(_delta: float) -> void:
 	if not palo or not camara or not spawn_bolas or not spawn_objetos or not palo.palo_posicionado:
 		return
 
-	if global_timer_seconds >= 0 and int(global_timer_seconds) != 0 and int(global_timer_seconds) % 30 == 0 and not esperando_pasiva:
+	if global_timer_seconds >= 0 and int(global_timer_seconds) != 0 and int(global_timer_seconds) % timer_to_pasiva == 0 and not esperando_pasiva:
 		esperando_pasiva = true
-		print("Esperando pasiva...")
 
 	if not esperando_pasiva:
 		limpiar_listas_activas()
@@ -123,7 +124,7 @@ func _physics_process(_delta: float) -> void:
 			palo.resetear_bola_blanca()
 
 func pausar_partida_por_pasiva():
-	print("Partida pausada por pasiva")
+	buffs_manager.set_pasiva_escogida(false)
 	buffs_manager.elegir_pasivas_random()
 	camera_manager.set_camera_camarero()
 	palo.resetear_bola_blanca()
@@ -133,8 +134,9 @@ func pausar_partida_por_pasiva():
 			bola.freeze = true
 
 func reanudar_partida_por_pasiva():
-	print("Partida reanudada por pasiva")
-	buffs_manager.set_pasiva_escogida(false)
+	if not buffs_manager.ha_escogido_pasiva():
+		return
+
 	camera_manager.set_camera_base()
 	palo.palo_posicionado = true
 
@@ -146,8 +148,10 @@ func reanudar_partida_por_pasiva():
 	for bola in bolas_activas:
 		if is_instance_valid(bola):
 			bola.freeze = false
+
 	pausa_activa = false
 	esperando_pasiva = false
+	buffs_manager.set_pasiva_escogida(false)
 
 func _actualizar_puntuacion_label(text: String) -> void:
 	if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
@@ -272,7 +276,7 @@ func spawn_objeto() -> void:
 		return
 	if not puede_spawnear_objeto or objetos.is_empty():
 		return
-	if objetos_activos.size() >= limite_objetos:
+	if objetos_activos.size() >= limite_objetos + buffs_manager.get_numero_objetos():
 		return
 
 	puede_spawnear_objeto = false
@@ -356,6 +360,11 @@ func restar_vida(value: int) -> void:
 		spawn_vida.add_child(bola_vida_instance)
 		bola_vida_instance.global_position = spawn_vida.global_position
 		bola_vida_instance.global_rotation = spawn_vida.global_rotation
+	
+	# modulate.a en base a la vida restante
+	if damage_texture:
+		var alpha = 1.0 - (float(vida) / float(MAX_VIDA))
+		damage_texture.modulate.a = alpha
 	if vida <= 0:
 		terminar_partida()
 
@@ -368,6 +377,10 @@ func sumar_vida(value: int) -> void:
 		var first_child = spawn_vida.get_child(0)
 		if is_instance_valid(first_child):
 			first_child.queue_free()
+	
+	if damage_texture:
+		var alpha = 1.0 - (float(vida) / float(MAX_VIDA))
+		damage_texture.modulate.a = alpha
 
 func get_MAX_VIDA() -> int:
 	return MAX_VIDA
@@ -394,9 +407,6 @@ func set_pasives(value: Array) -> void:
 	pasives = value
 
 func set_rebotes_guiados_label(_text: String) -> void:
-	pass
-
-func set_numero_objetos_label(_value: int) -> void:
 	pass
 
 func get_partida_iniciada() -> bool:

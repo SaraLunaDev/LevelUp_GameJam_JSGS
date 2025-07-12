@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bu5t0hx73nwrw"]
+[gd_scene load_steps=47 format=3 uid="uid://bu5t0hx73nwrw"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" uid="uid://2mifd0pmj38c" path="res://Scripts/Intro/video_stream_player.gd" id="28_fekwy"]
 [ext_resource type="PackedScene" uid="uid://c8bc6al8vpc2w" path="res://Models/NPCs/camarero_npc.tscn" id="29_m8bvx"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="30_m8bvx"]
+[ext_resource type="Texture2D" uid="uid://dg6pocufjdoes" path="res://Textures/damage.png" id="31_sbxn4"]
 [ext_resource type="PackedScene" uid="uid://dfqwhx1p1bd7n" path="res://Models/billar_bueno.tscn" id="37_sbxn4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c26n1"]
@@ -89,11 +90,12 @@ bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtR
 radio_proteccion_spawn_bola = 0.2
 cooldown_bola_spawn = 2.5
 decremento_de_cooldown_bola_spawn = 0.025
-cooldown_bola_spawn_minimo = 0.5
+cooldown_bola_spawn_minimo = 0.25
 limite_bolas = 10
 objetos = Array[PackedScene]([ExtResource("17_gqvos"), ExtResource("18_k7vqf"), ExtResource("19_052qh")])
-radio_proteccion_spawn_objetos = 0.2
-cooldown_objeto_spawn = 0.2
+radio_proteccion_spawn_objetos = 0.4
+cooldown_objeto_spawn = 4.0
+limite_objetos = 1
 
 [node name="BuffsManager" type="Node" parent="." node_paths=PackedStringArray("game_manager", "palo", "poscion_objetos", "poscion_pasivas_elegir") groups=["buffs_manager"]]
 script = ExtResource("20_iupe7")
@@ -102,7 +104,9 @@ palo = NodePath("../Palo")
 poscion_objetos = [NodePath("../Pasivas/Node3D"), NodePath("../Pasivas/Node3D2"), NodePath("../Pasivas/Node3D3"), NodePath("../Pasivas/Node3D4"), NodePath("../Pasivas/Node3D5")]
 modo_texto = 1
 poscion_pasivas_elegir = [NodePath("../ElegirPasivas/Node3D"), NodePath("../ElegirPasivas/Node3D2")]
+velocidad_lanzamiento_incremento = 1.0
 velocidad_lanzamiento_objeto = ExtResource("21_v08tv")
+retorno_bola_decremento = 0.01
 retorno_bola_objeto = ExtResource("22_fekwy")
 potencia_bola_objeto = ExtResource("23_m8bvx")
 numero_rebotes_guiados_objeto = ExtResource("24_6wyob")
@@ -138,6 +142,12 @@ autoplay = true
 expand = true
 script = ExtResource("28_fekwy")
 game_manager = NodePath("../../../GameManager")
+
+[node name="TextureRect" type="TextureRect" parent="Control/AspectRatioContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+texture = ExtResource("31_sbxn4")
+expand_mode = 1
 
 [node name="SpawnBolas" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
@@ -178,8 +188,8 @@ size = Vector3(0.284973, 0.165528, 3.23843)
 material = SubResource("StandardMaterial3D_yucep")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Colliders" groups=["billar"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.27136, 1.6743, -2.75265)
-size = Vector3(0.284973, 0.165528, 0.608225)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.24709, 1.6743, -2.75265)
+size = Vector3(0.284973, 0.165528, 0.656774)
 material = SubResource("StandardMaterial3D_yucep")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Colliders" groups=["billar"]]
@@ -315,10 +325,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16909, 1.70019, -2.80785)
 [node name="ElegirPasivas" type="Node3D" parent="."]
 
 [node name="Node3D" type="Node3D" parent="ElegirPasivas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.71324, 1.4326, -0.798265)
+transform = Transform3D(0.203932, 0, -0.978985, 0, 1, 0, 0.978985, 0, 0.203932, 5.71324, 1.4326, -0.798265)
 
 [node name="Node3D2" type="Node3D" parent="ElegirPasivas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27728, 1.4326, -0.113426)
+transform = Transform3D(0.180605, 0, -0.983556, 0, 1, 0, 0.983556, 0, 0.180605, 5.27728, 1.4326, -0.113426)
 
 [node name="camareroNPC" parent="." instance=ExtResource("29_m8bvx")]
 transform = Transform3D(-0.518341, 0, -0.855174, 0, 1, 0, 0.855174, 0, -0.518341, 5.99068, 2.38419e-07, 0.220081)

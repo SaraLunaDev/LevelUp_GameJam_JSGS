@@ -167,11 +167,3 @@ func get_destino() -> Vector3:
 func get_tipo_bola() -> TipoBola:
 	print("Tipo de bola:", tipo_bola)
 	return tipo_bola
-
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Señales
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-
-func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group("bola_blanca"):
-		recibir_golpe(body.get_daño())
