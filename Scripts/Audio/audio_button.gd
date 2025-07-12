@@ -17,7 +17,8 @@ func _on_pressed() -> void:
 		BUTTON_TYPE.START:
 			AudioManager._play_ui_accept_sound()
 			AudioManager._play_ui_start_sound()
-			AudioManager._fade_out_menu_player()
+			AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.VIDEO, 2.0)
+			AudioManager._fade_in_ambient_player(2.0)
 			
 func _on_mouse_entered() -> void:
 	AudioManager._play_ui_hover_sound()

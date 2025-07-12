@@ -251,6 +251,7 @@ func resetear_potencia() -> void:
 		var direccion = (bola_blanca_spawn.global_position - punta_palo.global_position).normalized()
 		direccion.y = 0
 		bola.mover_bola(direccion, potencia_inicial)
+		GlobalSignals.stick_hit.emit()
 
 	var tiempo_espera := 0.0
 	while lanzando and tiempo_espera < cooldown_bola_blanca and game_manager.partida_iniciada:

@@ -1,12 +1,10 @@
-
-[gd_scene load_steps=15 format=3 uid="uid://cb2xiir7ika68"]
-
+[gd_scene load_steps=20 format=3 uid="uid://cb2xiir7ika68"]
 
 [ext_resource type="Script" uid="uid://c0l3c2n2lw6da" path="res://Scripts/v_box_container.gd" id="1_de4cs"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_hn2at"]
 [ext_resource type="Texture2D" uid="uid://b3nnmnv6myblr" path="res://Textures/playButton.png" id="2_hn2at"]
 [ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="3_esq62"]
-[ext_resource type="Script" path="res://Scripts/Audio/audio_button.gd" id="3_p1lor"]
+[ext_resource type="Script" uid="uid://uvnwqkrvopy2" path="res://Scripts/Audio/audio_button.gd" id="3_p1lor"]
 [ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
 [ext_resource type="Texture2D" uid="uid://c3rnpxr16gkmt" path="res://Textures/TitleAnim/titleAnimatedTexture.tres" id="5_ymo5r"]
 [ext_resource type="Script" uid="uid://8uj6f0jgwost" path="res://Scenes/Game/camera_3d.gd" id="6_h6d63"]
@@ -16,6 +14,9 @@
 [ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="10_5fpg2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="11_hn2at"]
+[ext_resource type="Script" uid="uid://ckpwwgvhaqiyj" path="res://Scripts/Audio/precompile_shaders.gd" id="15_h6d63"]
+[ext_resource type="PackedScene" uid="uid://cita84qp6yedp" path="res://VFX/choque.tscn" id="16_lo35h"]
+[ext_resource type="PackedScene" uid="uid://bvrseum6yet0d" path="res://VFX/explosion.tscn" id="17_vdvk2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kvjn8"]
 load_path = "res://.godot/imported/playButton.png-582c7b559a9b460928caf36f2f89ddff.ctex"
@@ -227,6 +228,10 @@ transform = Transform3D(0.999958, -2.74885e-08, -0.00918046, 2.67711e-08, 1, -7.
 [node name="bar" parent="." instance=ExtResource("10_5fpg2")]
 
 [node name="SceneAudio" parent="." instance=ExtResource("11_hn2at")]
+
+[node name="PrecompileShaders" type="Node" parent="."]
+script = ExtResource("15_h6d63")
+vfx_node_scenes = Array[PackedScene]([ExtResource("16_lo35h"), ExtResource("17_vdvk2")])
 
 [connection signal="pressed" from="Control/CanvasLayer/Buttons/PlayButton" to="Control/CanvasLayer/Buttons" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/Buttons/PlayButton" to="Camera3D" method="_on_play_button_pressed"]

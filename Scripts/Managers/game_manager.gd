@@ -124,6 +124,7 @@ func _physics_process(_delta: float) -> void:
 			palo.resetear_bola_blanca()
 
 func pausar_partida_por_pasiva():
+	GlobalSignals.choosing_passive.emit()
 	buffs_manager.set_pasiva_escogida(false)
 	buffs_manager.elegir_pasivas_random()
 	camera_manager.set_camera_camarero()
@@ -136,7 +137,8 @@ func pausar_partida_por_pasiva():
 func reanudar_partida_por_pasiva():
 	if not buffs_manager.ha_escogido_pasiva():
 		return
-
+	
+	GlobalSignals.passive_choosed.emit()
 	camera_manager.set_camera_base()
 	palo.palo_posicionado = true
 

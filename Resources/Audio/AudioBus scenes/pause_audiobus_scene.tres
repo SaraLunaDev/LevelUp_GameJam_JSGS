@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_kvfs2")
-bus_volumes = Dictionary[Variant, float]({
+bus_volumes = Dictionary[int, float]({
 4: -6.0,
 5: 0.0,
-6: -40.0,
+6: 0.0,
 7: 0.0
 })
 music_low_pass = true
