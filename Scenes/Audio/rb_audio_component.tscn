@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpepjxd1uy1y8"]
+[gd_scene load_steps=2 format=3 uid="uid://dpepjxd1uy1y8"]
 
 [ext_resource type="Script" uid="uid://ewc0le02vout" path="res://Scripts/Audio/rb_audio_component.gd" id="1_l4c03"]
-[ext_resource type="AudioStream" uid="uid://dugxuklcynuwo" path="res://Audio/182345__claireh__stone_mechanisem_loop_01.wav" id="2_vum5l"]
 
-[node name="RbAudioComponent3D" type="Node3D"]
+[node name="RbAudioComponent3D" type="Node3D" groups=["rb_component"]]
 script = ExtResource("1_l4c03")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_vum5l")

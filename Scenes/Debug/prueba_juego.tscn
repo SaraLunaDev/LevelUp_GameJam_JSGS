@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bu5t0hx73nwrw"]
+[gd_scene load_steps=52 format=3 uid="uid://bu5t0hx73nwrw"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
@@ -27,10 +27,12 @@
 [ext_resource type="PackedScene" uid="uid://bqr30lk4203v2" path="res://Models/Buffos/buffo_retornoANIMATED.tscn" id="22_fekwy"]
 [ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
 [ext_resource type="PackedScene" uid="uid://dtq0u6qpytksi" path="res://Models/Buffos/buffo_potenciaANIMATED.tscn" id="23_m8bvx"]
-[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
+[ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
 [ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
+[ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
+[ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 [ext_resource type="Script" uid="uid://d2w0ksa2464cr" path="res://Scripts/Managers/camera_manager.gd" id="27_6wyob"]
 [ext_resource type="VideoStream" uid="uid://blobcjbqydua6" path="res://Videos/POOLOUT_Trailer_1.ogv" id="27_v08tv"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="28_4xie2"]
@@ -187,7 +189,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013, 0.00100005, -0.884486)
 shape = SubResource("BoxShape3D_v08tv")
 
-[node name="Colliders" type="CSGCombiner3D" parent="."]
+[node name="Colliders" type="CSGCombiner3D" parent="." groups=["billar"]]
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Colliders" groups=["billar"]]
@@ -553,4 +555,10 @@ spot_angle = 86.3855
 transform = Transform3D(0.708192, -0.629029, 0.320603, 0.70602, 0.630964, -0.321589, 1.03058e-08, 0.454099, 0.890951, 9.09482, -9.59735, 31.7052)
 light_energy = 0.25
 
+[node name="Bandas" parent="." instance=ExtResource("37_4xie2")]
+
+[node name="SceneAudio" parent="." instance=ExtResource("37_6wyob")]
+scene_song = 1
+
 [connection signal="finished" from="Control/AspectRatioContainer/VideoStreamPlayer" to="Control/AspectRatioContainer/VideoStreamPlayer" method="_on_finished"]
+
