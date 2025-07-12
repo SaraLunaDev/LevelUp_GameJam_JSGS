@@ -21,6 +21,10 @@ var puede_escoger_pasiva: bool = false
 
 @export_group("Posicion de Pasivas a Elegir")
 @export var poscion_pasivas_elegir: Array[Node3D] = []
+@export var label_title_left: MeshInstance3D = null
+@export var label_description_left: MeshInstance3D = null
+@export var label_title_right: MeshInstance3D = null
+@export var label_description_right: MeshInstance3D = null
 
 @export_group("Configuración de Pasivas")
 
@@ -58,10 +62,6 @@ var puede_escoger_pasiva: bool = false
 @export var numero_objetos_maximo: int = 10
 @export var numero_objetos_objeto: PackedScene = null
 @export var numero_objetos_veces_usado: int = 0
-
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Ready y Process
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 	
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Mostrar Pasivas
@@ -80,15 +80,15 @@ func elegir_pasivas_random():
 
 	var pasivas = []
 	if velocidad_lanzamiento_objeto:
-		pasivas.append({"scene": velocidad_lanzamiento_objeto, "nombre": "Velocidad Lanzamiento"})
+		pasivas.append({"scene": velocidad_lanzamiento_objeto, "nombre": "Velocidad Lanzamiento", "descripcion": "La musculatura de tu brazo se potencia de modo que serás capaz de cargar la potencia máxima del tiro más rápido!"})
 	if retorno_bola_objeto:
-		pasivas.append({"scene": retorno_bola_objeto, "nombre": "Retorno Bola"})
+		pasivas.append({"scene": retorno_bola_objeto, "nombre": "Retorno Bola", "descripcion": "Una vez terminado tu tiro, la bola blanca volverá más rapido a tu mano para poder disparar de nuevo!"})
 	if potencia_bola_objeto:
-		pasivas.append({"scene": potencia_bola_objeto, "nombre": "Potencia Bola"})
+		pasivas.append({"scene": potencia_bola_objeto, "nombre": "Potencia Bola", "descripcion": "La potencia de tu tiro aumenta, permitiendo que la bola blanca se desplace más rápido!"})
 	if numero_rebotes_guiados_objeto:
-		pasivas.append({"scene": numero_rebotes_guiados_objeto, "nombre": "Rebotes Guiados"})
+		pasivas.append({"scene": numero_rebotes_guiados_objeto, "nombre": "Rebotes Guiados", "descripcion": "Tu habilidad con el tiro aumenta! Ahora le daras efecto a la bola blanca para que impacte con una bola extra tras un choque!"})
 	if numero_objetos_objeto:
-		pasivas.append({"scene": numero_objetos_objeto, "nombre": "Spawn Objetos"})
+		pasivas.append({"scene": numero_objetos_objeto, "nombre": "Spawn Objetos", "descripcion": "Tus amigos dejarán mas objetos sobre la mesa!"})
 
 	if pasivas.size() < 2:
 		return
@@ -109,6 +109,12 @@ func elegir_pasivas_random():
 		pasiva_instance.name = pasiva_data["nombre"]
 		poscion_pasivas_elegir[i].add_child(pasiva_instance)
 		pasiva_instance.global_position = poscion_pasivas_elegir[i].global_position
+		if i == 0:
+			label_title_left.mesh.text = pasiva_data["nombre"]
+			label_description_left.mesh.text = pasiva_data["descripcion"]
+		else:
+			label_title_right.mesh.text = pasiva_data["nombre"]
+			label_description_right.mesh.text = pasiva_data["descripcion"]
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Pasivas 

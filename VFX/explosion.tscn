@@ -12,8 +12,8 @@ curve = SubResource("Curve_ya74o")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vsq2m"]
 particle_flag_align_y = true
 spread = 180.0
-initial_velocity_min = 12.0
-initial_velocity_max = 14.0
+initial_velocity_min = 2.0
+initial_velocity_max = 2.33
 scale_min = 0.5
 scale_max = 1.5
 scale_curve = SubResource("CurveTexture_2yard")
@@ -26,8 +26,10 @@ emission_energy_multiplier = 2.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ckujh"]
 material = SubResource("StandardMaterial3D_g48sb")
-top_radius = 0.1
+top_radius = 0.017
 bottom_radius = 0.0
+height = 0.168
+radial_segments = 4
 
 [sub_resource type="Curve" id="Curve_2yard"]
 _data = [Vector2(0, 0.0224719), 0.0, 0.0, 0, 0, Vector2(0.708333, 0.797753), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -45,7 +47,7 @@ curve = SubResource("Curve_g48sb")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kmbdo"]
 emission_shape = 1
-emission_sphere_radius = 1.0
+emission_sphere_radius = 0.17
 direction = Vector3(0, -1, 0)
 initial_velocity_min = 1.0
 initial_velocity_max = 2.0
@@ -62,6 +64,8 @@ vertex_color_use_as_albedo = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_ya74o"]
 material = SubResource("StandardMaterial3D_l6t0x")
+radius = 0.083
+height = 0.167
 radial_segments = 8
 rings = 4
 
@@ -88,11 +92,11 @@ curve = SubResource("Curve_xjpmk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b375x"]
 emission_shape = 1
-emission_sphere_radius = 1.0
+emission_sphere_radius = 0.17
 direction = Vector3(0, -1, 0)
 spread = 90.0
-initial_velocity_min = 2.0
-initial_velocity_max = 4.0
+initial_velocity_min = 0.33
+initial_velocity_max = 0.67
 gravity = Vector3(0, 5, 0)
 scale_min = 0.5
 scale_max = 1.5
@@ -106,21 +110,22 @@ script = ExtResource("1_433nt")
 
 [node name="Chispas" type="GPUParticles3D" parent="."]
 emitting = false
-amount = 24
+amount = 12
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
+visibility_aabb = AABB(-0.667, -0.667, -0.667, 1.333, 1.333, 1.333)
 process_material = SubResource("ParticleProcessMaterial_vsq2m")
 draw_pass_1 = SubResource("CylinderMesh_ckujh")
 
 [node name="Humo" type="GPUParticles3D" parent="."]
 emitting = false
-amount = 12
-lifetime = 2.0
+amount = 6
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
+visibility_aabb = AABB(-0.667, -0.667, -0.667, 1.333, 1.333, 1.333)
 process_material = SubResource("ParticleProcessMaterial_kmbdo")
 draw_pass_1 = SubResource("SphereMesh_ya74o")
 
@@ -130,5 +135,6 @@ amount = 12
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
+visibility_aabb = AABB(-0.667, -0.667, -0.667, 1.333, 1.333, 1.333)
 process_material = SubResource("ParticleProcessMaterial_b375x")
 draw_pass_1 = SubResource("SphereMesh_ya74o")
