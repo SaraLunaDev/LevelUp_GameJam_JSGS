@@ -1,8 +1,13 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://o7idqmxwk11r"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://o7idqmxwk11r"]
 
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_12p7f"]
 resource_name = "LowPassFilter"
 cutoff_hz = 20500.0
+
+[sub_resource type="AudioEffectEQ6" id="AudioEffectEQ6_j3pel"]
+resource_name = "EQ6"
+band_db/3200_hz = -12.0
+band_db/10000_hz = -60.0
 
 [resource]
 bus/0/volume_db = 0.267241
@@ -32,6 +37,8 @@ bus/4/volume_db = 0.0
 bus/4/send = &"Music_master"
 bus/4/effect/0/effect = SubResource("AudioEffectLowPassFilter_12p7f")
 bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectEQ6_j3pel")
+bus/4/effect/1/enabled = true
 bus/5/name = &"UI_Sfx"
 bus/5/solo = false
 bus/5/mute = false
@@ -42,7 +49,7 @@ bus/6/name = &"Game_Sfx"
 bus/6/solo = false
 bus/6/mute = false
 bus/6/bypass_fx = false
-bus/6/volume_db = 0.0
+bus/6/volume_db = 3.04474
 bus/6/send = &"Sfx_master"
 bus/7/name = &"Ambience"
 bus/7/solo = false

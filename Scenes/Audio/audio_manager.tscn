@@ -1,30 +1,95 @@
-[gd_scene load_steps=2 format=3 uid="uid://37qdnl666ni0"]
+[gd_scene load_steps=54 format=3 uid="uid://37qdnl666ni0"]
 
 [ext_resource type="Script" uid="uid://c1nen411o4q4r" path="res://Scripts/Audio/AudioManager.gd" id="1_4rlc4"]
+[ext_resource type="AudioStream" uid="uid://6t8d1wgckf8o" path="res://Audio/Sounds/UI/play_button_sound.ogg" id="2_8l041"]
+[ext_resource type="AudioStream" uid="uid://c0lrfjiy461fa" path="res://Audio/Sounds/UI/ui_accept_sound.ogg" id="2_ft5o5"]
+[ext_resource type="AudioStream" uid="uid://cn3vxv4irxp71" path="res://Audio/Sounds/UI/ui_hover_sound.ogg" id="2_lu82t"]
+[ext_resource type="AudioStream" uid="uid://dbijhvra3f7w3" path="res://Audio/Sounds/UI/ui_cancel_sound.ogg" id="4_2wtmb"]
+[ext_resource type="AudioStream" uid="uid://c4kv3pi8iwvq5" path="res://Audio/Sounds/Ambients/background_ambient.ogg" id="6_24o16"]
+[ext_resource type="AudioStream" uid="uid://c0jewnv1nw4xm" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-001.ogg" id="6_lvt0b"]
+[ext_resource type="AudioStream" uid="uid://bta81un2ensqc" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-002.ogg" id="7_8vvxd"]
+[ext_resource type="AudioStream" uid="uid://by0qhwtvw3ndv" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-003.ogg" id="8_30hyb"]
+[ext_resource type="AudioStream" uid="uid://badn6uyv1ixv8" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-004.ogg" id="9_jynvy"]
+[ext_resource type="AudioStream" uid="uid://bx5sadl0ysk2j" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-005.ogg" id="10_g572e"]
+[ext_resource type="AudioStream" uid="uid://dw0lm1c7dbrb3" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-006.ogg" id="11_i8kob"]
+[ext_resource type="AudioStream" uid="uid://cglxt6h6sycqo" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-007.ogg" id="12_nvetk"]
+[ext_resource type="AudioStream" uid="uid://ci7ajtnuexngu" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-008.ogg" id="13_41s42"]
+[ext_resource type="AudioStream" uid="uid://bffnjgoigcfp" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-001.ogg" id="14_duiof"]
+[ext_resource type="AudioStream" uid="uid://dav8a4bmkpkn" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-002.ogg" id="15_n5dq8"]
+[ext_resource type="AudioStream" uid="uid://45djrif6wuyb" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-003.ogg" id="16_24o16"]
+[ext_resource type="AudioStream" uid="uid://s6baocakm5od" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-004.ogg" id="17_1mgph"]
+[ext_resource type="AudioStream" uid="uid://bae01c2k16l3e" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-005.ogg" id="18_rqlnq"]
+[ext_resource type="AudioStream" uid="uid://can5jmvywnc5y" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-006.ogg" id="19_fdkgk"]
+[ext_resource type="AudioStream" uid="uid://cmi3rllm4ui6k" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-007.ogg" id="20_kd6m3"]
+[ext_resource type="AudioStream" uid="uid://b62s4uuupttfu" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-008.ogg" id="21_cqdjn"]
+[ext_resource type="AudioStream" uid="uid://dfeotcamksbs5" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-009.ogg" id="22_4x7vf"]
+[ext_resource type="AudioStream" uid="uid://bh1imq0gfg4yg" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-010.ogg" id="23_bo3oc"]
+[ext_resource type="AudioStream" uid="uid://bcu7ndpo6qabu" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-011.ogg" id="24_8dv4n"]
+[ext_resource type="AudioStream" uid="uid://c2ppolnfpnq2j" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-012.ogg" id="25_px82j"]
+[ext_resource type="AudioStream" uid="uid://b15v6kjme58uw" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-013.ogg" id="26_n0mwp"]
+[ext_resource type="AudioStream" uid="uid://dd82ko1iep2yr" path="res://Audio/Sounds/Interactions/Ball_sides/ball_table_sound-014.ogg" id="27_vhgxv"]
+[ext_resource type="AudioStream" uid="uid://b2wsbi1ee7khh" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-001.ogg" id="28_mqkch"]
+[ext_resource type="AudioStream" uid="uid://c2tjju7alcgve" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-002.ogg" id="29_6n8fr"]
+[ext_resource type="AudioStream" uid="uid://bdki6pfpyyfje" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-003.ogg" id="30_3aj40"]
+[ext_resource type="AudioStream" uid="uid://trd0k4ihvigw" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-004.ogg" id="31_jm7kg"]
+[ext_resource type="AudioStream" uid="uid://cyu27p6lt3p6d" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-005.ogg" id="32_nw3qt"]
+[ext_resource type="AudioStream" uid="uid://b0i6lk5efnwl5" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-006.ogg" id="33_mbx06"]
+[ext_resource type="AudioStream" uid="uid://dtwuu0xwyeu0q" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-007.ogg" id="34_l206o"]
+[ext_resource type="AudioStream" uid="uid://f5xq3xr08l1" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-008.ogg" id="35_mju71"]
+[ext_resource type="AudioStream" uid="uid://b04v0dnpxyfup" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-009.ogg" id="36_tj8kf"]
+[ext_resource type="AudioStream" uid="uid://cv1ocubg5g46v" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-010.ogg" id="37_jwbpo"]
+[ext_resource type="AudioStream" uid="uid://cq7rvdl7d6frk" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-011.ogg" id="38_7ts1v"]
+[ext_resource type="AudioStream" uid="uid://gs58ewg0k1ad" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-012.ogg" id="39_b8nga"]
+[ext_resource type="AudioStream" uid="uid://cm1v4x5xx26ti" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-013.ogg" id="40_cb8ay"]
+[ext_resource type="AudioStream" uid="uid://c15kwerdqt1re" path="res://Audio/Sounds/Interactions/Ball_ball/ball_ball_sound-014.ogg" id="41_tsr8g"]
+[ext_resource type="AudioStream" uid="uid://c3u4rqeuqgqkt" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-001.ogg" id="42_n5dq8"]
+[ext_resource type="AudioStream" uid="uid://c1k0qw8vcuk51" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-002.ogg" id="43_24o16"]
+[ext_resource type="AudioStream" uid="uid://c618yijrp38e5" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-003.ogg" id="44_1mgph"]
+[ext_resource type="AudioStream" uid="uid://16nc21u065d5" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-004.ogg" id="45_rqlnq"]
+[ext_resource type="AudioStream" uid="uid://boaq4wi1n3x0" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-005.ogg" id="46_fdkgk"]
+[ext_resource type="AudioStream" uid="uid://uhsf6sl2rlpv" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-006.ogg" id="47_kd6m3"]
+[ext_resource type="AudioStream" uid="uid://dpv70bqd8pidq" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-007.ogg" id="48_cqdjn"]
+[ext_resource type="AudioStream" uid="uid://c1dkqh2qi37av" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-008.ogg" id="49_4x7vf"]
+[ext_resource type="AudioStream" uid="uid://d157dkpclobqu" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-009.ogg" id="50_bo3oc"]
+[ext_resource type="AudioStream" uid="uid://b7qbvmmyk2px6" path="res://Audio/Music/pool_out_main_menu_song_loop.ogg" id="52_24o16"]
+[ext_resource type="AudioStream" uid="uid://f32tstadm22e" path="res://Audio/Music/pool_out_main_game_song_loop.ogg" id="53_1mgph"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_4rlc4")
+ui_accept_sound = ExtResource("2_ft5o5")
+ui_hover_sound = ExtResource("2_lu82t")
+ui_close_sound = ExtResource("4_2wtmb")
+ui_start_game = ExtResource("2_8l041")
+bar_background_ambient = ExtResource("6_24o16")
+stick_ball_sounds = Array[AudioStream]([ExtResource("6_lvt0b"), ExtResource("7_8vvxd"), ExtResource("8_30hyb"), ExtResource("9_jynvy"), ExtResource("10_g572e"), ExtResource("11_i8kob"), ExtResource("12_nvetk"), ExtResource("13_41s42")])
+ball_side_sounds = Array[AudioStream]([ExtResource("14_duiof"), ExtResource("15_n5dq8"), ExtResource("16_24o16"), ExtResource("17_1mgph"), ExtResource("18_rqlnq"), ExtResource("19_fdkgk"), ExtResource("20_kd6m3"), ExtResource("21_cqdjn"), ExtResource("22_4x7vf"), ExtResource("23_bo3oc"), ExtResource("24_8dv4n"), ExtResource("25_px82j"), ExtResource("26_n0mwp"), ExtResource("27_vhgxv")])
+ball_ball_sounds = Array[AudioStream]([ExtResource("28_mqkch"), ExtResource("29_6n8fr"), ExtResource("30_3aj40"), ExtResource("31_jm7kg"), ExtResource("32_nw3qt"), ExtResource("33_mbx06"), ExtResource("34_l206o"), ExtResource("35_mju71"), ExtResource("36_tj8kf"), ExtResource("37_jwbpo"), ExtResource("38_7ts1v"), ExtResource("39_b8nga"), ExtResource("40_cb8ay"), ExtResource("41_tsr8g")])
+ball_table_sounds = Array[AudioStream]([ExtResource("42_n5dq8"), ExtResource("43_24o16"), ExtResource("44_1mgph"), ExtResource("45_rqlnq"), ExtResource("46_fdkgk"), ExtResource("47_kd6m3"), ExtResource("48_cqdjn"), ExtResource("49_4x7vf"), ExtResource("50_bo3oc")])
 
 [node name="MenuSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+stream = ExtResource("52_24o16")
 volume_db = -6.0
+bus = &"Music"
 
 [node name="GameSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-volume_db = -12.0
+stream = ExtResource("53_1mgph")
+volume_db = -9.0
+bus = &"Music"
 
 [node name="AmbiencePlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-volume_db = -18.0
-autoplay = true
-mix_target = 2
+stream = ExtResource("6_24o16")
+bus = &"Ambience"
 
 [node name="PrioritySFXAudioPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 volume_db = -6.0
 autoplay = true
-mix_target = 2
+bus = &"Game_Sfx"
 
 [node name="PrioritySFXAudioPlayer3D" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
+bus = &"Game_Sfx"

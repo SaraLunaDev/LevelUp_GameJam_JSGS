@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://dkyoei4y4ha5i"]
+[gd_scene load_steps=11 format=4 uid="uid://dkyoei4y4ha5i"]
 
 [ext_resource type="Script" uid="uid://c6uon4p2md1nu" path="res://Scripts/Bola/bola.gd" id="1_r6cnw"]
 [ext_resource type="Texture2D" uid="uid://dli3xo3pb8l1q" path="res://Textures/Bola1.png" id="2_6ttbc"]
+[ext_resource type="PackedScene" uid="uid://dpepjxd1uy1y8" path="res://Scenes/Audio/rb_audio_component.tscn" id="3_miw44"]
+[ext_resource type="AudioStream" uid="uid://dqsa0qlmmw2nq" path="res://Audio/Sounds/Interactions/ball_roll_sound_loop.ogg" id="4_eq8pj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oowhv"]
 friction = 0.1
@@ -79,6 +81,13 @@ debug_color = Color(0, 0.6, 0.701961, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_r6cnw")
+
+[node name="RbAudioComponent3D" parent="." node_paths=PackedStringArray("rb", "area_3d") instance=ExtResource("3_miw44")]
+rb = NodePath("..")
+area_3d = NodePath("../Area3D")
+rb_sound = ExtResource("4_eq8pj")
+max_velocity_magnitude = 12.0
+pitch_variation_factor = 0.2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

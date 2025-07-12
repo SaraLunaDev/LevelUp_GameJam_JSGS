@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 AudioManager="*res://Scenes/Audio/audio_manager.tscn"
+GlobalSignals="*res://Scripts/Audio/GlobalSignals.gd"
 
 [global_group]
 
@@ -33,6 +34,7 @@ game_manager=""
 palo=""
 banda=""
 bola_vida=""
+rb_component=""
 
 [input]
 

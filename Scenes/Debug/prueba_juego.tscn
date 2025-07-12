@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bxq1rpar87bgq"]
+[gd_scene load_steps=46 format=3 uid="uid://bxq1rpar87bgq"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
@@ -27,14 +27,17 @@
 [ext_resource type="PackedScene" uid="uid://cq485op5a3qth" path="res://Models/Buffos/buffo_paloANIMATED.tscn" id="21_v08tv"]
 [ext_resource type="Texture2D" uid="uid://chyk2s3krwdbi" path="res://Textures/Icconos/potencia_bola.png" id="22_4u777"]
 [ext_resource type="PackedScene" uid="uid://bqr30lk4203v2" path="res://Models/Buffos/buffo_retornoANIMATED.tscn" id="22_fekwy"]
-[ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
+[ext_resource type="Script" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
 [ext_resource type="Texture2D" uid="uid://bsw5m58nhetf" path="res://Textures/Icconos/retroceso_bola.png" id="23_cia7l"]
 [ext_resource type="PackedScene" uid="uid://dtq0u6qpytksi" path="res://Models/Buffos/buffo_potenciaANIMATED.tscn" id="23_m8bvx"]
-[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
+[ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
 [ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
 [ext_resource type="PackedScene" uid="uid://cmugk03txtqpa" path="res://Models/NPCs/npcIdle.glb" id="29_4u777"]
+[ext_resource type="PackedScene" uid="uid://dcwvnn5rwyjol" path="res://Scenes/Audio/camera_shake.tscn" id="35_4xie2"]
+[ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
+[ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c26n1"]
 size = Vector3(2.04155, 0.001, 2.9303)
@@ -251,7 +254,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013, 0.00100005, -0.884486)
 shape = SubResource("BoxShape3D_v08tv")
 
-[node name="Colliders" type="CSGCombiner3D" parent="."]
+[node name="Colliders" type="CSGCombiner3D" parent="." groups=["billar"]]
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Colliders" groups=["billar"]]
@@ -487,6 +490,9 @@ transform = Transform3D(-1, -1.02723e-07, 2.28708e-07, 1.07041e-08, 0.893889, 0.
 attributes = SubResource("CameraAttributesPractical_ypxt0")
 fov = 46.2061
 
+[node name="CameraShake" parent="Camera3D" node_paths=PackedStringArray("camera") instance=ExtResource("35_4xie2")]
+camera = NodePath("..")
+
 [node name="Luces" type="Label3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, -0.00102806, 3.37222, -0.00614643)
 
@@ -597,3 +603,8 @@ light_energy = 0.2
 
 [node name="NPC_Idle" parent="." instance=ExtResource("29_4u777")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1553, 0.952704, 16.3569)
+
+[node name="Bandas" parent="." instance=ExtResource("37_4xie2")]
+
+[node name="SceneAudio" parent="." instance=ExtResource("37_6wyob")]
+scene_song = 1
