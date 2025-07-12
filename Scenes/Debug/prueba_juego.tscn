@@ -156,7 +156,6 @@ ratio = 1.7778
 
 [node name="Damage" type="TextureRect" parent="Control/AspectRatioContainer"]
 modulate = Color(1, 1, 1, 0)
-z_index = 2
 layout_mode = 2
 texture = ExtResource("31_sbxn4")
 expand_mode = 1
