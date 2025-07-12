@@ -102,6 +102,21 @@ func posicionar_palo() -> void:
 	actualizar_posicion_palo()
 	palo_posicionado = true
 
+func resetear_palo() -> void:
+	if not palo_posicionado:
+		return
+	
+	palo_posicionado = false
+	lanzando = false
+	reseteando_potencia = false
+	reseteando_bola_blanca = false
+	bola_moviendose = false
+	potencia = 0.0
+	eliminar_trayectoria()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	global_position = Vector3.ZERO
+	rotation_degrees = Vector3.ZERO
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Movimiento del Palo
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -119,7 +134,7 @@ func mostrar_trayectoria() -> void:
 	var bola = get_bola_blanca()
 	if not bola:
 		return
-
+	
 	var radio_bola = 0.093
 	var direction = (bola_blanca_spawn.global_position - punta_palo.global_position).normalized()
 	direction.y = 0

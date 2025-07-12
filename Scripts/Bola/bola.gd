@@ -55,7 +55,6 @@ func _physics_process(_delta: float) -> void:
 		var game_manager_obj = game_manager[0]
 		if game_manager_obj.has_method("get_partida_iniciada"):
 			if not game_manager_obj.get_partida_iniciada():
-				# reducir velocidad de la bola
 				linear_velocity *= 0.9
 				return
 
@@ -92,6 +91,16 @@ func eliminar_bola() -> void:
 				if game_manager_obj.has_method("sumar_vida"):
 					game_manager_obj.sumar_vida(1)
 	
+	collision_shape_3d.disabled = true
+	var fuerza_vertical = Vector3.UP * 1
+	var fuerza_horizontal = linear_velocity.normalized()
+	var fuerza = fuerza_vertical + fuerza_horizontal
+	apply_impulse(fuerza)
+	await get_tree().create_timer(1.0).timeout
+	queue_free()
+
+func eliminar_sin_puntuacion() -> void:
+	bola_activa = false
 	collision_shape_3d.disabled = true
 	var fuerza_vertical = Vector3.UP * 1
 	var fuerza_horizontal = linear_velocity.normalized()
@@ -158,11 +167,3 @@ func get_destino() -> Vector3:
 func get_tipo_bola() -> TipoBola:
 	print("Tipo de bola:", tipo_bola)
 	return tipo_bola
-
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Señales
-# ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-
-func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group("bola_blanca"):
-		recibir_golpe(body.get_daño())
