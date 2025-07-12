@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dvxqq1yvd61kk"]
+[gd_scene load_steps=21 format=3 uid="uid://dvxqq1yvd61kk"]
 
 [ext_resource type="Texture2D" uid="uid://cc2elmoa5b3gn" path="res://Textures/menuSettings_bg.png" id="1_21asm"]
 [ext_resource type="Texture2D" uid="uid://bqkapakpd517o" path="res://Textures/SLIDER_GRABBER.png" id="2_1gq0w"]
@@ -9,6 +9,21 @@
 [ext_resource type="Texture2D" uid="uid://dcg2uicg01s24" path="res://Textures/SLIDER_GRABBER_SEL_BLUE.png" id="4_udpfv"]
 [ext_resource type="Texture2D" uid="uid://cwyxiy6tywq8n" path="res://Textures/BgSlider_relleno.png" id="6_a12mv"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="9_26cf7"]
+[ext_resource type="Texture2D" uid="uid://20mlyf2aiw23" path="res://Textures/exitButton.png" id="10_26cf7"]
+[ext_resource type="Texture2D" uid="uid://3q6xogtw62ol" path="res://Textures/exitButtonHover.png" id="10_txb4h"]
+[ext_resource type="Texture2D" uid="uid://b1necun7sqfws" path="res://Textures/exitButtonNormal.png" id="12_264nh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4f1n4"]
+texture = ExtResource("10_txb4h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_264nh"]
+texture = ExtResource("10_26cf7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ydx7e"]
+texture = ExtResource("10_txb4h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txb4h"]
+texture = ExtResource("12_264nh")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwsxh"]
 texture = ExtResource("6_a12mv")
@@ -37,14 +52,29 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -400.0
-offset_right = 300.0
-offset_bottom = 400.0
+offset_left = 357.0
+offset_top = 55.0
+offset_right = -195.0
+offset_bottom = 207.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.71639, 0.676031)
 texture = ExtResource("1_21asm")
 stretch_mode = 5
+
+[node name="Button" type="Button" parent="Fondo"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_4f1n4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_264nh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ydx7e")
+theme_override_styles/normal = SubResource("StyleBoxTexture_txb4h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -53,10 +83,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -325.0
-offset_top = -124.0
-offset_right = 325.0
-offset_bottom = 124.0
+offset_left = -271.5
+offset_top = -133.0
+offset_right = 271.5
+offset_bottom = 133.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
