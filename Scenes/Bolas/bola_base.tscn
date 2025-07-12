@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://dkyoei4y4ha5i"]
+
+[gd_scene load_steps=12 format=4 uid="uid://dkyoei4y4ha5i"]
 
 [ext_resource type="Script" uid="uid://c6uon4p2md1nu" path="res://Scripts/Bola/bola.gd" id="1_r6cnw"]
 [ext_resource type="Texture2D" uid="uid://dli3xo3pb8l1q" path="res://Textures/Bola1.png" id="2_6ttbc"]
+[ext_resource type="PackedScene" uid="uid://cita84qp6yedp" path="res://VFX/choque.tscn" id="3_n7nfu"]
 [ext_resource type="PackedScene" uid="uid://dpepjxd1uy1y8" path="res://Scenes/Audio/rb_audio_component.tscn" id="3_miw44"]
 [ext_resource type="AudioStream" uid="uid://dqsa0qlmmw2nq" path="res://Audio/Sounds/Interactions/ball_roll_sound_loop.ogg" id="4_eq8pj"]
 
@@ -67,6 +69,7 @@ linear_damp = 0.5
 angular_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_r6cnw")
+choque = ExtResource("3_n7nfu")
 
 [node name="Bola" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.15258e-09, 0, -0.095, 0, 0.095, 0, 0.095, 0, -4.15258e-09, 0, 0, 0)
@@ -91,3 +94,4 @@ pitch_variation_factor = 0.2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+

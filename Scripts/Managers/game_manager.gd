@@ -7,6 +7,7 @@ class_name GameManager
 
 @export_group("Referencias de Escena")
 @export var buffs_manager: Node = null
+@export var camera_manager: Node = null
 @export var palo: Node3D
 @export var camara: Camera3D
 @export var spawn_bolas: Area3D
@@ -15,12 +16,12 @@ class_name GameManager
 @export var spawn_bola_blanca: Node3D
 @export var spawn_vida: Node3D
 @export var bola_vida: PackedScene = null
+@export var timer_to_pasiva: int = 30
 
 @export_group("Labels")
-@export var vida_label: Label = null
-@export var puntuacion_label: Label = null
+
 @export var puntuacion_mesh_label: MeshInstance3D = null
-@export var vida_maxima_label: Label = null
+
 @export var global_timer_label: Label = null
 @export var rebotes_guiados_label: Label = null
 @export var numero_objetos_label: Label = null
@@ -53,6 +54,11 @@ var puede_spawnear_objeto := true
 var objetos_activos: Array[Node3D] = []
 var partida_iniciada: bool = false
 var global_timer_seconds: float = 0.0
+var tipo_bola = null
+var pausa_activa = false
+var esperando_pasiva := false
+@onready var transition: Node = $"../Control/Transition/AnimationPlayer"
+@onready var damage_texture: TextureRect = $"../Control/AspectRatioContainer/Damage"
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -80,23 +86,28 @@ func _process(_delta: float) -> void:
 		return
 	if not palo or not camara or not spawn_bolas or not spawn_objetos or not palo.palo_posicionado:
 		return
-	
-	limpiar_listas_activas()
 
-	await spawn_bola()
-	await spawn_objeto()
+	if global_timer_seconds >= 0 and int(global_timer_seconds) != 0 and int(global_timer_seconds) % timer_to_pasiva == 0 and not esperando_pasiva:
+		esperando_pasiva = true
+
+	if not esperando_pasiva:
+		limpiar_listas_activas()
+
+		await spawn_bola()
+		await spawn_objeto()
 	
-	if cooldown_bola_spawn > 0:
-		cooldown_bola_spawn -= decremento_de_cooldown_bola_spawn * _delta
-		if cooldown_bola_spawn < cooldown_bola_spawn_minimo:
-			cooldown_bola_spawn = cooldown_bola_spawn_minimo
+		if cooldown_bola_spawn > 0:
+			cooldown_bola_spawn -= decremento_de_cooldown_bola_spawn * _delta
+			if cooldown_bola_spawn < cooldown_bola_spawn_minimo:
+				cooldown_bola_spawn = cooldown_bola_spawn_minimo
 	
 	if global_timer_seconds >= 0:
-		global_timer_seconds += _delta
-		var minutes = int(floor(global_timer_seconds / 60.0))
-		var seconds = int(global_timer_seconds) % 60
-		global_timer_label.text = "%02d:%02d" % [minutes, seconds]
-	
+		if esperando_pasiva and not pausa_activa:
+			pausar_partida_por_pasiva()
+			pausa_activa = true
+		else:
+			global_timer_seconds += _delta
+
 func _physics_process(_delta: float) -> void:
 	if partida_iniciada:
 		if Input.is_action_pressed("left_click"):
@@ -112,11 +123,62 @@ func _physics_process(_delta: float) -> void:
 			palo.tiempo_bola_moviendose = 0
 			palo.resetear_bola_blanca()
 
+func pausar_partida_por_pasiva():
+	buffs_manager.set_pasiva_escogida(false)
+	buffs_manager.elegir_pasivas_random()
+	camera_manager.set_camera_camarero()
+	palo.resetear_bola_blanca()
+	palo.palo_posicionado = false
+	for bola in bolas_activas:
+		if is_instance_valid(bola):
+			bola.freeze = true
+
+func reanudar_partida_por_pasiva():
+	if not buffs_manager.ha_escogido_pasiva():
+		return
+
+	camera_manager.set_camera_base()
+	palo.palo_posicionado = true
+
+	for i in range(3, 0, -1):
+		_actualizar_puntuacion_label(str(i))
+		await get_tree().create_timer(1.0).timeout
+	_actualizar_puntuacion_label(str(puntuacion))
+
+	for bola in bolas_activas:
+		if is_instance_valid(bola):
+			bola.freeze = false
+
+	pausa_activa = false
+	esperando_pasiva = false
+	buffs_manager.set_pasiva_escogida(false)
+
+func _actualizar_puntuacion_label(text: String) -> void:
+	if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
+		var text_mesh := puntuacion_mesh_label.mesh as TextMesh
+		text_mesh.text = text
+		puntuacion_mesh_label.mesh = text_mesh
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Gestion de Partida
 # ✦•················••⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func comenzar_partida() -> void:
+	transition.get_parent().get_node("Control/ColorRect").color.a = 255
+	transition.play("transition_out")
+	await get_tree().create_timer(1.0).timeout
+	for i in range(3, 0, -1):
+		if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
+			var text_mesh := puntuacion_mesh_label.mesh as TextMesh
+			text_mesh.text = str(i)
+			puntuacion_mesh_label.mesh = text_mesh
+		await get_tree().create_timer(1.0).timeout
+
+	if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
+		var text_mesh := puntuacion_mesh_label.mesh as TextMesh
+		text_mesh.text = str(puntuacion)
+		puntuacion_mesh_label.mesh = text_mesh
+	
 	partida_iniciada = true
 	palo.posicionar_palo()
 
@@ -125,8 +187,10 @@ func terminar_partida() -> void:
 		print("Partida terminada.")
 		partida_iniciada = false
 		await get_tree().create_timer(2.0).timeout
+		transition.play("transition")
+		await get_tree().create_timer(0.5).timeout
 		get_tree().call_deferred("reload_current_scene")
-		
+
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Gestion de Spawns
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
@@ -212,7 +276,7 @@ func spawn_objeto() -> void:
 		return
 	if not puede_spawnear_objeto or objetos.is_empty():
 		return
-	if objetos_activos.size() >= limite_objetos:
+	if objetos_activos.size() >= limite_objetos + buffs_manager.get_numero_objetos():
 		return
 
 	puede_spawnear_objeto = false
@@ -269,10 +333,10 @@ func limpiar_listas_activas() -> void:
 
 func _on_area_boquetes_body_entered(_body: Node) -> void:
 	if _body.is_in_group("bola"):
+		if _body.has_method("get_tipo_bola"):
+			tipo_bola = _body.get_tipo_bola()
 		if _body.has_method("suicidar_bola"):
 			_body.suicidar_bola()
-			if bolas_activas.has(_body):
-				bolas_activas.erase(_body)
 
 	elif _body.is_in_group("bola_blanca"):
 		if _body.has_method("resetear_bola"):
@@ -287,12 +351,20 @@ func get_vida() -> int:
 
 func restar_vida(value: int) -> void:
 	vida -= value
-	vida_label.text = str(vida)
+
 	if spawn_vida and bola_vida and spawn_vida.is_inside_tree():
 		var bola_vida_instance = bola_vida.instantiate()
+		if bola_vida_instance.has_method("set_tipo_bola"):
+			bola_vida_instance.set_tipo_bola(tipo_bola)
+
 		spawn_vida.add_child(bola_vida_instance)
 		bola_vida_instance.global_position = spawn_vida.global_position
 		bola_vida_instance.global_rotation = spawn_vida.global_rotation
+	camera_manager.hit_down_camera(0.05, 0.2)
+	# modulate.a en base a la vida restante
+	if damage_texture:
+		var alpha = 1.0 - (float(vida) / float(MAX_VIDA))
+		damage_texture.modulate.a = alpha
 	if vida <= 0:
 		terminar_partida()
 
@@ -300,11 +372,15 @@ func sumar_vida(value: int) -> void:
 	vida += value
 	if vida > MAX_VIDA:
 		vida = MAX_VIDA
-	vida_label.text = str(vida)
+
 	if spawn_vida and spawn_vida.get_child_count() > 0:
 		var first_child = spawn_vida.get_child(0)
 		if is_instance_valid(first_child):
 			first_child.queue_free()
+	
+	if damage_texture:
+		var alpha = 1.0 - (float(vida) / float(MAX_VIDA))
+		damage_texture.modulate.a = alpha
 
 func get_MAX_VIDA() -> int:
 	return MAX_VIDA
@@ -312,15 +388,13 @@ func get_MAX_VIDA() -> int:
 func sumar_MAX_VIDA(value: int) -> void:
 	MAX_VIDA += value
 	sumar_vida(value)
-	vida_maxima_label.text = str(MAX_VIDA)
 
 func get_puntuacion() -> int:
 	return puntuacion
 
 func sumar_puntuacion(value: int) -> void:
 	puntuacion += value
-	puntuacion_label.text = str(puntuacion)
-	# cambiar el texto del mesh si existe
+
 	if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
 		var text_mesh := puntuacion_mesh_label.mesh as TextMesh
 		text_mesh.text = str(puntuacion)
@@ -332,20 +406,18 @@ func get_pasives() -> Array:
 func set_pasives(value: Array) -> void:
 	pasives = value
 
-func set_rebotes_guiados_label(text: String) -> void:
-	rebotes_guiados_label.text = text
+func set_rebotes_guiados_label(_text: String) -> void:
+	pass
 
-func set_numero_objetos_label(value: int) -> void:
-	numero_objetos_label.text = str(value)
+func get_partida_iniciada() -> bool:
+	return partida_iniciada
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Input y Debug
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
+
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_S:
-		comenzar_partida()
-	
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not esperando_pasiva:
 		if not palo.palo_posicionado:
 			return
 		if event.pressed:

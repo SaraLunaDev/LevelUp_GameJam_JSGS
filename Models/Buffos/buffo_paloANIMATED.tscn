@@ -9,7 +9,6 @@ emission_enabled = true
 
 [sub_resource type="TextMesh" id="TextMesh_pmph4"]
 material = SubResource("StandardMaterial3D_2spkl")
-text = "1"
 depth = 0.023
 
 [node name="buffoPalo" instance=ExtResource("1_2spkl")]

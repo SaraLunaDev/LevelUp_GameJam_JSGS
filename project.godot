@@ -21,6 +21,10 @@ config/icon="res://icon.svg"
 AudioManager="*res://Scenes/Audio/audio_manager.tscn"
 GlobalSignals="*res://Scripts/Audio/GlobalSignals.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [global_group]
 
 bola_blanca=""
@@ -35,6 +39,7 @@ palo=""
 banda=""
 bola_vida=""
 rb_component=""
+camera_manager=""
 
 [input]
 
@@ -62,3 +67,4 @@ right_click={
 [rendering]
 
 textures/default_filters/use_nearest_mipmap_filter=true
+viewport/transparent_background=true

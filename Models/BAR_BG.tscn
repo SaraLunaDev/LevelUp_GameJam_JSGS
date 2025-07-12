@@ -1,26 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnly4ljfnnt3j"]
+[gd_scene load_steps=2 format=3 uid="uid://dnly4ljfnnt3j"]
 
 [ext_resource type="PackedScene" uid="uid://dm6o3h15su0j8" path="res://Models/bar.glb" id="1_a1isu"]
-[ext_resource type="PackedScene" uid="uid://lglgbkp0kwmb" path="res://Models/billar_individual_fix_reloj.tscn" id="2_smqet"]
 
 [node name="bar" instance=ExtResource("1_a1isu")]
 
-[node name="billarIndividual" parent="." index="0" instance=ExtResource("2_smqet")]
-
-[node name="MesaBillar" parent="." index="1"]
+[node name="MesaBillar" parent="." index="0"]
 visible = false
 
-[node name="Bola" parent="." index="2"]
+[node name="Bola" parent="." index="1"]
 visible = false
 
-[node name="PaloJugador" parent="." index="3"]
+[node name="PaloJugador" parent="." index="2"]
 visible = false
 
-[node name="Birra_001" parent="." index="37"]
+[node name="Birra_001" parent="." index="36"]
 visible = false
 
-[node name="Whisky_004" parent="." index="38"]
+[node name="Whisky_004" parent="." index="37"]
 visible = false
 
-[node name="Vaso_009" parent="." index="79"]
+[node name="Vaso_009" parent="." index="78"]
 visible = false
