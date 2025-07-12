@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 
 AudioManager="*res://Scenes/Audio/audio_manager.tscn"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [global_group]
 
 bola_blanca=""

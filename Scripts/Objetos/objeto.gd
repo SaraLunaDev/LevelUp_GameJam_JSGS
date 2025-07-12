@@ -5,6 +5,7 @@ extends RigidBody3D
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 var objeto_activo: bool = true
+@export var choque: PackedScene
 
 enum TipoObjeto {
 	WHISKY,
@@ -45,7 +46,10 @@ func _ready():
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func recibir_golpe(daño: int) -> void:
-	# TODO: Aplicar efectos visuales o sonoros al recibir daño
+	if choque:
+		var choque_instance = choque.instantiate()
+		choque_instance.global_transform.origin = global_transform.origin
+		get_tree().current_scene.add_child(choque_instance)
 	vida -= daño
 	if vida <= 0:
 		eliminar_objeto()

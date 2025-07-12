@@ -66,6 +66,7 @@ linear_damp = 0.5
 angular_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_r6cnw")
+choque = ExtResource("3_n7nfu")
 
 [node name="Bola" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.15258e-09, 0, -0.095, 0, 0.095, 0, 0.095, 0, -4.15258e-09, 0, 0, 0)
@@ -80,6 +81,3 @@ debug_color = Color(0, 0.6, 0.701961, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_r6cnw")
-
-[node name="ChoqueVFX" parent="." instance=ExtResource("3_n7nfu")]
-visible = false

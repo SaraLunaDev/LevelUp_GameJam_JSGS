@@ -8,7 +8,7 @@ var bola_activa: bool = true
 var aceleracion: float = 1
 var VELOCIDAD_MAXIMA: float = 2
 var destino: Vector3 = Vector3.ZERO
-@onready var choque_vfx: Node3D = $ChoqueVFX
+@export var choque: PackedScene
 
 var VIDA_MAXIMA: int
 var vida: int
@@ -73,7 +73,10 @@ func _physics_process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func recibir_golpe(daño: int) -> void:
-	choque_vfx.explode()
+	if choque:
+		var choque_instance = choque.instantiate()
+		choque_instance.global_transform.origin = global_transform.origin
+		get_tree().current_scene.add_child(choque_instance)
 	vida -= daño
 	if vida <= 0:
 		eliminar_bola()
