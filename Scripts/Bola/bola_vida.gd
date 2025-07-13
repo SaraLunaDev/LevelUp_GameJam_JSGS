@@ -30,7 +30,7 @@ func set_tipo_bola(tipo) -> void:
 			var new_material = StandardMaterial3D.new()
 			new_material.albedo_texture = texture
 			bola_mesh.material_override = new_material
-			print("Textura de la bola cambiada a:", texture_path)
+			#print("Textura de la bola cambiada a:", texture_path)
 		else:
 			print("No se pudo cargar la textura:", texture_path)
 	else:
