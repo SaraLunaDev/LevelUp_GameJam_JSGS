@@ -26,13 +26,15 @@ var music_low_pass_filter_FX: AudioEffectLowPassFilter
 @export var ambient_one_shots: Array[AudioStream]
 
 @export_group("Interaction sounds")
-@export var stick_ball_sounds: Array[AudioStream]
-@export var ball_side_sounds: Array[AudioStream]
-@export var ball_ball_sounds: Array[AudioStream]
-@export var ball_table_sounds: Array[AudioStream]
-@export var ball_missed_sounds: Array[AudioStream]
-@export var obstacle_hit_sounds: Array[AudioStream]
-@export var obstacle_destroyed_sounds: Array[AudioStream]
+
+@export var stick_ball_sounds:Array[AudioStream]
+@export var ball_side_sounds:Array[AudioStream]
+@export var ball_ball_sounds:Array[AudioStream]
+@export var ball_table_sounds:Array[AudioStream]
+@export var beer_hit_sounds:Array[AudioStream]
+@export var glass_hit_sounds:Array[AudioStream]
+@export var whiskey_hit_sounds:Array[AudioStream]
+
 
 @export_group("Game sounds")
 @export var choose_passive_sound: AudioStream
@@ -195,11 +197,24 @@ func _play_ball_ball_sound(sound_position: Vector3, sound_volume_db: float, pitc
 
 func _play_ball_table_sound(sound_position: Vector3, sound_volume_db: float, pitch_variation_scale: float = 1.0):
 	var rnd_index = random_generator.randi_range(0, ball_table_sounds.size() - 1)
+
 	_play_game_sfx_3D(ball_table_sounds[rnd_index], sound_position, sound_volume_db, pitch_variation_scale)
 
 func _play_ball_side_sound(sound_position: Vector3, sound_volume_db: float, pitch_variation_scale: float = 1.0):
 	var rnd_index = random_generator.randi_range(0, ball_side_sounds.size() - 1)
 	_play_game_sfx_3D(ball_side_sounds[rnd_index], sound_position, sound_volume_db, pitch_variation_scale)
+
+func _play_beer_hit_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
+	var rnd_index = random_generator.randi_range(0 , beer_hit_sounds.size()-1)
+	_play_game_sfx_3D(beer_hit_sounds[rnd_index], sound_position, sound_volume_db - 2.0, pitch_variation_scale)
+
+func _play_glass_hit_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
+	var rnd_index = random_generator.randi_range(0 , glass_hit_sounds.size()-1)
+	_play_game_sfx_3D(glass_hit_sounds[rnd_index], sound_position, sound_volume_db - 3.0, 0.0)
+
+func _play_whiskey_hit_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
+	var rnd_index = random_generator.randi_range(0 , whiskey_hit_sounds.size()-1)
+	_play_game_sfx_3D(whiskey_hit_sounds[rnd_index], sound_position, sound_volume_db - 5.0, 0.0)
 
 func _play_ball_point_sound():
 	_play_game_sfx_1D(ball_point_sound, -3.0, 0.0, true)

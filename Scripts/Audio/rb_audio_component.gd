@@ -103,9 +103,17 @@ func _on_body_entered(body:Node) -> void:
 	elif body.is_in_group("bola"):
 		#print("Global pos: ", global_position, " Velocity: ", current_velocity_magnitude)
 		AudioManager._play_ball_ball_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
-		GlobalSignals.shake.emit(current_velocity_magnitude / max_velocity_magnitude)
-		await get_tree().create_timer(0.1).timeout
-		AudioManager._play_ball_point_sound()
+		#GlobalSignals.shake.emit(current_velocity_magnitude / max_velocity_magnitude)
+		#await get_tree().create_timer(0.1).timeout
+		#AudioManager._play_ball_point_sound()
+	elif body.is_in_group("objeto"):
+		match body.get_tipo():
+			0: # Whiskey
+				AudioManager._play_whiskey_hit_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
+			1: # Vaso
+				AudioManager._play_glass_hit_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
+			2: # Birra
+				AudioManager._play_beer_hit_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
 
 """
 # POSIBLE SOLUCION AL SONIDO DE COLISION DE BOLA AL VOLVER
@@ -125,6 +133,7 @@ func _on_body_bola(tipo: String) -> void:
 		await get_tree().create_timer(0.1).timeout
 		AudioManager._play_ball_point_sound()
 """
+
 
 func _on_body_exited(body:Node) -> void:
 	#print("Body exited: ", body)
