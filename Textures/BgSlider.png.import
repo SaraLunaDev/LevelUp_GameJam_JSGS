@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://20mlyf2aiw23"
-path="res://.godot/imported/exitButton.png-63db4025c9d12668e6ce7dccca1219ed.ctex"
+uid="uid://bsmc2o7xynxal"
+path="res://.godot/imported/BgSlider.png-618c38b45a0c444b493440cb133fc355.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/exitButton.png"
-dest_files=["res://.godot/imported/exitButton.png-63db4025c9d12668e6ce7dccca1219ed.ctex"]
+source_file="res://Textures/BgSlider.png"
+dest_files=["res://.godot/imported/BgSlider.png-618c38b45a0c444b493440cb133fc355.ctex"]
 
 [params]
 

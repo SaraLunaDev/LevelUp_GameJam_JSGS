@@ -1,0 +1,180 @@
+[gd_scene load_steps=21 format=3 uid="uid://dvxqq1yvd61kk"]
+
+[ext_resource type="Texture2D" uid="uid://cc2elmoa5b3gn" path="res://Textures/menuSettings_bg.png" id="1_21asm"]
+[ext_resource type="Texture2D" uid="uid://bqkapakpd517o" path="res://Textures/SLIDER_GRABBER.png" id="2_1gq0w"]
+[ext_resource type="Script" uid="uid://bal7a1hl7mhhd" path="res://Scripts/tipo_de_pantallaMenu.gd" id="2_a8ogw"]
+[ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="2_os1uo"]
+[ext_resource type="Texture2D" uid="uid://w1enlr1rjcbk" path="res://Textures/SLIDER_GRABBER_SEL.png" id="2_udpfv"]
+[ext_resource type="Texture2D" uid="uid://lb08uumam7u7" path="res://Textures/SLIDER_GRABBER_SEL_RED.png" id="4_i47py"]
+[ext_resource type="Texture2D" uid="uid://dcg2uicg01s24" path="res://Textures/SLIDER_GRABBER_SEL_BLUE.png" id="4_udpfv"]
+[ext_resource type="Texture2D" uid="uid://cwyxiy6tywq8n" path="res://Textures/BgSlider_relleno.png" id="6_a12mv"]
+[ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="9_26cf7"]
+[ext_resource type="Texture2D" uid="uid://20mlyf2aiw23" path="res://Textures/exitButton.png" id="10_26cf7"]
+[ext_resource type="Texture2D" uid="uid://3q6xogtw62ol" path="res://Textures/exitButtonHover.png" id="10_txb4h"]
+[ext_resource type="Texture2D" uid="uid://b1necun7sqfws" path="res://Textures/exitButtonNormal.png" id="12_264nh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4f1n4"]
+texture = ExtResource("10_txb4h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_264nh"]
+texture = ExtResource("10_26cf7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ydx7e"]
+texture = ExtResource("10_txb4h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txb4h"]
+texture = ExtResource("12_264nh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwsxh"]
+texture = ExtResource("6_a12mv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a12mv"]
+texture = ExtResource("6_a12mv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_os1uo"]
+texture = ExtResource("6_a12mv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_26cf7"]
+texture = ExtResource("6_a12mv")
+
+[node name="MenuDeOpciones" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 357.0
+offset_top = 55.0
+offset_right = -195.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.71639, 0.676031)
+texture = ExtResource("1_21asm")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="Fondo"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_4f1n4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_264nh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ydx7e")
+theme_override_styles/normal = SubResource("StyleBoxTexture_txb4h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -271.5
+offset_top = -133.0
+offset_right = 271.5
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Musica" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 85
+
+[node name="Label" type="Label" parent="VBoxContainer/Musica"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_os1uo")
+text = "MUSICA"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Musica"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_icons/grabber = ExtResource("2_udpfv")
+theme_override_icons/grabber_highlight = ExtResource("2_udpfv")
+theme_override_icons/grabber_disabled = ExtResource("2_1gq0w")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_dwsxh")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_a12mv")
+value = 50.0
+
+[node name="Sonidos" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="Label" type="Label" parent="VBoxContainer/Sonidos"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_os1uo")
+text = "SONIDOS"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Sonidos"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_icons/grabber = ExtResource("4_i47py")
+theme_override_icons/grabber_highlight = ExtResource("4_i47py")
+theme_override_icons/grabber_disabled = ExtResource("4_i47py")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_os1uo")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_26cf7")
+value = 50.0
+
+[node name="Sensibilidad" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 37
+
+[node name="Label" type="Label" parent="VBoxContainer/Sensibilidad"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_os1uo")
+text = "SENSIBILIDAD"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Sensibilidad"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_icons/grabber = ExtResource("4_udpfv")
+theme_override_icons/grabber_highlight = ExtResource("4_udpfv")
+theme_override_icons/grabber_disabled = ExtResource("4_udpfv")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_dwsxh")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_a12mv")
+value = 50.0
+
+[node name="Tipo de pantalla" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_a8ogw")
+
+[node name="Label" type="Label" parent="VBoxContainer/Tipo de pantalla"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_os1uo")
+text = "PANTALLA"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/Tipo de pantalla"]
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("9_26cf7")
+selected = 0
+item_count = 3
+popup/item_0/text = "Pantalla completa"
+popup/item_0/id = 0
+popup/item_1/text = "Ventana"
+popup/item_1/id = 1
+popup/item_2/text = "Ventana sin bordes"
+popup/item_2/id = 2
