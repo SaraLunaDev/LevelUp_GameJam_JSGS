@@ -27,6 +27,7 @@ func _process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func mover_bola(direccion: Vector3, potencia_inicial: float) -> void:
+	freeze = false
 	direccion.y = 0
 	var fuerza = direccion * potencia_inicial
 	apply_impulse(fuerza)
