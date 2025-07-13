@@ -7,7 +7,6 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjmpc"]
 transparency = 1
-blend_mode = 1
 albedo_texture = ExtResource("1_0hduj")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0hduj"]
