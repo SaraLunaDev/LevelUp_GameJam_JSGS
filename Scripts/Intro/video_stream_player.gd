@@ -4,7 +4,7 @@ extends VideoStreamPlayer
 @onready var bton_skip: Control = $BtonSkip
 
 func _ready() -> void:
-	GlobalSignals.video_started
+	GlobalSignals.video_started.emit()
 	bton_skip.visible = true
 	await get_tree().create_timer(4).timeout
 	bton_skip.visible = false

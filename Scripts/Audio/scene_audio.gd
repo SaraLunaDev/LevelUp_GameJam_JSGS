@@ -4,13 +4,14 @@ extends Node
 @export var video: VideoStreamPlayer
 @export var holes_area: Area3D
 
-enum SONG {MENU, GAME}
+enum SONG {MENU, GAME, END}
 
 var is_intro_video_skiped: bool = false
 
 func _ready() -> void:
 	match scene_song:
 		SONG.MENU:
+			AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME)
 			AudioManager._play_menu_music()
 		SONG.GAME:
 			_connect_signals()
@@ -20,6 +21,11 @@ func _ready() -> void:
 				if !is_intro_video_skiped:
 					AudioManager._fade_out_menu_player()
 					AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME, 3.0)
+		SONG.END:
+			AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.VIDEO, 2.0)
+			await get_tree().create_timer(5.1).timeout
+			AudioManager._play_gameover_sound()
+			
 
 func _connect_signals():
 	GlobalSignals.choosing_passive.connect(_on_choosing_passive)
