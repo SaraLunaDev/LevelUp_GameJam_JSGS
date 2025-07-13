@@ -28,7 +28,6 @@ process_mode = 3
 
 [node name="InGameSettingsMenu" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +39,7 @@ script = ExtResource("1_pvqtb")
 
 [node name="SettingsPanel" type="Panel" parent="InGameSettingsMenu"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
