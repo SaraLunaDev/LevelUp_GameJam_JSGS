@@ -5,6 +5,7 @@ const MAIN_MENU = "res://Scenes/Game/MainMenu.tscn"
 @onready var settings_panel: Panel = %SettingsPanel
 
 var is_video_playing:bool = true
+var is_open:bool = false
 
 func _ready() -> void:
 	GlobalSignals.video_started.connect(_on_video_started)
@@ -15,7 +16,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_video_playing:
 		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_TAB:
-		_show()
+		if !is_open:
+			_show()
+			is_open = true
+		else:
+			_on_close_button_pressed()
+			is_open = false
 
 func _show():
 	AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.PAUSE, 0.5)

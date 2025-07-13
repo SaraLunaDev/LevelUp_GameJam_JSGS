@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bqr30lk4203v2" path="res://Models/Buffos/buffo_retornoANIMATED.tscn" id="22_fekwy"]
 [ext_resource type="Script" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
 [ext_resource type="PackedScene" uid="uid://dtq0u6qpytksi" path="res://Models/Buffos/buffo_potenciaANIMATED.tscn" id="23_m8bvx"]
-[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
+[ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
 [ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
@@ -40,7 +40,7 @@
 [ext_resource type="Script" path="res://VFX/damage_overlay.gd" id="30_jttd8"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="30_m8bvx"]
 [ext_resource type="Texture2D" uid="uid://dg6pocufjdoes" path="res://Textures/damage.png" id="31_sbxn4"]
-[ext_resource type="PackedScene" uid="uid://bfh5542mlv5i3" path="res://Scenes/UI/in_game_settings_menu.tscn" id="34_mhpb3"]
+[ext_resource type="PackedScene" uid="uid://bfh5542mlv5i3" path="res://Scenes/UI/in_game_settings_menu.tscn" id="34_dho38"]
 [ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="34_mhpb3"]
 [ext_resource type="FontFile" uid="uid://dr8x5e0snw7da" path="res://Fonts/born2bsporty-fs.regular.otf" id="36_dho38"]
 [ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
@@ -248,8 +248,7 @@ game_manager = NodePath("../../../GameManager")
 material = SubResource("ShaderMaterial_h83sj")
 layout_mode = 2
 
-[node name="InGameSettingsMenu" parent="Control" instance=ExtResource("34_mhpb3")]
-process_mode = 3
+[node name="InGameSettingsLayer" parent="Control" instance=ExtResource("34_dho38")]
 
 [node name="SpawnBolas" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)

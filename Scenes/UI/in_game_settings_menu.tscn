@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_giwcs"]
 [ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="8_lq66r"]
 [ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="9_7a4xm"]
-[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="10_5bdlm"]
+[ext_resource type="Script" path="res://Scripts/Audio/audio_texture_button.gd" id="10_5bdlm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0jc6"]
 texture = ExtResource("2_ww8cf")
@@ -22,8 +22,10 @@ thickness = 2
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cs2gm"]
 
 [node name="InGameSettingsLayer" type="CanvasLayer"]
+process_mode = 3
 
 [node name="InGameSettingsMenu" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +37,7 @@ script = ExtResource("1_pvqtb")
 
 [node name="SettingsPanel" type="Panel" parent="InGameSettingsMenu"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

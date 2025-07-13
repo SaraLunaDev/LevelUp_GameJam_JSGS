@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="5_sv08j"]
 [ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="6_cs2gm"]
 [ext_resource type="Script" uid="uid://dt6yf2s48b3kh" path="res://Scripts/Settings/mouse_sens_slider.gd" id="6_sv08j"]
-[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
+[ext_resource type="Script" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
 [ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_w0jc6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0jc6"]
