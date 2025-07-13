@@ -1,8 +1,8 @@
 extends HBoxContainer
 
 const PRUEBA_JUEGO = preload("res://Scenes/Debug/prueba_juego.tscn")
-@onready var transition = $"../Transition/AnimationPlayer"
 @onready var settings_menu: Control = %SettingsMenu
+@onready var transition: Node = $"../Transition/AnimationPlayer"
 
 func _on_play_button_pressed():
 	transition.play("transition")

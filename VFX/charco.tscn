@@ -11,7 +11,7 @@ blend_mode = 1
 albedo_texture = ExtResource("1_0hduj")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0hduj"]
-radius = 0.798075
+radius = 0.885067
 
 [node name="charco" type="MeshInstance3D"]
 mesh = SubResource("PlaneMesh_0hduj")

@@ -1,12 +1,12 @@
 extends Node
 
 @export var scene_song: SONG
-@export var video:VideoStreamPlayer
-@export var holes_area:Area3D
+@export var video: VideoStreamPlayer
+@export var holes_area: Area3D
 
 enum SONG {MENU, GAME}
 
-var is_intro_video_skiped:bool = false
+var is_intro_video_skiped: bool = false
 
 func _ready() -> void:
 	match scene_song:
@@ -45,6 +45,6 @@ func _on_passive_choosed():
 	AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME, 0.5)
 	AudioManager._play_passive_choosed_sound()
 
-func _on_holes_area_body_entered(body:RigidBody3D):
+func _on_holes_area_body_entered(body: RigidBody3D):
 	if body.is_in_group("bola"):
 		AudioManager._play_ball_missed_sound()

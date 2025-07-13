@@ -1,6 +1,8 @@
 extends Control
 
-@onready var anim = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func _ready():
-	anim.play("BasicAnim")
+func play_tutorial():
+	animation_player.play("new_animation")
+	await get_tree().create_timer(6).timeout
+	queue_free()

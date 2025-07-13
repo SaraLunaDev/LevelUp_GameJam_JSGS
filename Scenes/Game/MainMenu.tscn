@@ -1,19 +1,21 @@
-[gd_scene load_steps=22 format=3 uid="uid://cb2xiir7ika68"]
+[gd_scene load_steps=24 format=3 uid="uid://cb2xiir7ika68"]
 
 [ext_resource type="Script" uid="uid://c0l3c2n2lw6da" path="res://Scripts/v_box_container.gd" id="1_de4cs"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_hn2at"]
-[ext_resource type="Texture2D" uid="uid://b3nnmnv6myblr" path="res://Textures/playButton.png" id="2_hn2at"]
-[ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="3_esq62"]
+[ext_resource type="Texture2D" uid="uid://cph0yfdotahdm" path="res://Textures/buttons/ezgif-split (3)/tile000.png" id="3_ql6ga"]
 [ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
-[ext_resource type="Texture2D" uid="uid://dm23voe3pqmpp" path="res://Textures/playButton_hover.png" id="4_uaiux"]
+[ext_resource type="Texture2D" uid="uid://bav7l37w7skba" path="res://Textures/buttons/ezgif-split (3)/tile001.png" id="4_tw17b"]
 [ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="5_uaiux"]
 [ext_resource type="Texture2D" uid="uid://c3rnpxr16gkmt" path="res://Textures/TitleAnim/titleAnimatedTexture.tres" id="5_ymo5r"]
 [ext_resource type="Script" uid="uid://8uj6f0jgwost" path="res://Scenes/Game/camera_3d.gd" id="6_h6d63"]
 [ext_resource type="Material" uid="uid://c6bdmb2j1qovw" path="res://Materials/crtShaderMaterial.tres" id="6_hn2at"]
-[ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="7_2k2sh"]
+[ext_resource type="Texture2D" uid="uid://klkniu5duuih" path="res://Textures/buttons/ezgif-split (2)/tile000.png" id="6_qqv5j"]
+[ext_resource type="Texture2D" uid="uid://ca6lsl5b3u764" path="res://Textures/buttons/ezgif-split (2)/tile001.png" id="7_m61xp"]
 [ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="7_tnjq2"]
+[ext_resource type="Texture2D" uid="uid://dsoiids0n40cf" path="res://Textures/buttons/ezgif-split (1)/tile000.png" id="8_2m75l"]
 [ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="8_lo35h"]
 [ext_resource type="PackedScene" uid="uid://cd4g7snrljk7n" path="res://Scenes/UI/settings_menu.tscn" id="9_5fpg2"]
+[ext_resource type="Texture2D" uid="uid://5po74nfqp2cn" path="res://Textures/buttons/ezgif-split (1)/tile001.png" id="9_5ntv5"]
 [ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="10_5fpg2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="11_hn2at"]
@@ -24,6 +26,8 @@
 [sub_resource type="Environment" id="Environment_hn2at"]
 
 [node name="GameScene" type="Node3D"]
+
+[node name="Transition" parent="." instance=ExtResource("1_hn2at")]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -45,34 +49,44 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -285.0
-offset_top = 151.0
-offset_right = 285.0
-offset_bottom = 241.0
+offset_top = 122.115
+offset_right = 323.0
+offset_bottom = 222.115
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 script = ExtResource("1_de4cs")
 
 [node name="PlayButton" type="TextureButton" parent="Control/CanvasLayer/Buttons"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("2_hn2at")
-texture_hover = ExtResource("4_uaiux")
+texture_normal = ExtResource("3_ql6ga")
+texture_hover = ExtResource("4_tw17b")
+ignore_texture_size = true
+stretch_mode = 5
 script = ExtResource("5_uaiux")
 button_type = 2
 
 [node name="SettingsButton" type="TextureButton" parent="Control/CanvasLayer/Buttons"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("2_hn2at")
-texture_hover = ExtResource("4_uaiux")
+texture_normal = ExtResource("6_qqv5j")
+texture_hover = ExtResource("7_m61xp")
+ignore_texture_size = true
+stretch_mode = 5
 script = ExtResource("5_uaiux")
 
 [node name="ExitButton" type="TextureButton" parent="Control/CanvasLayer/Buttons"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("3_esq62")
-texture_hover = ExtResource("7_2k2sh")
+texture_normal = ExtResource("8_2m75l")
+texture_hover = ExtResource("9_5ntv5")
+ignore_texture_size = true
+stretch_mode = 5
 script = ExtResource("5_uaiux")
 button_type = 1
 
