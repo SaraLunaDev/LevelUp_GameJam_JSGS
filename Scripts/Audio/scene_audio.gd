@@ -35,13 +35,14 @@ func _connect_signals():
 
 func _on_video_skiped():
 	is_intro_video_skiped = true
-	AudioManager._fade_out_menu_player()
-	AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME, 3.0)
+	AudioManager._fade_out_menu_player(2.0)
+	AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME, 2.0)
+	await get_tree().create_timer(1.0).timeout
 	_on_video_finished()
 
 func _on_video_finished():
-	AudioManager._fade_in_game_player()
-	AudioManager._fade_in_ambient_player()
+	AudioManager._fade_in_game_player(2.0)
+	#AudioManager._fade_in_ambient_player()
 
 func _on_choosing_passive():
 	AudioManager._play_choose_passive_sound()
