@@ -8,24 +8,25 @@ enum AUDIOBUS_SCENE {GAME, VIDEO, PAUSE}
 
 # Variables de buses
 @export_group("Bus")
-@export var audiobus_scenes:Array[AudioBusSceneData]
-var music_low_pass_filter_FX:AudioEffectLowPassFilter
+@export var audiobus_scenes: Array[AudioBusSceneData]
+var music_low_pass_filter_FX: AudioEffectLowPassFilter
 
 # Biblioteca de sonidos
 @export_group("")
-@export var sfx_test_sound:AudioStream
+@export var sfx_test_sound: AudioStream
 
 @export_group("UI sounds")
-@export var ui_accept_sound:AudioStream
-@export var ui_hover_sound:AudioStream
-@export var ui_close_sound:AudioStream
-@export var ui_start_game:AudioStream
+@export var ui_accept_sound: AudioStream
+@export var ui_hover_sound: AudioStream
+@export var ui_close_sound: AudioStream
+@export var ui_start_game: AudioStream
 
 @export_group("Ambients")
-@export var bar_background_ambient:AudioStream
-@export var ambient_one_shots:Array[AudioStream]
+@export var bar_background_ambient: AudioStream
+@export var ambient_one_shots: Array[AudioStream]
 
 @export_group("Interaction sounds")
+
 @export var stick_ball_sounds:Array[AudioStream]
 @export var ball_side_sounds:Array[AudioStream]
 @export var ball_ball_sounds:Array[AudioStream]
@@ -34,16 +35,17 @@ var music_low_pass_filter_FX:AudioEffectLowPassFilter
 @export var glass_hit_sounds:Array[AudioStream]
 @export var whiskey_hit_sounds:Array[AudioStream]
 
+
 @export_group("Game sounds")
-@export var choose_passive_sound:AudioStream
-@export var passive_choosed_sound:AudioStream
-@export var ball_missed_sound:AudioStream
-@export var ball_point_sound:AudioStream
+@export var choose_passive_sound: AudioStream
+@export var passive_choosed_sound: AudioStream
+@export var ball_missed_sound: AudioStream
+@export var ball_point_sound: AudioStream
 
 # Reproductores de audio cacheados
 @onready var menu_song_player: AudioStreamPlayer = %MenuSongPlayer
 @onready var game_song_player: AudioStreamPlayer = %GameSongPlayer
-@onready var ambience_player:AudioStreamPlayer = %AmbiencePlayer
+@onready var ambience_player: AudioStreamPlayer = %AmbiencePlayer
 @onready var priority_sfx_audio_player: AudioStreamPlayer = %PrioritySFXAudioPlayer
 @onready var priority_sfx_audio_player_3d: AudioStreamPlayer3D = %PrioritySFXAudioPlayer3D
 
@@ -52,8 +54,8 @@ const MAX_SIMULTANEOUS_SFX := 6
 var sfx_actives := 0
 
 # Control de escenas de audio
-var current_audiobus_scene:AUDIOBUS_SCENE = AUDIOBUS_SCENE.GAME
-var previous_audiobus_scene:AUDIOBUS_SCENE
+var current_audiobus_scene: AUDIOBUS_SCENE = AUDIOBUS_SCENE.GAME
+var previous_audiobus_scene: AUDIOBUS_SCENE
 
 var random_generator := RandomNumberGenerator.new()
 
@@ -70,8 +72,8 @@ func _play_ambience():
 	ambience_player.play()
 
 # Reproducir sonido sfx (sonidos no localizados)
-func _play_game_sfx_1D(sound:AudioStream, volume_db:float = -6.0, random_scale:float = 1.0, is_priority:bool = false, audio_player:AudioStreamPlayer = priority_sfx_audio_player):
-	var player:AudioStreamPlayer
+func _play_game_sfx_1D(sound: AudioStream, volume_db: float = -6.0, random_scale: float = 1.0, is_priority: bool = false, audio_player: AudioStreamPlayer = priority_sfx_audio_player):
+	var player: AudioStreamPlayer
 	if is_priority:
 		player = audio_player
 	elif sfx_actives >= MAX_SIMULTANEOUS_SFX:
@@ -94,8 +96,8 @@ func _play_game_sfx_1D(sound:AudioStream, volume_db:float = -6.0, random_scale:f
 		player.queue_free()
 
 # Reproducir sonido sfx con localización 3D (cercanía y izq / der)
-func _play_game_sfx_3D(sound:AudioStream, sound_position:Vector3, volume_db:float = -6.0, random_scale:float = 1.0, is_priority:bool = false, audio_player_3d:AudioStreamPlayer3D = priority_sfx_audio_player_3d):
-	var player_3d:AudioStreamPlayer3D
+func _play_game_sfx_3D(sound: AudioStream, sound_position: Vector3, volume_db: float = -6.0, random_scale: float = 1.0, is_priority: bool = false, audio_player_3d: AudioStreamPlayer3D = priority_sfx_audio_player_3d):
+	var player_3d: AudioStreamPlayer3D
 	if is_priority:
 		player_3d = audio_player_3d
 	elif sfx_actives >= MAX_SIMULTANEOUS_SFX:
@@ -119,8 +121,8 @@ func _play_game_sfx_3D(sound:AudioStream, sound_position:Vector3, volume_db:floa
 		player_3d.queue_free()
 
 # Reproducir sonido de UI
-func _play_ui_sfx(sound:AudioStream, volume_db:float = -6.0) -> void:
-	var player:AudioStreamPlayer
+func _play_ui_sfx(sound: AudioStream, volume_db: float = -6.0) -> void:
+	var player: AudioStreamPlayer
 	player = AudioStreamPlayer.new()
 	add_child(player)
 	player.set_bus("UI_Sfx")
@@ -131,7 +133,7 @@ func _play_ui_sfx(sound:AudioStream, volume_db:float = -6.0) -> void:
 	player.queue_free()
 
 # Reproducir sonido ambiente puntual (sonidos no localizados)
-func _play_ambience_one_shot_1D(sound:AudioStream):
+func _play_ambience_one_shot_1D(sound: AudioStream):
 	var player = AudioStreamPlayer.new()
 	add_child(player)
 	player.stream = sound
@@ -141,7 +143,7 @@ func _play_ambience_one_shot_1D(sound:AudioStream):
 	player.queue_free()
 
 # Reproducir sonido ambiente puntual con localización 3D (cercanía y izq / der)
-func _play_ambience_one_shot_3D(sound:AudioStream, sound_position:Vector3):
+func _play_ambience_one_shot_3D(sound: AudioStream, sound_position: Vector3):
 	var player_3d = AudioStreamPlayer3D.new()
 	add_child(player_3d)
 	player_3d.stream = sound
@@ -152,7 +154,7 @@ func _play_ambience_one_shot_3D(sound:AudioStream, sound_position:Vector3):
 	player_3d.queue_free()
 
 # Fundido de un reproductor de audio desde silencio a volumen predeterminado (duración predeterminada 3 segundos)
-func _fade_in_audio_player(audio_player:AudioStreamPlayer, fade_time:float = 3.0):
+func _fade_in_audio_player(audio_player: AudioStreamPlayer, fade_time: float = 3.0):
 	var pre_tween_volume = audio_player.get_volume_db()
 	audio_player.volume_db = -60.0
 	var fade_in_tween = get_tree().create_tween()
@@ -160,7 +162,7 @@ func _fade_in_audio_player(audio_player:AudioStreamPlayer, fade_time:float = 3.0
 	fade_in_tween.tween_property(audio_player, "volume_db", pre_tween_volume, fade_time)
 
 # Fundido de un reproductor de audio a silencio (duración predeterminada 3 segundos)
-func _fade_out_audio_player(audio_player:AudioStreamPlayer, fade_time:float = 3.0):
+func _fade_out_audio_player(audio_player: AudioStreamPlayer, fade_time: float = 3.0):
 	var pre_tween_volume = audio_player.get_volume_db()
 	var fade_out_tween = get_tree().create_tween()
 	fade_out_tween.tween_property(audio_player, "volume_db", -48.0, fade_time)
@@ -185,21 +187,21 @@ func _play_ui_close_sound():
 func _play_ui_start_sound():
 	_play_ui_sfx(ui_start_game)
 
-func _play_stick_ball_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
-	var rnd_index = random_generator.randi_range(0 , stick_ball_sounds.size()-1)
+func _play_stick_ball_sound(sound_position: Vector3, sound_volume_db: float, pitch_variation_scale: float = 1.0):
+	var rnd_index = random_generator.randi_range(0, stick_ball_sounds.size() - 1)
 	_play_game_sfx_3D(stick_ball_sounds[rnd_index], sound_position, sound_volume_db, pitch_variation_scale)
 
-func _play_ball_ball_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
-	var rnd_index = random_generator.randi_range(0 , ball_ball_sounds.size()-1)
+func _play_ball_ball_sound(sound_position: Vector3, sound_volume_db: float, pitch_variation_scale: float = 1.0):
+	var rnd_index = random_generator.randi_range(0, ball_ball_sounds.size() - 1)
 	_play_game_sfx_3D(ball_ball_sounds[rnd_index], sound_position, sound_volume_db, pitch_variation_scale)
-	print("Volume_db: ", sound_volume_db )
-	
-func _play_ball_table_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
-	var rnd_index = random_generator.randi_range(0 , ball_table_sounds.size()-1)
+
+func _play_ball_table_sound(sound_position: Vector3, sound_volume_db: float, pitch_variation_scale: float = 1.0):
+	var rnd_index = random_generator.randi_range(0, ball_table_sounds.size() - 1)
+
 	_play_game_sfx_3D(ball_table_sounds[rnd_index], sound_position, sound_volume_db, pitch_variation_scale)
 
-func _play_ball_side_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
-	var rnd_index = random_generator.randi_range(0 , ball_side_sounds.size()-1)
+func _play_ball_side_sound(sound_position: Vector3, sound_volume_db: float, pitch_variation_scale: float = 1.0):
+	var rnd_index = random_generator.randi_range(0, ball_side_sounds.size() - 1)
 	_play_game_sfx_3D(ball_side_sounds[rnd_index], sound_position, sound_volume_db, pitch_variation_scale)
 
 func _play_beer_hit_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
@@ -227,51 +229,51 @@ func _play_ball_missed_sound():
 	_play_game_sfx_1D(ball_missed_sound, -6.0, 0.0, true)
 
 ## Fundido de la música de menú a silencio (duración predeterminada 3 segundos)
-func _fade_out_menu_player(duration:float = 3.0):
+func _fade_out_menu_player(duration: float = 3.0):
 	_fade_out_audio_player(menu_song_player, duration)
 
 ## Fundido de la música de juego a silencio(duración predeterminada 3 segundos)
-func _fade_out_game_player(duration:float = 3.0):
+func _fade_out_game_player(duration: float = 3.0):
 	_fade_out_audio_player(game_song_player, duration)
 
 ## Fundido del ambiente general a silencio(duración predeterminada 3 segundos)
-func _fade_out_ambient_player(duration:float = 3.0):
+func _fade_out_ambient_player(duration: float = 3.0):
 	_fade_out_audio_player(ambience_player, duration)
 
 ## Fundido de la música de juego desde silencio a volumen predeterminado (duración predeterminada 3 segundos)
-func _fade_in_game_player(duration:float = 3.0):
+func _fade_in_game_player(duration: float = 3.0):
 	_fade_in_audio_player(game_song_player, duration)
 
 ## Fundido de la música de menú desde silencio a volumen predeterminado (duración predeterminada 3 segundos)
-func _fade_in_menu_player(duration:float = 3.0):
+func _fade_in_menu_player(duration: float = 3.0):
 	_fade_in_audio_player(menu_song_player, duration)
 
 ## Fundido del ambiente general desde silencio a volumen predeterminado (duración predeterminada 3 segundos)
-func _fade_in_ambient_player(duration:float = 3.0):
+func _fade_in_ambient_player(duration: float = 3.0):
 	_fade_in_audio_player(ambience_player, duration)
 
 # ---------------------------------------
 
-func _set_bus_volume(bus:AUDIOBUS, new_db_volume:float) -> void:
+func _set_bus_volume(bus: AUDIOBUS, new_db_volume: float) -> void:
 	AudioServer.set_bus_volume_db(bus, new_db_volume)
 
-func _set_music_volume(new_db_volume:float) -> void:
+func _set_music_volume(new_db_volume: float) -> void:
 	_set_bus_volume(AUDIOBUS.MUSIC, new_db_volume)
 
-func _set_ui_sfx_volume(new_db_volume:float) -> void:
+func _set_ui_sfx_volume(new_db_volume: float) -> void:
 	_set_bus_volume(AUDIOBUS.UI_SFX, new_db_volume)
 
-func _set_game_sfx_volume(new_db_volume:float) -> void:
+func _set_game_sfx_volume(new_db_volume: float) -> void:
 	_set_bus_volume(AUDIOBUS.GAME_SFX, new_db_volume)
 
-func _set_ambience_volume(new_db_volume:float) -> void:
+func _set_ambience_volume(new_db_volume: float) -> void:
 	_set_bus_volume(AUDIOBUS.AMBIENCE, new_db_volume)
 
-func _set_music_low_pass_freq(new_freq:float) -> void:
+func _set_music_low_pass_freq(new_freq: float) -> void:
 	music_low_pass_filter_FX.cutoff_hz = new_freq
 
 # Cambiar escena de audio
-func _change_audiobus_scene(new_scene:AUDIOBUS_SCENE, duration:float = 0.1) -> void:
+func _change_audiobus_scene(new_scene: AUDIOBUS_SCENE, duration: float = 0.1) -> void:
 	previous_audiobus_scene = current_audiobus_scene
 	current_audiobus_scene = new_scene
 	var tween = create_tween().set_parallel()

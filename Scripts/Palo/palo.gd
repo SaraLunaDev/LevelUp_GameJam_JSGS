@@ -126,7 +126,9 @@ func rotar_palo(delta: float) -> void:
 		return
 	var mouse_vel = Input.get_last_mouse_velocity().x
 	if mouse_vel != 0:
-		var target_rot = rotation_degrees.y + mouse_vel * delta * 0.75
+		var invert = GlobalSignals._get_inverse_rotation_setting()
+		var factor = 1 if invert else -1
+		var target_rot = rotation_degrees.y + mouse_vel * delta * GlobalSignals._get_mouse_sens_factor() * factor
 		rotation_degrees.y = lerp(rotation_degrees.y, target_rot, lerp_palo)
 	actualizar_posicion_palo()
 
@@ -271,6 +273,7 @@ func actualizar_posicion_palo() -> void:
 func resetear_bola_blanca() -> void:
 	if reseteando_bola_blanca:
 		return
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	tiempo_bola_moviendose = 0.0
 	bola_moviendose = false
 	reseteando_bola_blanca = true
@@ -282,30 +285,23 @@ func resetear_bola_blanca() -> void:
 		bola.set_numero_rebotes_guiados(0)
 		bola.set_activado_rebote_guiado(false)
 		bola.freeze = true
-		bola.set_freeze_mode(1)
 		# bola.set_transparencia(0.2)
 		var start_pos = bola.global_position
 		start_pos.y = bola_blanca_spawn.global_position.y
 		bola.global_position = start_pos
 
 		var end_pos = bola_blanca_spawn.global_position
-		
-		var tween = create_tween()
-		tween.tween_property(bola, "global_position", end_pos, retorno_bola_blanca - buffs_manager.get_retorno_bola()).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		# He cambiado todo esto por un tween... si no gusta pues se cambia
-		#var t := 0.0
-		#while t < 1.0:
-			#var eased_t = t * t
-			#bola.global_position = start_pos.lerp(end_pos, eased_t)
-			#if get_tree():
-				#await get_tree().process_frame
-			#else:
-				#break
-			#t += get_process_delta_time() / (retorno_bola_blanca - buffs_manager.get_retorno_bola())
-		
-		await tween.finished
+		var t := 0.0
+		while t < 1.0:
+			var eased_t = t * t
+			bola.global_position = start_pos.lerp(end_pos, eased_t)
+			if get_tree():
+				await get_tree().process_frame
+			else:
+				break
+			t += get_process_delta_time() / (retorno_bola_blanca - buffs_manager.get_retorno_bola())
 		bola.global_position = end_pos
-		#bola.freeze = false
+		bola.freeze = false
 		if palo_posicionado:
 			actualizar_posicion_palo()
 	# bola.set_transparencia(1)

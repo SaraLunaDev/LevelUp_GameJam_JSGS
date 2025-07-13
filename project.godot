@@ -67,5 +67,6 @@ right_click={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 textures/default_filters/use_nearest_mipmap_filter=true
-viewport/transparent_background=true
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

@@ -6,6 +6,7 @@ class_name GameManager
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 @export_group("Referencias de Escena")
+@export var fin_partida: PackedScene
 @export var buffs_manager: Node = null
 @export var camera_manager: Node = null
 @export var palo: Node3D
@@ -59,6 +60,7 @@ var pausa_activa = false
 var esperando_pasiva := false
 @onready var transition: Node = $"../Control/Transition/AnimationPlayer"
 @onready var damage_texture: TextureRect = $"../Control/AspectRatioContainer/Damage"
+@onready var tutorial_gif: Control = $"../Control/TutorialGif"
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -168,7 +170,9 @@ func _actualizar_puntuacion_label(text: String) -> void:
 func comenzar_partida() -> void:
 	transition.get_parent().get_node("Control/ColorRect").color.a = 255
 	transition.play("transition_out")
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(1.2).timeout
+	tutorial_gif.play_tutorial()
+	await get_tree().create_timer(6).timeout
 	for i in range(3, 0, -1):
 		if puntuacion_mesh_label and puntuacion_mesh_label.mesh is TextMesh:
 			var text_mesh := puntuacion_mesh_label.mesh as TextMesh
@@ -191,7 +195,7 @@ func terminar_partida() -> void:
 		await get_tree().create_timer(2.0).timeout
 		transition.play("transition")
 		await get_tree().create_timer(0.5).timeout
-		get_tree().call_deferred("reload_current_scene")
+		get_tree().change_scene_to_packed(fin_partida)
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Gestion de Spawns

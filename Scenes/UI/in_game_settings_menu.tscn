@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfh5542mlv5i3"]
+[gd_scene load_steps=16 format=3 uid="uid://bfh5542mlv5i3"]
 
 [ext_resource type="Script" uid="uid://cldve0yssw20m" path="res://Scripts/Settings/in_game_settings_menu.gd" id="1_pvqtb"]
 [ext_resource type="Texture2D" uid="uid://w7bc3d4rpnby" path="res://Textures/boton.png" id="2_ww8cf"]
@@ -7,9 +7,11 @@
 [ext_resource type="Script" uid="uid://b8q2study0ard" path="res://Scripts/Audio/volume_slider.gd" id="5_mbxd3"]
 [ext_resource type="Script" uid="uid://dt6yf2s48b3kh" path="res://Scripts/Settings/mouse_sens_slider.gd" id="6_bu8w2"]
 [ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_giwcs"]
-[ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="8_lq66r"]
-[ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="9_7a4xm"]
-[ext_resource type="Script" path="res://Scripts/Audio/audio_texture_button.gd" id="10_5bdlm"]
+[ext_resource type="Texture2D" uid="uid://cwsymvnj36024" path="res://Textures/buttons/ezgif-split/tile000.png" id="8_2sea4"]
+[ext_resource type="Texture2D" uid="uid://b4kskooivnges" path="res://Textures/buttons/ezgif-split/tile001.png" id="9_0pql0"]
+[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="10_5bdlm"]
+[ext_resource type="Texture2D" uid="uid://dsoiids0n40cf" path="res://Textures/buttons/ezgif-split (1)/tile000.png" id="11_mbxd3"]
+[ext_resource type="Texture2D" uid="uid://5po74nfqp2cn" path="res://Textures/buttons/ezgif-split (1)/tile001.png" id="12_bu8w2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0jc6"]
 texture = ExtResource("2_ww8cf")
@@ -262,33 +264,37 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_cs2gm")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 alignment = 1
 
-[node name="CloseButton" type="TextureButton" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(221.585, 70)
+[node name="CloseButton" type="TextureButton" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(221.585, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-texture_normal = ExtResource("8_lq66r")
-texture_hover = ExtResource("9_7a4xm")
+texture_normal = ExtResource("8_2sea4")
+texture_hover = ExtResource("9_0pql0")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("10_5bdlm")
 button_type = 1
 
-[node name="ExitToMenuButon" type="TextureButton" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(221.585, 70)
+[node name="ExitToMenuButon" type="TextureButton" parent="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(221.585, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-texture_normal = ExtResource("8_lq66r")
-texture_hover = ExtResource("9_7a4xm")
+texture_normal = ExtResource("11_mbxd3")
+texture_hover = ExtResource("12_bu8w2")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("10_5bdlm")
 button_type = 1
 
-[connection signal="pressed" from="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="InGameSettingsMenu" method="_on_close_button_pressed"]
-[connection signal="pressed" from="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ExitToMenuButon" to="InGameSettingsMenu" method="_on_exit_to_menu_buton_pressed"]
+[connection signal="pressed" from="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/CloseButton" to="InGameSettingsMenu" method="_on_close_button_pressed"]
+[connection signal="pressed" from="InGameSettingsMenu/SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/ExitToMenuButon" to="InGameSettingsMenu" method="_on_exit_to_menu_buton_pressed"]

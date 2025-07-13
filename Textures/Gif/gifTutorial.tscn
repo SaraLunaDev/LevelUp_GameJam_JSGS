@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cm7h3i81xore"]
+[gd_scene load_steps=68 format=3 uid="uid://cm7h3i81xore"]
 
 [ext_resource type="Texture2D" uid="uid://djimqgo2m1dgi" path="res://Textures/Gif/fotograma0000.png" id="1_eedly"]
 [ext_resource type="Script" uid="uid://b1jsu0fxackso" path="res://Scripts/gif_tutorial.gd" id="1_eph7v"]
@@ -254,6 +254,60 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_78phf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eph7v"]
+resource_name = "new_animation"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 5.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p0lrb"]
+resource_name = "new_animation_2"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p0lrb"]
+_data = {
+&"RESET": SubResource("Animation_78phf"),
+&"new_animation": SubResource("Animation_eph7v"),
+&"new_animation_2": SubResource("Animation_p0lrb")
+}
+
 [node name="TutorialGif" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -268,6 +322,13 @@ texture_filter = 1
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_rvlk1")
 animation = &"BasicAnim"
+autoplay = "BasicAnim"
 frame_progress = 0.15092
 speed_scale = 5.0
 centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p0lrb")
+}
+autoplay = "new_animation_2"
