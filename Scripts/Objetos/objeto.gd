@@ -89,7 +89,10 @@ func eliminar_objeto() -> void:
 				get_tree().current_scene.add_child(charco_instance)
 				if is_inside_tree():
 					charco_instance.global_transform.origin = global_transform.origin
-					charco_instance.global_transform.origin.y -= 0.05
+					charco_instance.global_transform.origin.y = 1.804
+					var new_transform = charco_instance.global_transform
+					new_transform.basis = Basis()
+					charco_instance.global_transform = new_transform
 					var tween = get_tree().create_tween()
 					charco_instance.scale = Vector3(0.01, 0.01, 0.01)
 					tween.tween_property(charco_instance, "scale", Vector3(1, 1, 1), 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
