@@ -273,6 +273,7 @@ func actualizar_posicion_palo() -> void:
 func resetear_bola_blanca() -> void:
 	if reseteando_bola_blanca:
 		return
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	tiempo_bola_moviendose = 0.0
 	bola_moviendose = false
 	reseteando_bola_blanca = true

@@ -24,4 +24,10 @@ func _on_finished() -> void:
 func terminar_outro():
 	transition.play("transition")
 	await get_tree().create_timer(0.5).timeout
+	AudioManager._fade_out_game_player(1.5)
+	AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME, 1.5)
+	await get_tree().create_timer(0.5).timeout
+	get_tree().paused = false
+	await get_tree().process_frame
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 	get_tree().change_scene_to_file("res://Scenes/Game/MainMenu.tscn")
