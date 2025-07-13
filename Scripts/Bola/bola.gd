@@ -97,6 +97,7 @@ func eliminar_bola() -> void:
 			if game_manager_obj.get_puntuacion() % 10 == 0:
 				if game_manager_obj.has_method("sumar_vida"):
 					game_manager_obj.sumar_vida(1)
+					AudioManager._play_ball_point_sound()
 	
 	collision_shape_3d.disabled = true
 	var fuerza_vertical = Vector3.UP * 1
