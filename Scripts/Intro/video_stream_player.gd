@@ -1,16 +1,20 @@
 extends VideoStreamPlayer
 
 @export var game_manager: Node
+@onready var bton_skip: Control = $BtonSkip
 
 func _ready() -> void:
 	GlobalSignals.video_started
+	bton_skip.visible = true
+	await get_tree().create_timer(4).timeout
+	bton_skip.visible = false
 
 func _on_finished() -> void:
 	terminar_intro()
 	GlobalSignals.video_ended.emit()
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		terminar_intro()
 		GlobalSignals.video_skiped.emit()
 

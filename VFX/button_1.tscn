@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cog77fjvc6sjj"]
+
+[ext_resource type="Texture2D" uid="uid://pifnuswxs2sa" path="res://Textures/1-Key.png" id="1_jiia3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4a0a"]
+atlas = ExtResource("1_jiia3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3nyw"]
+atlas = ExtResource("1_jiia3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5sxm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4a0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3nyw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="button_1" type="AnimatedSprite3D"]
+texture_filter = 0
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_j5sxm")
+autoplay = "default"
+frame_progress = 0.135405

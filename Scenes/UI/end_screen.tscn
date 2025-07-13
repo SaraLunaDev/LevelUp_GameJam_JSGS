@@ -1,0 +1,119 @@
+[gd_scene load_steps=11 format=3 uid="uid://c80q5mk714m7a"]
+
+[ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_3u8y3"]
+[ext_resource type="VideoStream" uid="uid://devjrtjpx2nai" path="res://Videos/gameOverFinal.ogv" id="2_a3nv1"]
+[ext_resource type="Script" uid="uid://86igsbnkstp1" path="res://video_stream_player.gd" id="3_jsc3u"]
+[ext_resource type="Shader" uid="uid://c0k0ik8yeq3o4" path="res://Shaders/crtShader.gdshader" id="4_rao6n"]
+[ext_resource type="Texture2D" uid="uid://b32trhycgf0o0" path="res://Textures/Espacio-Key.png" id="5_jsc3u"]
+[ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="5_rao6n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3lmn"]
+atlas = ExtResource("5_jsc3u")
+region = Rect2(0, 0, 85, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edl7h"]
+atlas = ExtResource("5_jsc3u")
+region = Rect2(85, 0, 85, 31)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rao6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3lmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edl7h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ootpa"]
+shader = ExtResource("4_rao6n")
+shader_parameter/resolution = Vector2(640, 360)
+shader_parameter/scan_line_amount = 0.1
+shader_parameter/warp_amount = 0.2
+shader_parameter/noise_amount = 0.001
+shader_parameter/interference_amount = 0.0
+shader_parameter/grille_amount = 0.0
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 0.6
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/aberation_amount = 0.3
+shader_parameter/roll_line_amount = 0.0
+shader_parameter/roll_speed = 0.0
+shader_parameter/scan_line_strength = -12.0
+shader_parameter/pixel_strength = 0.0
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Transition" parent="." instance=ExtResource("1_3u8y3")]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer"]
+layout_mode = 2
+stream = ExtResource("2_a3nv1")
+autoplay = true
+expand = true
+script = ExtResource("3_jsc3u")
+
+[node name="BtonSkip" type="Control" parent="AspectRatioContainer/VideoStreamPlayer"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AspectRatioContainer/VideoStreamPlayer/BtonSkip"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -334.075
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="AspectRatioContainer/VideoStreamPlayer/BtonSkip/HBoxContainer"]
+custom_minimum_size = Vector2(224.975, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.924997, 1, 0.910929, 1)
+theme_override_fonts/font = ExtResource("5_rao6n")
+theme_override_font_sizes/font_size = 10
+text = "OMITIR"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/VideoStreamPlayer/BtonSkip/HBoxContainer"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AspectRatioContainer/VideoStreamPlayer/BtonSkip/HBoxContainer/MarginContainer"]
+position = Vector2(0, 38.406)
+sprite_frames = SubResource("SpriteFrames_rao6n")
+autoplay = "default"
+
+[node name="ColorRect" type="ColorRect" parent="AspectRatioContainer"]
+material = SubResource("ShaderMaterial_ootpa")
+layout_mode = 2
+
+[connection signal="finished" from="AspectRatioContainer/VideoStreamPlayer" to="AspectRatioContainer/VideoStreamPlayer" method="_on_finished"]

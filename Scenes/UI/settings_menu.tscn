@@ -5,11 +5,11 @@
 [ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="3_cs2gm"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="4_oadur"]
 [ext_resource type="Script" uid="uid://b8q2study0ard" path="res://Scripts/Audio/volume_slider.gd" id="5_oadur"]
-[ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="5_sv08j"]
-[ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="6_cs2gm"]
 [ext_resource type="Script" uid="uid://dt6yf2s48b3kh" path="res://Scripts/Settings/mouse_sens_slider.gd" id="6_sv08j"]
-[ext_resource type="Script" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
+[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
 [ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_w0jc6"]
+[ext_resource type="Texture2D" uid="uid://cwsymvnj36024" path="res://Textures/buttons/ezgif-split/tile000.png" id="8_w0jc6"]
+[ext_resource type="Texture2D" uid="uid://b4kskooivnges" path="res://Textures/buttons/ezgif-split/tile001.png" id="9_8t2tk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0jc6"]
 texture = ExtResource("2_n6o6n")
@@ -258,16 +258,20 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_cs2gm")
 
-[node name="CloseButton" type="TextureButton" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(221.585, 70)
+[node name="MarginContainer3" type="MarginContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="CloseButton" type="TextureButton" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(221.585, 91.25)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-texture_normal = ExtResource("5_sv08j")
-texture_hover = ExtResource("6_cs2gm")
+texture_normal = ExtResource("8_w0jc6")
+texture_hover = ExtResource("9_8t2tk")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("7_cs2gm")
 button_type = 1
 
-[connection signal="pressed" from="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
