@@ -109,6 +109,9 @@ func _on_body_entered(body: Node) -> void:
 			camera_manager.shake_camera(0.01, 0.1)
 			body.recibir_golpe(daño)
 		mover_hacia_objetivo_cercano()
+	
+	if body.is_in_group("bola") or body.is_in_group("objeto"):
+		rb_audio_component_3d._on_body_entered_on_return(body)
 	"""
 	# POSIBLE SOLUCION AL SONIDO DE COLISION DE BOLA AL VOLVER
 	if body.is_in_group("bola"):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://37qdnl666ni0"]
+[gd_scene load_steps=76 format=3 uid="uid://37qdnl666ni0"]
 
 [ext_resource type="Script" uid="uid://c1nen411o4q4r" path="res://Scripts/Audio/AudioManager.gd" id="1_4rlc4"]
 [ext_resource type="AudioStream" uid="uid://6t8d1wgckf8o" path="res://Audio/Sounds/UI/play_button_sound.ogg" id="2_8l041"]
@@ -70,6 +70,11 @@
 [ext_resource type="AudioStream" uid="uid://bxik7m8oudomi" path="res://Audio/Sounds/Interactions/Whiskey_hit/whiskey_hit-003.ogg" id="63_tj8kf"]
 [ext_resource type="AudioStream" uid="uid://dmmbuok1ux4uk" path="res://Audio/Sounds/Interactions/Whiskey_hit/whiskey_hit-004.ogg" id="64_jwbpo"]
 [ext_resource type="AudioStream" uid="uid://c4hqswam31dmx" path="res://Audio/Sounds/Interactions/Whiskey_hit/whiskey_hit-005.ogg" id="65_7ts1v"]
+[ext_resource type="AudioStream" uid="uid://degxksgpdy2en" path="res://Audio/Sounds/Interactions/Glass_general_hit/glass_general_hit-001.ogg" id="66_jwbpo"]
+[ext_resource type="AudioStream" uid="uid://gpmi6j5vn8k2" path="res://Audio/Sounds/Interactions/Glass_general_hit/glass_general_hit-002.ogg" id="67_7ts1v"]
+[ext_resource type="AudioStream" uid="uid://df5wm8y3tj5vd" path="res://Audio/Sounds/Interactions/Glass_general_hit/glass_general_hit-003.ogg" id="68_b8nga"]
+[ext_resource type="AudioStream" uid="uid://bi5futldi8k1u" path="res://Audio/Sounds/Interactions/Glass_general_hit/glass_general_hit-004.ogg" id="69_cb8ay"]
+[ext_resource type="AudioStream" uid="uid://dr8w3pyaaf0o" path="res://Audio/Sounds/Game/gameover_sound.ogg" id="73_7ts1v"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
@@ -88,10 +93,12 @@ ball_table_sounds = Array[AudioStream]([ExtResource("42_n5dq8"), ExtResource("43
 beer_hit_sounds = Array[AudioStream]([ExtResource("57_6n8fr"), ExtResource("58_3aj40"), ExtResource("59_jm7kg"), ExtResource("60_nw3qt"), ExtResource("61_mbx06")])
 glass_hit_sounds = Array[AudioStream]([ExtResource("57_mqkch"), ExtResource("58_6n8fr"), ExtResource("59_3aj40"), ExtResource("60_jm7kg")])
 whiskey_hit_sounds = Array[AudioStream]([ExtResource("61_l206o"), ExtResource("62_mju71"), ExtResource("63_tj8kf"), ExtResource("64_jwbpo"), ExtResource("65_7ts1v")])
+glass_general_hit = Array[AudioStream]([ExtResource("66_jwbpo"), ExtResource("67_7ts1v"), ExtResource("68_b8nga"), ExtResource("69_cb8ay")])
 choose_passive_sound = ExtResource("56_8dv4n")
 passive_choosed_sound = ExtResource("57_8dv4n")
 ball_missed_sound = ExtResource("58_bo3oc")
 ball_point_sound = ExtResource("59_8dv4n")
+gameover_sound = ExtResource("73_7ts1v")
 
 [node name="MenuSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

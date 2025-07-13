@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_giwcs"]
 [ext_resource type="Texture2D" uid="uid://cwsymvnj36024" path="res://Textures/buttons/ezgif-split/tile000.png" id="8_2sea4"]
 [ext_resource type="Texture2D" uid="uid://b4kskooivnges" path="res://Textures/buttons/ezgif-split/tile001.png" id="9_0pql0"]
-[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="10_5bdlm"]
+[ext_resource type="Script" path="res://Scripts/Audio/audio_texture_button.gd" id="10_5bdlm"]
 [ext_resource type="Texture2D" uid="uid://dsoiids0n40cf" path="res://Textures/buttons/ezgif-split (1)/tile000.png" id="11_mbxd3"]
 [ext_resource type="Texture2D" uid="uid://5po74nfqp2cn" path="res://Textures/buttons/ezgif-split (1)/tile001.png" id="12_bu8w2"]
 

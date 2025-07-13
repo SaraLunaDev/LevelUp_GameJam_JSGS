@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c80q5mk714m7a"]
+[gd_scene load_steps=12 format=3 uid="uid://buob05ph4p03h"]
 
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_3u8y3"]
-[ext_resource type="VideoStream" uid="uid://devjrtjpx2nai" path="res://Videos/gameOverFinal.ogv" id="2_a3nv1"]
-[ext_resource type="Script" uid="uid://86igsbnkstp1" path="res://video_stream_player.gd" id="3_jsc3u"]
-[ext_resource type="Shader" uid="uid://c0k0ik8yeq3o4" path="res://Shaders/crtShader.gdshader" id="4_rao6n"]
+[ext_resource type="VideoStream" path="res://Videos/gameOverFinal.ogv" id="2_a3nv1"]
+[ext_resource type="Script" path="res://video_stream_player.gd" id="3_jsc3u"]
+[ext_resource type="Shader" path="res://Shaders/crtShader.gdshader" id="4_rao6n"]
 [ext_resource type="Texture2D" uid="uid://b32trhycgf0o0" path="res://Textures/Espacio-Key.png" id="5_jsc3u"]
 [ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="5_rao6n"]
+[ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="7_rao6n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3lmn"]
 atlas = ExtResource("5_jsc3u")
@@ -115,5 +116,9 @@ autoplay = "default"
 [node name="ColorRect" type="ColorRect" parent="AspectRatioContainer"]
 material = SubResource("ShaderMaterial_ootpa")
 layout_mode = 2
+
+[node name="SceneAudio" parent="." node_paths=PackedStringArray("video") instance=ExtResource("7_rao6n")]
+scene_song = 2
+video = NodePath("../AspectRatioContainer/VideoStreamPlayer")
 
 [connection signal="finished" from="AspectRatioContainer/VideoStreamPlayer" to="AspectRatioContainer/VideoStreamPlayer" method="_on_finished"]

@@ -34,6 +34,7 @@ var music_low_pass_filter_FX: AudioEffectLowPassFilter
 @export var beer_hit_sounds:Array[AudioStream]
 @export var glass_hit_sounds:Array[AudioStream]
 @export var whiskey_hit_sounds:Array[AudioStream]
+@export var glass_general_hit:Array[AudioStream]
 
 
 @export_group("Game sounds")
@@ -41,6 +42,7 @@ var music_low_pass_filter_FX: AudioEffectLowPassFilter
 @export var passive_choosed_sound: AudioStream
 @export var ball_missed_sound: AudioStream
 @export var ball_point_sound: AudioStream
+@export var gameover_sound:AudioStream
 
 # Reproductores de audio cacheados
 @onready var menu_song_player: AudioStreamPlayer = %MenuSongPlayer
@@ -216,6 +218,10 @@ func _play_whiskey_hit_sound(sound_position:Vector3, sound_volume_db:float, pitc
 	var rnd_index = random_generator.randi_range(0 , whiskey_hit_sounds.size()-1)
 	_play_game_sfx_3D(whiskey_hit_sounds[rnd_index], sound_position, sound_volume_db - 5.0, 0.0)
 
+func _play_glass_general_hit_sound(sound_position:Vector3, sound_volume_db:float, pitch_variation_scale:float = 1.0):
+	var rnd_index = random_generator.randi_range(0 , glass_general_hit.size()-1)
+	_play_game_sfx_3D(glass_general_hit[rnd_index], sound_position, sound_volume_db - 5.0, pitch_variation_scale)
+
 func _play_ball_point_sound():
 	_play_game_sfx_1D(ball_point_sound, -3.0, 0.0, true)
 
@@ -227,6 +233,9 @@ func _play_passive_choosed_sound():
 
 func _play_ball_missed_sound():
 	_play_game_sfx_1D(ball_missed_sound, -6.0, 0.0, true)
+	
+func _play_gameover_sound():
+	_play_ui_sfx(gameover_sound, 0.0)
 
 ## Fundido de la música de menú a silencio (duración predeterminada 3 segundos)
 func _fade_out_menu_player(duration: float = 3.0):
