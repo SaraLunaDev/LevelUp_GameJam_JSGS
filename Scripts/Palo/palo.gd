@@ -126,7 +126,9 @@ func rotar_palo(delta: float) -> void:
 		return
 	var mouse_vel = Input.get_last_mouse_velocity().x
 	if mouse_vel != 0:
-		var target_rot = rotation_degrees.y + mouse_vel * delta * 0.75
+		var invert = GlobalSignals._get_inverse_rotation_setting()
+		var factor = 1 if invert else -1
+		var target_rot = rotation_degrees.y + mouse_vel * delta * GlobalSignals._get_mouse_sens_factor() * factor
 		rotation_degrees.y = lerp(rotation_degrees.y, target_rot, lerp_palo)
 	actualizar_posicion_palo()
 
