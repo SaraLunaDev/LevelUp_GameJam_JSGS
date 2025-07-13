@@ -282,12 +282,7 @@ func resetear_bola_blanca() -> void:
 		bola.set_numero_rebotes_guiados(0)
 		bola.set_activado_rebote_guiado(false)
 		bola.freeze = true
-		bola.set_transparencia(0.2)
-		# Desactivar colisión
-		if bola.has_method("set_collision_layer"):
-			bola.set_collision_layer(0)
-		if bola.has_method("set_collision_mask"):
-			bola.set_collision_mask(0)
+		# bola.set_transparencia(0.2)
 		var start_pos = bola.global_position
 		start_pos.y = bola_blanca_spawn.global_position.y
 		bola.global_position = start_pos
@@ -304,14 +299,9 @@ func resetear_bola_blanca() -> void:
 			t += get_process_delta_time() / (retorno_bola_blanca - buffs_manager.get_retorno_bola())
 		bola.global_position = end_pos
 		bola.freeze = false
-		# Reactivar colisión
-		if bola.has_method("set_collision_layer"):
-			bola.set_collision_layer(1)
-		if bola.has_method("set_collision_mask"):
-			bola.set_collision_mask(1)
 		if palo_posicionado:
 			actualizar_posicion_palo()
-	bola.set_transparencia(1)
+	# bola.set_transparencia(1)
 	lanzando = false
 	reseteando_potencia = false
 	reseteando_bola_blanca = false

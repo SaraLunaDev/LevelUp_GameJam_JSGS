@@ -12,3 +12,6 @@ func explode():
 ## sonido.play()
 	await get_tree().create_timer(2.0).timeout
 	queue_free()
+
+func _ready() -> void:
+	explode()
