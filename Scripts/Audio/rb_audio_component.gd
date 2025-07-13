@@ -82,7 +82,6 @@ func _initialize_audio_player(_rb_sound:AudioStream) -> AudioStreamPlayer3D:
 	add_child(player)
 	player.stream = rb_sound
 	return player
-	 
 
 func _play() -> void:
 	is_playing = true
@@ -91,9 +90,11 @@ func _play() -> void:
 func _stop() -> void:
 	is_playing = false
 	audio_player.stop()
-	
+
+
 func _on_body_entered(body:Node) -> void:
 	#print("Body entered: ", body)
+	
 	if body.is_in_group("billar") and exited:
 		exited = false
 		_play()
@@ -105,7 +106,26 @@ func _on_body_entered(body:Node) -> void:
 		GlobalSignals.shake.emit(current_velocity_magnitude / max_velocity_magnitude)
 		await get_tree().create_timer(0.1).timeout
 		AudioManager._play_ball_point_sound()
-	
+
+"""
+# POSIBLE SOLUCION AL SONIDO DE COLISION DE BOLA AL VOLVER
+# Metodo auxiliar para llamarlo desde la propia gestion de colisiones de la bola blanca
+# ya que godot gestiona mal las colisiones desde otras instancias, hace exactamente lo mismo
+# pero se llama desde el script de la bola
+func _on_body_bola(tipo: String) -> void:
+	if tipo == "billar":
+		if exited:
+			exited = false
+			_play()
+			if current_velocity_magnitude >= 0.1:
+				AudioManager._play_ball_table_sound(global_position, -24.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 24.0))
+	elif tipo == "bola":
+		AudioManager._play_ball_ball_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
+		GlobalSignals.shake.emit(current_velocity_magnitude / max_velocity_magnitude)
+		await get_tree().create_timer(0.1).timeout
+		AudioManager._play_ball_point_sound()
+"""
+
 func _on_body_exited(body:Node) -> void:
 	#print("Body exited: ", body)
 	if body.is_in_group("billar") and !exited:

@@ -4,8 +4,8 @@ const MAIN_MENU = "res://Scenes/Game/MainMenu.tscn"
 
 @onready var settings_panel: Panel = %SettingsPanel
 
-var is_video_playing:bool = true
-var is_open:bool = false
+var is_video_playing: bool = true
+var is_open: bool = false
 
 func _ready() -> void:
 	GlobalSignals.video_started.connect(_on_video_started)
@@ -33,7 +33,7 @@ func _on_close_button_pressed() -> void:
 	AudioManager._change_audiobus_scene(AudioManager.AUDIOBUS_SCENE.GAME, 0.5)
 	settings_panel.hide()
 	get_tree().paused = false
-	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED_HIDDEN)
+	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
 
 func _on_exit_to_menu_buton_pressed() -> void:
 	AudioManager._fade_out_game_player(1.5)
