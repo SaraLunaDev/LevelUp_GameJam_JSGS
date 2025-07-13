@@ -289,8 +289,10 @@ func resetear_bola_blanca() -> void:
 		bola.global_position = start_pos
 
 		var end_pos = bola_blanca_spawn.global_position
+		
 		var tween = create_tween()
-		tween.tween_property(bola, "global_position", end_pos, retorno_bola_blanca - buffs_manager.get_retorno_bola())
+		tween.tween_property(bola, "global_position", end_pos, retorno_bola_blanca - buffs_manager.get_retorno_bola()).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		# He cambiado todo esto por un tween... si no gusta pues se cambia
 		#var t := 0.0
 		#while t < 1.0:
 			#var eased_t = t * t
@@ -300,6 +302,7 @@ func resetear_bola_blanca() -> void:
 			#else:
 				#break
 			#t += get_process_delta_time() / (retorno_bola_blanca - buffs_manager.get_retorno_bola())
+		
 		await tween.finished
 		bola.global_position = end_pos
 		#bola.freeze = false
