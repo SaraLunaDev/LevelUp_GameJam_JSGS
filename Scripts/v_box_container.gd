@@ -1,7 +1,8 @@
-extends VBoxContainer
+extends HBoxContainer
 
 const PRUEBA_JUEGO = preload("res://Scenes/Debug/prueba_juego.tscn")
 @onready var transition = $"../Transition/AnimationPlayer"
+@onready var settings_menu: Control = %SettingsMenu
 
 func _on_play_button_pressed():
 	transition.play("transition")
@@ -10,3 +11,6 @@ func _on_play_button_pressed():
 
 func _on_exit_button_pressed():
 	get_tree().quit()
+
+func _on_settings_button_pressed() -> void:
+	settings_menu._show()

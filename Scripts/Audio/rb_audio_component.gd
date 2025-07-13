@@ -21,6 +21,7 @@ var audio_player:AudioStreamPlayer3D
 # Control de estados y velocidad
 var is_playing:bool = false
 var exited:bool = false
+var is_first_shot:bool = false
 var initial_velocity_magnitude:float = 0.0
 var current_velocity_magnitude:float = 0.0
 
@@ -47,9 +48,10 @@ func _physics_process(_delta: float) -> void:
 		initial_velocity_magnitude = rb.linear_velocity.length()
 		#print("Initial velocity: ", initial_velocity_magnitude)
 		_play()
-		if is_white_ball:
+		if is_first_shot and is_white_ball:
 			AudioManager._play_stick_ball_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
 			GlobalSignals.shake.emit(initial_velocity_magnitude / max_velocity_magnitude)
+			is_first_shot = false
 	
 	# Si está en movimiento calculamos los valores de pitch y atenuación
 	elif (is_playing and rb.linear_velocity.length() > 0.1):
@@ -70,6 +72,7 @@ func _physics_process(_delta: float) -> void:
 		_stop()
 
 func _connect_signals() -> void:
+	GlobalSignals.stick_hit.connect(_on_stick_hit)
 	rb.body_entered.connect(_on_body_entered)
 	rb.body_exited.connect(_on_body_exited)
 	area_3d.area_entered.connect(_on_area_entered)
@@ -100,6 +103,8 @@ func _on_body_entered(body:Node) -> void:
 		#print("Global pos: ", global_position, " Velocity: ", current_velocity_magnitude)
 		AudioManager._play_ball_ball_sound(global_position, -6.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 6.0))
 		GlobalSignals.shake.emit(current_velocity_magnitude / max_velocity_magnitude)
+		await get_tree().create_timer(0.1).timeout
+		AudioManager._play_ball_point_sound()
 	
 func _on_body_exited(body:Node) -> void:
 	#print("Body exited: ", body)
@@ -111,3 +116,6 @@ func _on_area_entered(area:Area3D):
 	#print("Area entered: ", area)
 	if area.is_in_group("banda"):
 		AudioManager._play_ball_side_sound(global_position, -24.0 + remap(log(current_velocity_magnitude +1.0), 0.1, log(max_velocity_magnitude), 0.0, 24.0))
+
+func _on_stick_hit():
+	is_first_shot = true

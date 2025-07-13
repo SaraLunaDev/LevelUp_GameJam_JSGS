@@ -1,0 +1,273 @@
+[gd_scene load_steps=14 format=3 uid="uid://cd4g7snrljk7n"]
+
+[ext_resource type="Script" uid="uid://c5pjvsjywudvn" path="res://Scripts/Settings/settings_menu.gd" id="1_ynxh7"]
+[ext_resource type="Texture2D" uid="uid://w7bc3d4rpnby" path="res://Textures/boton.png" id="2_n6o6n"]
+[ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="3_cs2gm"]
+[ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="4_oadur"]
+[ext_resource type="Script" uid="uid://b8q2study0ard" path="res://Scripts/Audio/volume_slider.gd" id="5_oadur"]
+[ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="5_sv08j"]
+[ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="6_cs2gm"]
+[ext_resource type="Script" uid="uid://dt6yf2s48b3kh" path="res://Scripts/Settings/mouse_sens_slider.gd" id="6_sv08j"]
+[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
+[ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_w0jc6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0jc6"]
+texture = ExtResource("2_n6o6n")
+modulate_color = Color(0.589096, 0.589096, 0.589096, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8t2tk"]
+color = Color(0.694118, 0.694118, 0.682353, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cs2gm"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ynxh7")
+
+[node name="SettingsPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SettingsPanel"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_w0jc6")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MenuName" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.694118, 0.694118, 0.682353, 1)
+theme_override_fonts/font = ExtResource("3_cs2gm")
+theme_override_font_sizes/font_size = 24
+text = "OPCIONES"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_8t2tk")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SectionName" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.694118, 0.694118, 0.682353, 1)
+theme_override_fonts/font = ExtResource("3_cs2gm")
+theme_override_font_sizes/font_size = 18
+text = "AUDIO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MasterVolume" type="HBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MasterVolume"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
+theme_override_fonts/font = ExtResource("4_oadur")
+theme_override_font_sizes/font_size = 24
+text = "Master"
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.1
+script = ExtResource("5_oadur")
+
+[node name="MusicVolume" type="HBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolume"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
+theme_override_fonts/font = ExtResource("4_oadur")
+theme_override_font_sizes/font_size = 24
+text = "Música"
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.1
+script = ExtResource("5_oadur")
+bus = 1
+
+[node name="SfxVolume" type="HBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/SfxVolume"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
+theme_override_fonts/font = ExtResource("4_oadur")
+theme_override_font_sizes/font_size = 24
+text = "Sfx"
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/SfxVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.1
+script = ExtResource("5_oadur")
+bus = 2
+
+[node name="AmbienceVolume" type="HBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AmbienceVolume"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
+theme_override_fonts/font = ExtResource("4_oadur")
+theme_override_font_sizes/font_size = 24
+text = "Ambiente"
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/AmbienceVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+max_value = 1.0
+step = 0.1
+script = ExtResource("5_oadur")
+bus = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SectionName" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.694118, 0.694118, 0.682353, 1)
+theme_override_fonts/font = ExtResource("3_cs2gm")
+theme_override_font_sizes/font_size = 18
+text = "CONTROLES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MouseSens" type="HBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MouseSens"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
+theme_override_fonts/font = ExtResource("4_oadur")
+theme_override_font_sizes/font_size = 24
+text = "Sens. del ratón"
+
+[node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MouseSens"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+min_value = 0.1
+max_value = 2.0
+step = 0.01
+value = 1.0
+script = ExtResource("6_sv08j")
+
+[node name="InvertRotation" type="HBoxContainer" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/InvertRotation"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
+theme_override_fonts/font = ExtResource("4_oadur")
+theme_override_font_sizes/font_size = 24
+text = "Invertir giro"
+
+[node name="Checkbox" type="CheckBox" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/InvertRotation"]
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+script = ExtResource("7_w0jc6")
+
+[node name="VSeparator" type="VSeparator" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/InvertRotation"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_cs2gm")
+
+[node name="CloseButton" type="TextureButton" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(221.585, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture_normal = ExtResource("5_sv08j")
+texture_hover = ExtResource("6_cs2gm")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("7_cs2gm")
+button_type = 1
+
+[connection signal="pressed" from="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

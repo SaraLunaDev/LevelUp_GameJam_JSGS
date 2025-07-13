@@ -1,10 +1,14 @@
-[gd_scene load_steps=54 format=3 uid="uid://37qdnl666ni0"]
+[gd_scene load_steps=62 format=3 uid="uid://37qdnl666ni0"]
 
 [ext_resource type="Script" uid="uid://c1nen411o4q4r" path="res://Scripts/Audio/AudioManager.gd" id="1_4rlc4"]
 [ext_resource type="AudioStream" uid="uid://6t8d1wgckf8o" path="res://Audio/Sounds/UI/play_button_sound.ogg" id="2_8l041"]
 [ext_resource type="AudioStream" uid="uid://c0lrfjiy461fa" path="res://Audio/Sounds/UI/ui_accept_sound.ogg" id="2_ft5o5"]
+[ext_resource type="Script" uid="uid://ddo0c3261xgsc" path="res://Resources/Audio/AudioBus scenes/audiobus_scene_data.gd" id="2_kd6m3"]
 [ext_resource type="AudioStream" uid="uid://cn3vxv4irxp71" path="res://Audio/Sounds/UI/ui_hover_sound.ogg" id="2_lu82t"]
+[ext_resource type="Resource" uid="uid://de3mg5gpubbh7" path="res://Resources/Audio/AudioBus scenes/game_audiobus_scene.tres" id="3_cqdjn"]
 [ext_resource type="AudioStream" uid="uid://dbijhvra3f7w3" path="res://Audio/Sounds/UI/ui_cancel_sound.ogg" id="4_2wtmb"]
+[ext_resource type="Resource" uid="uid://cudg14fmpclbj" path="res://Resources/Audio/AudioBus scenes/video_audiobus_scene.tres" id="4_4x7vf"]
+[ext_resource type="Resource" uid="uid://owkvdykx4h04" path="res://Resources/Audio/AudioBus scenes/pause_audiobus_scene.tres" id="5_bo3oc"]
 [ext_resource type="AudioStream" uid="uid://c4kv3pi8iwvq5" path="res://Audio/Sounds/Ambients/background_ambient.ogg" id="6_24o16"]
 [ext_resource type="AudioStream" uid="uid://c0jewnv1nw4xm" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-001.ogg" id="6_lvt0b"]
 [ext_resource type="AudioStream" uid="uid://bta81un2ensqc" path="res://Audio/Sounds/Interactions/Stick-ball/stick_ball_sound-002.ogg" id="7_8vvxd"]
@@ -53,10 +57,16 @@
 [ext_resource type="AudioStream" uid="uid://d157dkpclobqu" path="res://Audio/Sounds/Interactions/Ball_table/ball_table_sound-009.ogg" id="50_bo3oc"]
 [ext_resource type="AudioStream" uid="uid://b7qbvmmyk2px6" path="res://Audio/Music/pool_out_main_menu_song_loop.ogg" id="52_24o16"]
 [ext_resource type="AudioStream" uid="uid://f32tstadm22e" path="res://Audio/Music/pool_out_main_game_song_loop.ogg" id="53_1mgph"]
+[ext_resource type="AudioStream" uid="uid://cb641kswcirvc" path="res://Audio/Sounds/Game/choose_passive.ogg" id="56_8dv4n"]
+[ext_resource type="AudioStream" uid="uid://be2sw0dtvqbnr" path="res://Audio/Sounds/Game/passive_choosed.ogg" id="57_8dv4n"]
+[ext_resource type="AudioStream" uid="uid://dia5v6mk2ivqj" path="res://Audio/Sounds/Game/ball_missed_sound.ogg" id="58_bo3oc"]
+[ext_resource type="AudioStream" uid="uid://cq7gxey3eyaw" path="res://Audio/Sounds/Game/ball_point_sound.ogg" id="59_8dv4n"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_4rlc4")
+audiobus_scenes = Array[ExtResource("2_kd6m3")]([ExtResource("3_cqdjn"), ExtResource("4_4x7vf"), ExtResource("5_bo3oc")])
+sfx_test_sound = ExtResource("59_8dv4n")
 ui_accept_sound = ExtResource("2_ft5o5")
 ui_hover_sound = ExtResource("2_lu82t")
 ui_close_sound = ExtResource("4_2wtmb")
@@ -66,18 +76,24 @@ stick_ball_sounds = Array[AudioStream]([ExtResource("6_lvt0b"), ExtResource("7_8
 ball_side_sounds = Array[AudioStream]([ExtResource("14_duiof"), ExtResource("15_n5dq8"), ExtResource("16_24o16"), ExtResource("17_1mgph"), ExtResource("18_rqlnq"), ExtResource("19_fdkgk"), ExtResource("20_kd6m3"), ExtResource("21_cqdjn"), ExtResource("22_4x7vf"), ExtResource("23_bo3oc"), ExtResource("24_8dv4n"), ExtResource("25_px82j"), ExtResource("26_n0mwp"), ExtResource("27_vhgxv")])
 ball_ball_sounds = Array[AudioStream]([ExtResource("28_mqkch"), ExtResource("29_6n8fr"), ExtResource("30_3aj40"), ExtResource("31_jm7kg"), ExtResource("32_nw3qt"), ExtResource("33_mbx06"), ExtResource("34_l206o"), ExtResource("35_mju71"), ExtResource("36_tj8kf"), ExtResource("37_jwbpo"), ExtResource("38_7ts1v"), ExtResource("39_b8nga"), ExtResource("40_cb8ay"), ExtResource("41_tsr8g")])
 ball_table_sounds = Array[AudioStream]([ExtResource("42_n5dq8"), ExtResource("43_24o16"), ExtResource("44_1mgph"), ExtResource("45_rqlnq"), ExtResource("46_fdkgk"), ExtResource("47_kd6m3"), ExtResource("48_cqdjn"), ExtResource("49_4x7vf"), ExtResource("50_bo3oc")])
+choose_passive_sound = ExtResource("56_8dv4n")
+passive_choosed_sound = ExtResource("57_8dv4n")
+ball_missed_sound = ExtResource("58_bo3oc")
+ball_point_sound = ExtResource("59_8dv4n")
 
 [node name="MenuSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("52_24o16")
 volume_db = -6.0
 bus = &"Music"
+playback_type = 1
 
 [node name="GameSongPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("53_1mgph")
 volume_db = -9.0
 bus = &"Music"
+playback_type = 1
 
 [node name="AmbiencePlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
