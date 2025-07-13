@@ -8,6 +8,7 @@ var daño: int = 1
 var numero_rebotes_guiados: int = 0
 var activado_rebote_guiado: bool = false
 var buffs_manager: Node = null
+@onready var rb_audio_component_3d: Node3D = $RbAudioComponent3D
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Ready y Process
@@ -27,7 +28,6 @@ func _process(_delta: float) -> void:
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 func mover_bola(direccion: Vector3, potencia_inicial: float) -> void:
-	freeze = false
 	direccion.y = 0
 	var fuerza = direccion * potencia_inicial
 	apply_impulse(fuerza)
@@ -66,20 +66,12 @@ func mover_hacia_objetivo_cercano() -> void:
 		if obj != self and obj.has_method("is_activa") and obj.is_activa():
 			distancias.append({"obj": obj, "dist": global_transform.origin.distance_to(obj.global_transform.origin)})
 
-	if distancias.size() < 2:
+	if distancias.is_empty():
 		return
 
 	distancias.sort_custom(func(a, b): return a["dist"] < b["dist"])
 
-	var objetivo_cercano: RigidBody3D = null
-	for i in range(1, distancias.size()):
-		var candidato = distancias[i]["obj"]
-		if candidato != ultimo_objetivo_cercano:
-			objetivo_cercano = candidato
-			break
-
-	if objetivo_cercano == null:
-		return
+	var objetivo_cercano: RigidBody3D = distancias[0]["obj"]
 
 	rebote_queue.append(objetivo_cercano)
 	_process_rebote_queue()
@@ -117,7 +109,13 @@ func _on_body_entered(body: Node) -> void:
 			camera_manager.shake_camera(0.01, 0.1)
 			body.recibir_golpe(daño)
 		mover_hacia_objetivo_cercano()
-
+	"""
+	# POSIBLE SOLUCION AL SONIDO DE COLISION DE BOLA AL VOLVER
+	if body.is_in_group("bola"):
+		rb_audio_component_3d._on_body_bola("bola")
+	elif body.is_in_group("billar"):
+		rb_audio_component_3d._on_body_bola("billar")
+	"""
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 # Estados de la Bola Blanca
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
