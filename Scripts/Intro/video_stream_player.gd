@@ -2,8 +2,12 @@ extends VideoStreamPlayer
 
 @export var game_manager: Node
 
+func _ready() -> void:
+	GlobalSignals.video_started
+
 func _on_finished() -> void:
 	terminar_intro()
+	GlobalSignals.video_ended.emit()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:

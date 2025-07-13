@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bu5t0hx73nwrw"]
+[gd_scene load_steps=53 format=3 uid="uid://bu5t0hx73nwrw"]
 
 [ext_resource type="Script" uid="uid://q30cunralxhi" path="res://Scripts/Managers/game_manager.gd" id="1_c26n1"]
 [ext_resource type="PackedScene" uid="uid://bwddxr1l3v0a1" path="res://Scenes/Palo/palo.tscn" id="2_c26n1"]
@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
-[ext_resource type="Script" path="res://Scripts/Managers/camera_manager.gd" id="27_6wyob"]
+[ext_resource type="Script" uid="uid://d2w0ksa2464cr" path="res://Scripts/Managers/camera_manager.gd" id="27_6wyob"]
 [ext_resource type="VideoStream" uid="uid://blobcjbqydua6" path="res://Videos/POOLOUT_Trailer_1.ogv" id="27_v08tv"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="28_4xie2"]
 [ext_resource type="Script" uid="uid://2mifd0pmj38c" path="res://Scripts/Intro/video_stream_player.gd" id="28_fekwy"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" path="res://VFX/damage_overlay.gd" id="30_jttd8"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="30_m8bvx"]
 [ext_resource type="Texture2D" uid="uid://dg6pocufjdoes" path="res://Textures/damage.png" id="31_sbxn4"]
+[ext_resource type="PackedScene" uid="uid://bfh5542mlv5i3" path="res://Scenes/UI/in_game_settings_menu.tscn" id="34_mhpb3"]
 [ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dfqwhx1p1bd7n" path="res://Models/billar_bueno.tscn" id="37_sbxn4"]
@@ -174,6 +175,9 @@ game_manager = NodePath("../../../GameManager")
 [node name="ColorRect" type="ColorRect" parent="Control/AspectRatioContainer"]
 material = SubResource("ShaderMaterial_h83sj")
 layout_mode = 2
+
+[node name="InGameSettingsMenu" parent="Control" instance=ExtResource("34_mhpb3")]
+process_mode = 3
 
 [node name="SpawnBolas" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)

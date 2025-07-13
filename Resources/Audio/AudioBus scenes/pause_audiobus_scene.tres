@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_kvfs2")
-bus_volumes = Dictionary[int, float]({
+bus_volumes = Dictionary[Variant, float]({
 4: -6.0,
 5: 0.0,
 6: 0.0,

@@ -66,6 +66,7 @@
 process_mode = 3
 script = ExtResource("1_4rlc4")
 audiobus_scenes = Array[ExtResource("2_kd6m3")]([ExtResource("3_cqdjn"), ExtResource("4_4x7vf"), ExtResource("5_bo3oc")])
+sfx_test_sound = ExtResource("59_8dv4n")
 ui_accept_sound = ExtResource("2_ft5o5")
 ui_hover_sound = ExtResource("2_lu82t")
 ui_close_sound = ExtResource("4_2wtmb")

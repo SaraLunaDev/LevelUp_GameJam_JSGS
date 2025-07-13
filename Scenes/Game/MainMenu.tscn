@@ -1,25 +1,25 @@
-[gd_scene load_steps=20 format=3 uid="uid://cb2xiir7ika68"]
+[gd_scene load_steps=22 format=3 uid="uid://cb2xiir7ika68"]
 
 [ext_resource type="Script" uid="uid://c0l3c2n2lw6da" path="res://Scripts/v_box_container.gd" id="1_de4cs"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="1_hn2at"]
 [ext_resource type="Texture2D" uid="uid://b3nnmnv6myblr" path="res://Textures/playButton.png" id="2_hn2at"]
 [ext_resource type="Texture2D" uid="uid://chie2ggqn0cgt" path="res://Textures/exitButton.png" id="3_esq62"]
-[ext_resource type="Script" uid="uid://uvnwqkrvopy2" path="res://Scripts/Audio/audio_button.gd" id="3_p1lor"]
 [ext_resource type="Texture2D" uid="uid://nmlf4idkbogq" path="res://Textures/bg.png" id="4_p1lor"]
+[ext_resource type="Texture2D" uid="uid://dm23voe3pqmpp" path="res://Textures/playButton_hover.png" id="4_uaiux"]
+[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="5_uaiux"]
 [ext_resource type="Texture2D" uid="uid://c3rnpxr16gkmt" path="res://Textures/TitleAnim/titleAnimatedTexture.tres" id="5_ymo5r"]
 [ext_resource type="Script" uid="uid://8uj6f0jgwost" path="res://Scenes/Game/camera_3d.gd" id="6_h6d63"]
 [ext_resource type="Material" uid="uid://c6bdmb2j1qovw" path="res://Materials/crtShaderMaterial.tres" id="6_hn2at"]
+[ext_resource type="Texture2D" uid="uid://b4nhnsedrkyfj" path="res://Textures/exitButton_hover.png" id="7_2k2sh"]
 [ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="7_tnjq2"]
 [ext_resource type="Script" path="res://Scripts/npc1_anim.gd" id="8_lo35h"]
+[ext_resource type="PackedScene" uid="uid://cd4g7snrljk7n" path="res://Scenes/UI/settings_menu.tscn" id="9_5fpg2"]
 [ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="9_vdvk2"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="10_5fpg2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="11_hn2at"]
-[ext_resource type="Script" uid="uid://ckpwwgvhaqiyj" path="res://Scripts/Audio/precompile_shaders.gd" id="15_h6d63"]
+[ext_resource type="Script" path="res://Scripts/Audio/precompile_shaders.gd" id="15_h6d63"]
 [ext_resource type="PackedScene" uid="uid://cita84qp6yedp" path="res://VFX/choque.tscn" id="16_lo35h"]
 [ext_resource type="PackedScene" uid="uid://bvrseum6yet0d" path="res://VFX/explosion.tscn" id="17_vdvk2"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kvjn8"]
-load_path = "res://.godot/imported/playButton.png-582c7b559a9b460928caf36f2f89ddff.ctex"
 
 [sub_resource type="Environment" id="Environment_hn2at"]
 
@@ -37,39 +37,43 @@ grow_vertical = 2
 
 [node name="Transition" parent="Control/CanvasLayer" instance=ExtResource("1_hn2at")]
 
-[node name="Buttons" type="VBoxContainer" parent="Control/CanvasLayer"]
+[node name="Buttons" type="HBoxContainer" parent="Control/CanvasLayer"]
 z_index = -1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -145.0
-offset_top = -254.0
-offset_right = 146.0
-offset_bottom = -44.0
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = 151.0
+offset_right = 285.0
+offset_bottom = 241.0
 grow_horizontal = 2
-grow_vertical = 0
-size_flags_stretch_ratio = 1.41
+grow_vertical = 2
 alignment = 1
 script = ExtResource("1_de4cs")
 
-[node name="PlayButton" type="Button" parent="Control/CanvasLayer/Buttons"]
+[node name="PlayButton" type="TextureButton" parent="Control/CanvasLayer/Buttons"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
-theme_override_icons/icon = SubResource("CompressedTexture2D_kvjn8")
-icon = ExtResource("2_hn2at")
-flat = true
-clip_text = true
-script = ExtResource("3_p1lor")
+size_flags_vertical = 0
+texture_normal = ExtResource("2_hn2at")
+texture_hover = ExtResource("4_uaiux")
+script = ExtResource("5_uaiux")
 button_type = 2
 
-[node name="ExitButton" type="Button" parent="Control/CanvasLayer/Buttons"]
+[node name="SettingsButton" type="TextureButton" parent="Control/CanvasLayer/Buttons"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
-icon = ExtResource("3_esq62")
-flat = true
-script = ExtResource("3_p1lor")
+size_flags_vertical = 0
+texture_normal = ExtResource("2_hn2at")
+texture_hover = ExtResource("4_uaiux")
+script = ExtResource("5_uaiux")
+
+[node name="ExitButton" type="TextureButton" parent="Control/CanvasLayer/Buttons"]
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("3_esq62")
+texture_hover = ExtResource("7_2k2sh")
+script = ExtResource("5_uaiux")
 button_type = 1
 
 [node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer"]
@@ -95,6 +99,9 @@ texture = ExtResource("4_p1lor")
 [node name="TitleAnimatedTexture" type="Sprite2D" parent="Control/CanvasLayer/TextureRect"]
 position = Vector2(-2, -55)
 texture = ExtResource("5_ymo5r")
+
+[node name="SettingsMenu" parent="Control/CanvasLayer" instance=ExtResource("9_5fpg2")]
+unique_name_in_owner = true
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 material = ExtResource("6_hn2at")
@@ -235,4 +242,5 @@ vfx_node_scenes = Array[PackedScene]([ExtResource("16_lo35h"), ExtResource("17_v
 
 [connection signal="pressed" from="Control/CanvasLayer/Buttons/PlayButton" to="Control/CanvasLayer/Buttons" method="_on_play_button_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/Buttons/PlayButton" to="Camera3D" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Control/CanvasLayer/Buttons/SettingsButton" to="Control/CanvasLayer/Buttons" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/Buttons/ExitButton" to="Control/CanvasLayer/Buttons" method="_on_exit_button_pressed"]
