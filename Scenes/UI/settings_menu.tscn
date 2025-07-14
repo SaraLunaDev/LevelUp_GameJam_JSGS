@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="4_oadur"]
 [ext_resource type="Script" uid="uid://b8q2study0ard" path="res://Scripts/Audio/volume_slider.gd" id="5_oadur"]
 [ext_resource type="Script" uid="uid://dt6yf2s48b3kh" path="res://Scripts/Settings/mouse_sens_slider.gd" id="6_sv08j"]
-[ext_resource type="Script" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
+[ext_resource type="Script" uid="uid://m4imi6j47thi" path="res://Scripts/Audio/audio_texture_button.gd" id="7_cs2gm"]
 [ext_resource type="Script" uid="uid://bpg22h008tpoh" path="res://Scripts/Settings/invert_rotation_checkbox.gd" id="7_w0jc6"]
 [ext_resource type="Texture2D" uid="uid://cwsymvnj36024" path="res://Textures/buttons/ezgif-split/tile000.png" id="8_w0jc6"]
 [ext_resource type="Texture2D" uid="uid://b4kskooivnges" path="res://Textures/buttons/ezgif-split/tile001.png" id="9_8t2tk"]
@@ -133,7 +133,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
 theme_override_fonts/font = ExtResource("4_oadur")
 theme_override_font_sizes/font_size = 24
-text = "Música"
+text = "Musica"
 
 [node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MusicVolume"]
 layout_mode = 2
@@ -221,7 +221,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.938717, 0.938722, 0.935815, 1)
 theme_override_fonts/font = ExtResource("4_oadur")
 theme_override_font_sizes/font_size = 24
-text = "Sens. del ratón"
+text = "Sens. del raton"
 
 [node name="HSlider" type="HSlider" parent="SettingsPanel/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/MouseSens"]
 layout_mode = 2

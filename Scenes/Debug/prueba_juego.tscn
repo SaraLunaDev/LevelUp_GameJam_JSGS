@@ -26,9 +26,9 @@
 [ext_resource type="PackedScene" uid="uid://p6q2yak4jmwf" path="res://Models/NPCs/bar_npc.tscn" id="21_iupe7"]
 [ext_resource type="PackedScene" uid="uid://cq485op5a3qth" path="res://Models/Buffos/buffo_paloANIMATED.tscn" id="21_v08tv"]
 [ext_resource type="PackedScene" uid="uid://bqr30lk4203v2" path="res://Models/Buffos/buffo_retornoANIMATED.tscn" id="22_fekwy"]
-[ext_resource type="Script" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
+[ext_resource type="Script" uid="uid://bygwdow6h2o0n" path="res://Scripts/npc1_anim.gd" id="22_lrfhe"]
 [ext_resource type="PackedScene" uid="uid://dtq0u6qpytksi" path="res://Models/Buffos/buffo_potenciaANIMATED.tscn" id="23_m8bvx"]
-[ext_resource type="Script" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
+[ext_resource type="Script" uid="uid://dvpviqvh1gsgx" path="res://Scripts/npc2_anim.gd" id="23_vgul8"]
 [ext_resource type="PackedScene" uid="uid://bla4ls0ugnrcn" path="res://Models/Buffos/buffo_reboteANIMATED.tscn" id="24_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dnly4ljfnnt3j" path="res://Models/BAR_BG.tscn" id="24_pidso"]
 [ext_resource type="PackedScene" uid="uid://bdvsisxqmctfa" path="res://Models/Buffos/buffo_objetosANIMATED.tscn" id="25_4xie2"]
@@ -37,20 +37,20 @@
 [ext_resource type="PackedScene" uid="uid://cm7h3i81xore" path="res://Textures/Gif/gifTutorial.tscn" id="28_1myul"]
 [ext_resource type="PackedScene" uid="uid://k4gavkdbigs7" path="res://Scenes/Transition/transition.tscn" id="28_4xie2"]
 [ext_resource type="Script" uid="uid://2mifd0pmj38c" path="res://Scripts/Intro/video_stream_player.gd" id="28_fekwy"]
-[ext_resource type="Shader" path="res://Shaders/crtShader.gdshader" id="29_h83sj"]
+[ext_resource type="Shader" uid="uid://c0k0ik8yeq3o4" path="res://Shaders/crtShader.gdshader" id="29_h83sj"]
 [ext_resource type="PackedScene" uid="uid://c8bc6al8vpc2w" path="res://Models/NPCs/camarero_npc.tscn" id="29_m8bvx"]
-[ext_resource type="Script" path="res://VFX/damage_overlay.gd" id="30_jttd8"]
+[ext_resource type="Script" uid="uid://d36kopydbuitw" path="res://VFX/damage_overlay.gd" id="30_jttd8"]
 [ext_resource type="FontFile" uid="uid://gmjik6d07bh6" path="res://Fonts/DS-DIGI.TTF" id="30_m8bvx"]
 [ext_resource type="Texture2D" uid="uid://dg6pocufjdoes" path="res://Textures/damage.png" id="31_sbxn4"]
 [ext_resource type="PackedScene" uid="uid://bfh5542mlv5i3" path="res://Scenes/UI/in_game_settings_menu.tscn" id="34_dho38"]
 [ext_resource type="FontFile" uid="uid://qabscp76jrex" path="res://Fonts/Pixelmania.ttf" id="34_mhpb3"]
-[ext_resource type="PackedScene" path="res://VFX/button_1.tscn" id="35_7wvhe"]
+[ext_resource type="PackedScene" uid="uid://cog77fjvc6sjj" path="res://VFX/button_1.tscn" id="35_7wvhe"]
 [ext_resource type="Texture2D" uid="uid://b32trhycgf0o0" path="res://Textures/Espacio-Key.png" id="36_cnm4i"]
 [ext_resource type="FontFile" uid="uid://dr8x5e0snw7da" path="res://Fonts/born2bsporty-fs.regular.otf" id="36_dho38"]
 [ext_resource type="PackedScene" uid="uid://cpatjmpqn6fcq" path="res://Scenes/Audio/audio_bandas.tscn" id="37_4xie2"]
 [ext_resource type="PackedScene" uid="uid://c8bm3q1m8xxqt" path="res://Scenes/Audio/scene_audio.tscn" id="37_6wyob"]
 [ext_resource type="PackedScene" uid="uid://dfqwhx1p1bd7n" path="res://Models/billar_bueno.tscn" id="37_sbxn4"]
-[ext_resource type="PackedScene" path="res://VFX/button_2.tscn" id="38_1myul"]
+[ext_resource type="PackedScene" uid="uid://43k5vovrky8n" path="res://VFX/button_2.tscn" id="38_1myul"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3lmn"]
 atlas = ExtResource("36_cnm4i")
@@ -197,7 +197,7 @@ depth = 0.0
 
 [node name="PruebaJuego" type="Node3D"]
 
-[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "camera_manager", "palo", "camara", "spawn_bolas", "spawn_objetos", "area_boquetes", "spawn_bola_blanca", "spawn_vida", "puntuacion_mesh_label", "boquetes") groups=["game_manager"]]
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("buffs_manager", "camera_manager", "palo", "camara", "spawn_bolas", "spawn_objetos", "area_boquetes", "spawn_bola_blanca", "spawn_vida", "debug_label", "puntuacion_mesh_label", "boquetes") groups=["game_manager"]]
 script = ExtResource("1_c26n1")
 fin_partida = ExtResource("2_cnm4i")
 buffs_manager = NodePath("../BuffsManager")
@@ -210,17 +210,20 @@ area_boquetes = NodePath("../Boquetes")
 spawn_bola_blanca = NodePath("../SpawnBlanca")
 spawn_vida = NodePath("../SpawnVida")
 bola_vida = ExtResource("2_fekwy")
+debug_label = NodePath("../Control/RichTextLabel")
 puntuacion_mesh_label = NodePath("../bar/Label")
 boquetes = [NodePath("../Boquetes/Boquete"), NodePath("../Boquetes/Boquete2"), NodePath("../Boquetes/Boquete3"), NodePath("../Boquetes/Boquete4"), NodePath("../Boquetes/Boquete5"), NodePath("../Boquetes/Boquete6")]
 bolas = Array[PackedScene]([ExtResource("2_fx1ok"), ExtResource("3_xewvi"), ExtResource("4_5voe7"), ExtResource("5_xhqt2"), ExtResource("6_lx6m1"), ExtResource("7_c6pg2"), ExtResource("8_gqvos"), ExtResource("9_k7vqf"), ExtResource("10_052qh"), ExtResource("11_ypxt0"), ExtResource("12_iupe7"), ExtResource("13_lrfhe"), ExtResource("14_vgul8"), ExtResource("15_pidso"), ExtResource("16_4u777")])
 radio_proteccion_spawn_bola = 0.4
-cooldown_bola_spawn = 2.2
-decremento_de_cooldown_bola_spawn = 0.005
-cooldown_bola_spawn_minimo = 0.1
-limite_bolas = 10
+cooldown_bola_spawn = 2.5
+decremento_de_cooldown_bola_spawn = 0.003
+cooldown_bola_spawn_minimo = 0.05
+limite_bolas = 12
 objetos = Array[PackedScene]([ExtResource("17_gqvos"), ExtResource("18_k7vqf"), ExtResource("19_052qh")])
 radio_proteccion_spawn_objetos = 0.4
 cooldown_objeto_spawn = 4.0
+cooldown_objeto_spawn_minimo = 0.25
+decremento_de_cooldown_objeto_spawn = 0.005
 limite_objetos = 1
 
 [node name="BuffsManager" type="Node" parent="." node_paths=PackedStringArray("game_manager", "palo", "poscion_objetos", "poscion_pasivas_elegir", "label_title_left", "label_description_left", "label_title_right", "label_description_right") groups=["buffs_manager"]]
@@ -329,6 +332,13 @@ material = SubResource("ShaderMaterial_h83sj")
 layout_mode = 2
 
 [node name="InGameSettingsLayer" parent="Control" instance=ExtResource("34_dho38")]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_right = 577.0
+offset_bottom = 651.0
+theme_override_font_sizes/normal_font_size = 14
+text = "holi"
 
 [node name="SpawnBolas" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89802, 0.664269)
@@ -658,14 +668,14 @@ transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.7
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Luces"]
 transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, -7.40401e-08, 0.846314, -0.00979757)
-light_energy = 0.337
+light_energy = 1.337
 shadow_enabled = true
 spot_range = 15.0
 spot_angle = 66.03
 
 [node name="SpotLight3D11" type="SpotLight3D" parent="Luces"]
 transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, 6.13509e-08, -0.704068, -0.00389123)
-light_energy = 0.337
+light_energy = 1.337
 shadow_enabled = true
 spot_range = 15.0
 spot_angle = 66.03
@@ -770,95 +780,7 @@ light_energy = 0.329
 
 [node name="Luces" type="Label3D" parent="Luces"]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, -0.00102806, 3.37222, -0.00614643)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, -7.40401e-08, 0.846314, -0.00979757)
-light_energy = 0.337
-shadow_enabled = true
-spot_range = 15.0
-spot_angle = 66.03
-
-[node name="SpotLight3D11" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 2.5411e-21, 0, 1, 0, 0, 0, 1, 6.13509e-08, -0.704068, -0.00389123)
-light_energy = 0.337
-shadow_enabled = true
-spot_range = 15.0
-spot_angle = 66.03
-
-[node name="SpotLight3D9" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.73183, 16.0898, 5.78173)
-light_energy = 16.0
-light_indirect_energy = 2.801
-shadow_enabled = true
-spot_range = 13.0248
-spot_angle = 50.1478
-
-[node name="SpotLight3D15" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(0.741335, 0.558846, 0.371637, -0.499585, 0.829272, -0.250446, -0.448149, -1.35497e-07, 0.893959, -2.10649, -2.46093, 4.2934)
-light_energy = 5.531
-light_indirect_energy = 2.801
-spot_range = 9.32097
-spot_angle = 24.7137
-
-[node name="SpotLight3D10" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4492, 12.3036, 5.78173)
-light_energy = 16.0
-light_indirect_energy = 2.801
-shadow_enabled = true
-spot_range = 13.0248
-spot_angle = 50.1478
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.83101, 1.07767, 0.308438)
-light_energy = 2.0
-shadow_enabled = true
-spot_range = 14.004
-spot_angle = 50.1478
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7236, 1.0917, 0.184154)
-light_energy = 2.0
-shadow_enabled = true
-spot_range = 14.004
-spot_angle = 50.1478
-
-[node name="SpotLight3D12" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.83101, -0.693663, 0.308438)
-light_energy = 2.0
-shadow_enabled = true
-spot_range = 14.004
-spot_angle = 50.1478
-
-[node name="SpotLight3D13" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7236, -0.679631, 0.184154)
-light_energy = 2.0
-shadow_enabled = true
-spot_range = 14.004
-spot_angle = 50.1478
-
-[node name="SpotLight3D4" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 15.7236, 0.00788547, -0.439922)
-light_energy = 5.0
-shadow_enabled = true
-spot_angle = 61.875
-
-[node name="SpotLight3D5" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 7.83574, 0.00788547, -0.439922)
-light_energy = 5.0
-shadow_enabled = true
-spot_angle = 61.875
-
-[node name="SpotLight3D6" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, -2.5411e-21, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00399344, -0.822842, -0.711496)
-light_energy = 5.0
-shadow_enabled = true
-spot_angle = 61.875
-
-[node name="SpotLight3D14" type="SpotLight3D" parent="Luces/Luces"]
-transform = Transform3D(1, 0, -2.5411e-21, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00399359, 0.923704, -0.711496)
-light_energy = 5.0
-shadow_enabled = true
-spot_angle = 61.875
+visible = false
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="Luces/Luces"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 10.1129, 15.857, 1.4946)

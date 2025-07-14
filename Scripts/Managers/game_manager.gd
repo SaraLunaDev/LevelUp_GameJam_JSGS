@@ -2,7 +2,7 @@ extends Node
 class_name GameManager
 
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
-# Variables 
+# Variables
 # ✦•················•⋅ ∙ ∘ ☽ ☆ ☾ ∘ ⋅ ⋅•················•✦
 
 @export_group("Referencias de Escena")
@@ -17,12 +17,10 @@ class_name GameManager
 @export var spawn_bola_blanca: Node3D
 @export var spawn_vida: Node3D
 @export var bola_vida: PackedScene = null
-@export var timer_to_pasiva: int = 30
+@export var debug_label: RichTextLabel = null
 
 @export_group("Labels")
-
 @export var puntuacion_mesh_label: MeshInstance3D = null
-
 @export var global_timer_label: Label = null
 @export var rebotes_guiados_label: Label = null
 @export var numero_objetos_label: Label = null
@@ -32,6 +30,7 @@ class_name GameManager
 @export var MAX_VIDA: int = 10
 @export var puntuacion: int = 0
 @export var pasives: Array = []
+@export var timer_to_pasiva: int = 30
 
 @export_group("Boquetes")
 @export var boquetes: Array[Node3D] = []
@@ -41,23 +40,30 @@ class_name GameManager
 @export var radio_proteccion_spawn_bola: float = 0.5
 @export var cooldown_bola_spawn: float = 5.0
 @export var decremento_de_cooldown_bola_spawn: float = 0.05
-@export var cooldown_bola_spawn_minimo: float = 1
+@export var cooldown_bola_spawn_minimo: float = 1.0
 @export var limite_bolas: int = 5
-var puede_spawnear_bola := true
+@export_range(0.0, 1.0) var porb_elegir_boquete_cercano := 0.25
+
+var puede_spawnear_bola: bool = true
 var bolas_activas: Array[Node3D] = []
 
 @export_group("Configuración de Spawn de Objetos")
 @export var objetos: Array[PackedScene] = []
 @export var radio_proteccion_spawn_objetos: float = 1.0
 @export var cooldown_objeto_spawn: float = 5.0
+@export var cooldown_objeto_spawn_minimo: float = 1.0
+@export var decremento_de_cooldown_objeto_spawn: float = 0.05
 @export var limite_objetos: int = 2
-var puede_spawnear_objeto := true
+
+var puede_spawnear_objeto: bool = true
 var objetos_activos: Array[Node3D] = []
+
 var partida_iniciada: bool = false
 var global_timer_seconds: float = 0.0
 var tipo_bola = null
-var pausa_activa = false
-var esperando_pasiva := false
+var pausa_activa: bool = false
+var esperando_pasiva: bool = false
+
 @onready var transition: Node = $"../Control/Transition/AnimationPlayer"
 @onready var damage_texture: TextureRect = $"../Control/AspectRatioContainer/Damage"
 @onready var tutorial_gif: Control = $"../Control/TutorialGif"
@@ -82,6 +88,9 @@ func _ready() -> void:
 	area_boquetes.body_entered.connect(_on_area_boquetes_body_entered)
 
 	vida = MAX_VIDA
+	puntuacion = 0
+	pasives = []
+	global_timer_seconds = 0.0
 
 func _process(_delta: float) -> void:
 	if not partida_iniciada:
@@ -102,13 +111,26 @@ func _process(_delta: float) -> void:
 			cooldown_bola_spawn -= decremento_de_cooldown_bola_spawn * _delta
 			if cooldown_bola_spawn < cooldown_bola_spawn_minimo:
 				cooldown_bola_spawn = cooldown_bola_spawn_minimo
-	
+		
+		if cooldown_objeto_spawn > 0:
+			cooldown_objeto_spawn -= decremento_de_cooldown_objeto_spawn * _delta
+			if cooldown_objeto_spawn < cooldown_objeto_spawn_minimo:
+				cooldown_objeto_spawn = cooldown_objeto_spawn_minimo
+
 	if global_timer_seconds >= 0:
 		if esperando_pasiva and not pausa_activa:
 			pausar_partida_por_pasiva()
 			pausa_activa = true
 		else:
 			global_timer_seconds += _delta
+			if debug_label:
+				debug_label.text = "⌛ " + str(int(global_timer_seconds)) + " | ❓ " + str(puntuacion) + " | 💕 " + str(vida) + " | 🎱 " + str(bolas_activas.size()) + " | 🍾 " + str(objetos_activos.size())
+				debug_label.text += "\n🔄 Bola: " + str(snapped(cooldown_bola_spawn, 0.01)) + " | 🔄 Objeto: " + str(snapped(cooldown_objeto_spawn, 0.01))
+				debug_label.text += "\n🚀 Velocidad: " + str(buffs_manager.get_velocidad_lanzamiento())
+				debug_label.text += "\n💥 Potencia: " + str(buffs_manager.get_potencia_bola())
+				debug_label.text += "\n🔄 Retorno: " + str(buffs_manager.get_retorno_bola())
+				debug_label.text += "\n🎯 Guiados: " + str(buffs_manager.get_numero_rebotes_guiados())
+				debug_label.text += "\n🎁 Objetos: " + str(buffs_manager.get_numero_objetos())
 
 func _physics_process(_delta: float) -> void:
 	if partida_iniciada:
@@ -244,12 +266,30 @@ func spawn_bola() -> void:
 		if boquetes.size() == 0:
 			break
 
-		var boquetes_ordenados = boquetes.duplicate()
-		boquetes_ordenados.sort_custom(func(a, b): return a.global_position.distance_to(pos) > b.global_position.distance_to(pos))
+		var destino: Vector3
 
-		var candidatos = boquetes_ordenados.slice(0, min(2, boquetes_ordenados.size()))
-		var boquete_obj = candidatos.pick_random()
-		var destino = boquete_obj.global_position
+		var rand_val = randf()
+		if rand_val < porb_elegir_boquete_cercano:
+			# 25%: boquete más cercano
+			var boquete_mas_cercano = boquetes[0]
+			var min_dist = boquete_mas_cercano.global_position.distance_to(pos)
+			for bq in boquetes:
+				var dist = bq.global_position.distance_to(pos)
+				if dist < min_dist:
+					min_dist = dist
+					boquete_mas_cercano = bq
+			destino = boquete_mas_cercano.global_position
+		elif rand_val < porb_elegir_boquete_cercano + (1.0 - porb_elegir_boquete_cercano):
+			var boquete_mas_lejano = boquetes[0]
+			var max_dist = boquete_mas_lejano.global_position.distance_to(pos)
+			for bq in boquetes:
+				var dist = bq.global_position.distance_to(pos)
+				if dist > max_dist:
+					max_dist = dist
+					boquete_mas_lejano = bq
+			destino = boquete_mas_lejano.global_position
+		else:
+			destino = boquetes.pick_random().global_position
 
 		var hay_objeto_en_trayectoria := false
 		for objeto_ref in objetos_activos:
