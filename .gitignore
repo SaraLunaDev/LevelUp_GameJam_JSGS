@@ -14,3 +14,7 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
