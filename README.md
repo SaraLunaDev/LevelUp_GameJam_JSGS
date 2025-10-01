@@ -1,2 +1,4 @@
 # LevelUp_GameJam_JSGS
-Me quiero dar un besito
+Pool Out es un juego que hicimos entre 3 personas para una Game Jam
+
+https://junglepuff.itch.io/pool-out
